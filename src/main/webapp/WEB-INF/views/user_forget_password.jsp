@@ -21,16 +21,21 @@
             <div class="col-lg-4 text-center">
                 <div class="card">
                     <div class="card-header">
-                        Forget Passward
+                        Forget Password
                     </div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data" action="Your_Action_Page.php">
+                          <div>
                             <p>Password:</p>
                             <input name="password" required="required" type="password" id="password" />
+                            
+                           </div>
+                           <div>
                             <p>
                                 Confirm Password:
                             </p>
                             <input name="password_confirm" required="required" type="password" id="password_confirm" oninput="check(this)" />
+                            </div>
                             <script language='javascript' type='text/javascript'>
                                 function check(input) {
                                     if (input.value != document.getElementById('password').value) {

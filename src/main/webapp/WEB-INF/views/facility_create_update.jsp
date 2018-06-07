@@ -66,19 +66,16 @@
 
                         <div class="input-group mb-3">
 
-                            <input type="text" class="form-control" aria-label="facility-name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name"
-
-                            />
+                            <input type="text" class="form-control" aria-label="facility-name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name" required/>
 
                         </div>
 
                         <div class="input-group mb-3">
 
-                            <input type="text" class="form-control" aria-label="facility-address" aria-describedby="InputGroup-sizing-default" placeholder="Facility Address"
-
-                            />
+                            <input type="text" class="form-control" aria-label="facility-address" aria-describedby="InputGroup-sizing-default" placeholder="Facility Address" required/>
 
                         </div>
+                      
 
                         <div class="input-group mb-3">
 

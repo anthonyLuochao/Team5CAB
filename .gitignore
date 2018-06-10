@@ -39,6 +39,7 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 *.class
+**/application.properties
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

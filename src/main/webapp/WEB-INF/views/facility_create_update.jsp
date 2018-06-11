@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,7 +18,7 @@ pageEncoding="ISO-8859-1"%>
 	<hr>
 	<div class="container">
 		<card class="card mt-5">
-			<form action="" method="post" class="col-12 card-body needs-validation" novalidate>
+			<form:form action="" method="post" class="col-12 card-body needs-validation" novalidate>
 				<div class="row">
 					<div class="col-4">
 						<img src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" id="" class="rounded img-fluid mb-3"
@@ -65,7 +66,7 @@ pageEncoding="ISO-8859-1"%>
 						</div>
 					</div>
 					</row>
-			</form>
+			</form:form>
 		</card>
 
 	</div>

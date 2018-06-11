@@ -86,7 +86,7 @@ public class BookingServicesImpl implements BookingService {
 	
 	
 	@Transactional
-	public ArrayList<Date> findAvailableDates(int fid){
+	public ArrayList<LocalDate> findAvailableDates(int fid){
 		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
 		ArrayList<LocalDate> localdatelist = new ArrayList<LocalDate>();
 		
@@ -96,28 +96,24 @@ public class BookingServicesImpl implements BookingService {
 		
 		for (Booking b : listOfBookingsByFid) {
 			for (LocalDate date = today; date.isBefore(today.plusDays(7)); date = today.plusDays(1)) {
-				
-				Date bookingEndDate = b.getEndDate();
-				Instant instant = Instant.ofEpochMilli(bookingEndDate.getTime());
-			    LocalDate bookingEndLDate = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-			    Date bookingStartDate = b.getStartDate();
-				Instant instant2 = Instant.ofEpochMilli(bookingStartDate.getTime());
-			    LocalDate bookingStartLDate = LocalDateTime.ofInstant(instant2, ZoneId.systemDefault()).toLocalDate();
-				
-				if(date.isBefore(bookingEndLDate) && date.isAfter(bookingStartLDate)) {
+				if(date.isBefore(b.getEndDate()) && date.isAfter(b.getStartDate())) {
 					localdatelist.remove(date);
 				}
 			}	
 		}
-		
-		ArrayList<Date> datelist = new ArrayList<Date>();
-		
-		for(LocalDate d : localdatelist) {
-			Date date = Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			datelist.add(date);
-		}
-		return datelist;
-		
+		return localdatelist;
 	}
 	
+	@Transactional
+	public boolean isBookingClash(int fid, LocalDate startDate, LocalDate endDate) {
+		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
+		for (LocalDate date = startDate; date.isBefore(endDate); date = today.plusDays(1)) {
+			for (Booking b : listOfBookingsByFid) {
+				if(date.isBefore(b.getEndDate()) && date.isAfter(b.getStartDate())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

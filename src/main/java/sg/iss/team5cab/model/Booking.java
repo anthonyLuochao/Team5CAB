@@ -1,7 +1,6 @@
 package sg.iss.team5cab.model;
 
-import java.time.LocalDate;
-
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,9 +24,9 @@ private Facility facility;
 //private int facilityID;
 //private String userID;
 @Column(name="start_Date",columnDefinition="DATE")
-private LocalDate startDate;
+private Date startDate;
 @Column(name="end_Date",columnDefinition="DATE")
-private LocalDate endDate;
+private Date endDate;
 @Column(columnDefinition="TINYINT")
 private boolean isUnderMaintenance;  
 @Column(columnDefinition="TINYINT")
@@ -51,16 +50,16 @@ public void setBookingID(int bookingID) {
 	this.bookingID = bookingID;
 }
 
-public LocalDate getStartDate() {
+public Date getStartDate() {
 	return startDate;
 }
-public void setStartDate(LocalDate startDate) {
+public void setStartDate(Date startDate) {
 	this.startDate = startDate;
 }
-public LocalDate getEndDate() {
+public Date getEndDate() {
 	return endDate;
 }
-public void setEndDate(LocalDate endDate) {
+public void setEndDate(Date endDate) {
 	this.endDate = endDate;
 }
 public boolean isUnderMaintenance() {

@@ -1,11 +1,8 @@
 package sg.iss.team5cab.services;
 
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Booking;
 import sg.iss.team5cab.repo.BookingRepository;
+import utils.CABDate;
 
 @Service
 public class BookingServicesImpl implements BookingService {
@@ -41,21 +39,21 @@ public class BookingServicesImpl implements BookingService {
 	
 	@Transactional
 	@Override
-	public List<Booking> findBookingByAdmin(int fID,LocalDate start,LocalDate end,String uID)
+	public List<Booking> findBookingByAdmin(int fID,Date start,Date end,String uID)
 	{
 		
 		 return bRepo.findBookingDates(end,start, fID,uID);
 	}
 	@Transactional
 	@Override
-	public List<Booking> findBookingByMember(int fID,LocalDate start,LocalDate end)
+	public List<Booking> findBookingByMember(int fID,Date start,Date end)
 	{
 		 return bRepo.findBookingDatesForMember(end,start, fID);
 	}
 	
 	@Transactional
 	@Override
-	public void deleteBooking(int fID,LocalDate start,LocalDate end,String uID)
+	public void deleteBooking(int fID,Date start,Date end,String uID)
 	{
 		 List<Booking> b= bRepo.findBookingDates(end,start, fID,uID);
 		 for(Booking book:b)
@@ -66,7 +64,7 @@ public class BookingServicesImpl implements BookingService {
 	}
 	@Transactional
 	@Override
-	public boolean checkFacilityAvailability(int fID,LocalDate start,LocalDate end)
+	public boolean checkFacilityAvailability(int fID,Date start,Date end)
 	{
 		//if there is no fID in booking record,then available
 		boolean result=false;
@@ -78,32 +76,30 @@ public class BookingServicesImpl implements BookingService {
 		else//if fID is inside booking record then check if start and end day frame
 			//is within each test record
 		{
-			List<LocalDate> bookedDates=new ArrayList<LocalDate>();
-			for (LocalDate date = start; date.isEqual(end); date.plusDays(1)) {
+			Calendar c = Calendar.getInstance();
+			List<Date> bookedDates=new ArrayList<Date>();
+			for (Date date = start; date.equals(end); CABDate.plusDays(date, 1))  {
 				bookedDates.add(date);
 			}
 			//save each day from start to end to a list. then traverse through each booking duration.
 			//delete all matching booking record from the created list.if at end of day,the list is empty then not available
 			for(Booking b:bookingList)
 			{
-				if((b.getStartDate().isBefore(start)||b.getStartDate().isEqual(start))&&(b.getEndDate().isEqual(end)||b.getEndDate().isAfter(end)))
+				if((b.getStartDate().before(start)||b.getStartDate().equals(start))&&(b.getEndDate().equals(end)||b.getEndDate().after(end)))
 				{result= false;}
 				else
 				{
-					for(LocalDate date=b.getStartDate();date.isEqual(end);date.plusDays(1))
+					for(Date date=b.getStartDate();date.equals(end);CABDate.plusDays(date, 1))
 					{
 						bookedDates.remove(date);
 					}
 				}
 			}
 			if(bookedDates.isEmpty())
-			{result=false;}
+				result=false;
 		}
 		return result;
-
 	}
-	
-	
 	
 	
 	//@Transactional DAO methods that uses JPARepo
@@ -115,21 +111,21 @@ public class BookingServicesImpl implements BookingService {
 	}
 	
 
-	LocalDate today = LocalDate.now();
+	Date today = CABDate.getToday();
 	
 	
 	@Transactional
-	public ArrayList<LocalDate> findAvailableDates(int fid){
+	public ArrayList<Date> findAvailableDates(int fid){
 		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
-		ArrayList<LocalDate> localdatelist = new ArrayList<LocalDate>();
+		ArrayList<Date> localdatelist = new ArrayList<Date>();
 		
-		for (LocalDate date = today; date.isBefore(today.plusDays(7)); date = today.plusDays(1)) {
+		for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
 			localdatelist.add(date);
 		}
 		
 		for (Booking b : listOfBookingsByFid) {
-			for (LocalDate date = today; date.isBefore(today.plusDays(7)); date = today.plusDays(1)) {
-				if(date.isBefore(b.getEndDate()) && date.isAfter(b.getStartDate())) {
+			for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
+				if(date.before(b.getEndDate()) && date.after(b.getStartDate())) {
 					localdatelist.remove(date);
 				}
 			}	
@@ -138,11 +134,11 @@ public class BookingServicesImpl implements BookingService {
 	}
 	
 	@Transactional
-	public boolean isBookingClash(int fid, LocalDate startDate, LocalDate endDate) {
+	public boolean isBookingClash(int fid, Date startDate, Date endDate) {
 		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
-		for (LocalDate date = startDate; date.isBefore(endDate); date = today.plusDays(1)) {
+		for (Date date = startDate; date.before(endDate); date = CABDate.plusDays(date, 1)) {
 			for (Booking b : listOfBookingsByFid) {
-				if(date.isBefore(b.getEndDate()) && date.isAfter(b.getStartDate())){
+				if(date.before(b.getEndDate()) && date.after(b.getStartDate())){
 					return true;
 				}
 			}

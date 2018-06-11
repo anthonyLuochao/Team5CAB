@@ -11,7 +11,7 @@ import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.repo.UsersRepository;
 
 @Service
-public class UsersServicesImpl implements UserService {
+public class UsersServicesImpl implements UsersService {
 	
 	@Resource
 	UsersRepository uRepo;

@@ -10,15 +10,15 @@ import sg.iss.team5cab.model.Users;
 
 public interface UsersRepository extends JpaRepository<Users, String> {
 
-	@Query("select u from Users u where userid like %:userid% or name like %:name%")
-//	@Query("select u from users u where userid =: userid or name=: name")
-	Users findUserDetailByUID(@Param("userid") String userid,@Param("name") String name);
+	@Query("select u from Users u where userID like %:userID% or name like %:name%")
+//	@Query("select u from users u where userID =: userID or name=: name")
+	Users findUserDetailByUID(@Param("userID") String userid,@Param("name") String name);
 	
-	@Query("Select u from users u where u.userid=:un and u.password=:pwd")
-	Users findUserByNamePwd(@Param("un") String userid, @Param("pwd") String password);
+	@Query("Select u from Users u where u.userID= :userID and u.password= :password")
+	Users findUserByNamePwd(@Param("userID") String userid, @Param("password") String password);
 	
-	@Query("select userid from Users u where userid=: userid")
-	Users findUserByUID(@Param("userid") String userid);
+	@Query("select u from Users u where userID= :userID")
+	Users findUserByUID(@Param("userID") String userID);
 	
 	
 

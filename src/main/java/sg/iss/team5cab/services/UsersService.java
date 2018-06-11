@@ -5,7 +5,7 @@ import java.util.List;
 
 import sg.iss.team5cab.model.Users;
 
-public interface UserService {
+public interface UsersService {
 
 	ArrayList<Users> findAllUsers();
 	

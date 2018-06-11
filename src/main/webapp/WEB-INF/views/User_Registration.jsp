@@ -51,7 +51,7 @@
 
 							<label for="validationCustom02">UserID</label> <input type="text"
 								class="form-control" id="validationCustom02"
-								placeholder="UserID" value="Otto"s required>
+								placeholder="UserID" value="Otto" required>
 
 							<div class="invalid-feedback">Please provide the UserID.</div>
 
@@ -133,8 +133,8 @@
 
 						<div class="col-sm-8">
 
-							<label for="Regisatration">Date of Birth</label> <input
-								id="DOB" class="form-control" type="date"
+							<label for="Regisatration">Registration Date</label> <input
+								id="RegistrationDate" class="form-control" type="date"
 								value="2011-01-13" />
 
 						</div>

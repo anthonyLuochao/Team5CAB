@@ -41,12 +41,12 @@
 						</div>
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" aria-label="facility-name"
-								aria-describedby="InputGroup-sizing-default" placeholder="Facility Name" />
+								aria-describedby="InputGroup-sizing-default" placeholder="Facility Name" required />
 						</div>
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" aria-label="facility-address"
 								aria-describedby="InputGroup-sizing-default"
-								placeholder="Facility Address" />
+								placeholder="Facility Address" required/>
 						</div>
 						<div class="input-group mb-3">
 							<textarea class="form-control" rows="3" id="facility-description"
@@ -54,7 +54,7 @@
 						</div>
 						<div class="form-check">
 							<label class="form-check-label"> <input class="form-check-input"
-								id="facility-unusable" type="checkbox" value=""> Facility is
+								id="facility-unusable" type="checkbox" value="" required> Facility is
 								unusable
 							</label>
 						</div>

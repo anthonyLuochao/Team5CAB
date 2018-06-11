@@ -27,12 +27,14 @@
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label for="usr">Name:</label> <form:input type="text" class="form-control"
-									id="usr" path="userID" />
+								<label for="usr">Name:</label> 
+								<form:input type="text" class="form-control"
+									id="usr" path="userID" required />
 							</div>
 							<div class="form-group">
-								<label for="pwd">Password:</label> <form:input type="password"
-									class="form-control" id="pwd" path="password"/>
+								<label for="pwd">Password:</label> 
+								<form:input type="password"
+									class="form-control" id="pwd" path="password" required />
 							</div>
 							<div class="checkbox">
 								<input type="checkbox" value=""> <label class="form-check-label"
@@ -46,6 +48,5 @@
 			</div>
 		</div>
 	</form:form>
-
 </body>
 </html>

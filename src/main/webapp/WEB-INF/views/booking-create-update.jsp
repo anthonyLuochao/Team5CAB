@@ -4,6 +4,7 @@
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title>Create Booking</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,6 @@
     <div class="container">
         <div class="card mt-5">
             <form action="" method="post" class="col-12 card-body">
-
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name"
                         disabled />

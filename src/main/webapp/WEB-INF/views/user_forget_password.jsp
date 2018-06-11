@@ -18,17 +18,19 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-4 text-center">
 				<div class="card">
-					<div class="card-header">Forget Password</div>
+					<div class="card-header">
+						<strong>Change your Password</strong>
+					</div>
 					<div class="card-body">
 						<form method="post" enctype="multipart/form-data"
 							action="Your_Action_Page.php">
 							<div class="form-group">
-								<p>Password:</p>
+								<p>New Password:</p>
 								<input name="password" required="required" type="password"
 									id="password" />
 							</div>
 							<div class="form-group">
-								<p>Confirm Password:</p>
+								<p>Confirm New Password:</p>
 								<input name="password_confirm" required="required"
 									type="password" id="password_confirm" oninput="check(this)" />
 							</div>

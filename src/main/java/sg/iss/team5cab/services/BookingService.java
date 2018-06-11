@@ -13,4 +13,5 @@ public interface BookingService {
 	List<Booking> findBookingByMember(int fID, LocalDate start, LocalDate end);
 	List<Booking> findBookingByAdmin(int fID, LocalDate start, LocalDate end, String uID);
 	void deleteBooking(int fID, LocalDate start, LocalDate end, String uID);
+	boolean checkFacilityAvailability(int fID, LocalDate start, LocalDate end);
 }

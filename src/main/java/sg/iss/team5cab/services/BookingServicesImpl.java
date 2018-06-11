@@ -36,6 +36,7 @@ public class BookingServicesImpl implements BookingService {
 	public Booking updateBooking(Booking booking)
 	{
 		 return bRepo.saveAndFlush(booking);
+		 
 	}
 	
 	@Transactional
@@ -63,12 +64,44 @@ public class BookingServicesImpl implements BookingService {
 			 bRepo.saveAndFlush(book);
 		 }
 	}
-//	@Transactional
-//	@Override
-//	public boolean checkFacilityAvailability(int fID,Date start,Date end)
-//	{
-//		if(fID==bRepo.)
-//	}
+	@Transactional
+	@Override
+	public boolean checkFacilityAvailability(int fID,LocalDate start,LocalDate end)
+	{
+		//if there is no fID in booking record,then available
+		boolean result=false;
+		List<Booking> bookingList=bRepo.findBookingsByFacilityID(fID);
+		if(bookingList==null)
+		{
+			result= true;
+		}
+		else//if fID is inside booking record then check if start and end day frame
+			//is within each test record
+		{
+			List<LocalDate> bookedDates=new ArrayList<LocalDate>();
+			for (LocalDate date = start; date.isEqual(end); date.plusDays(1)) {
+				bookedDates.add(date);
+			}
+			//save each day from start to end to a list. then traverse through each booking duration.
+			//delete all matching booking record from the created list.if at end of day,the list is empty then not available
+			for(Booking b:bookingList)
+			{
+				if((b.getStartDate().isBefore(start)||b.getStartDate().isEqual(start))&&(b.getEndDate().isEqual(end)||b.getEndDate().isAfter(end)))
+				{result= false;}
+				else
+				{
+					for(LocalDate date=b.getStartDate();date.isEqual(end);date.plusDays(1))
+					{
+						bookedDates.remove(date);
+					}
+				}
+			}
+			if(bookedDates.isEmpty())
+			{result=false;}
+		}
+		return result;
+
+	}
 	
 	
 	

@@ -40,23 +40,23 @@ public class BookingServicesImpl implements BookingService {
 	
 	@Transactional
 	@Override
-	public List<Booking> findBookingByAdmin(int fID,Date start,Date end,String uID)
+	public List<Booking> findBookingByAdmin(int fID,LocalDate start,LocalDate end,String uID)
 	{
 		
-		 return bRepo.findAvailableDates(end,start, fID,uID);
+		 return bRepo.findBookingDates(end,start, fID,uID);
 	}
 	@Transactional
 	@Override
-	public List<Booking> findBookingByMember(int fID,Date start,Date end)
+	public List<Booking> findBookingByMember(int fID,LocalDate start,LocalDate end)
 	{
-		 return bRepo.findAvailableDatesForMember(end,start, fID);
+		 return bRepo.findBookingDatesForMember(end,start, fID);
 	}
 	
 	@Transactional
 	@Override
-	public void deleteBooking(int fID,Date start,Date end,String uID)
+	public void deleteBooking(int fID,LocalDate start,LocalDate end,String uID)
 	{
-		 List<Booking> b= bRepo.findAvailableDates(end,start, fID,uID);
+		 List<Booking> b= bRepo.findBookingDates(end,start, fID,uID);
 		 for(Booking book:b)
 		 {
 			 book.setCancel(true);

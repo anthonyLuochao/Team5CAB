@@ -29,12 +29,12 @@
 							<div class="form-group">
 								<label for="usr">Name:</label> 
 								<form:input type="text" class="form-control"
-									id="usr" path="userID" required />
+									id="usr" path="userID" required="required" />
 							</div>
 							<div class="form-group">
 								<label for="pwd">Password:</label> 
 								<form:input type="password"
-									class="form-control" id="pwd" path="password" required />
+									class="form-control" id="pwd" path="password" required="required" />
 							</div>
 							<div class="checkbox">
 								<input type="checkbox" value=""> <label class="form-check-label"

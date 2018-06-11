@@ -14,39 +14,43 @@
 </head>
 <body>
 	<cab:nav />
-	<form:form id="form1" action="./login" modelAttribute="Users">
-		<div class="container">
-			<div class="page-header text-center">
-				<h1>CAB</h1>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-lg-4">
-					<div class="card">
-						<div class="card-header">
-							Login
-						</div>
-						<div class="card-body">
-							<div class="form-group">
-								<label for="usr">Name:</label> 
-								<form:input type="text" class="form-control"
-									id="usr" path="userID" required />
-							</div>
-							<div class="form-group">
-								<label for="pwd">Password:</label> 
-								<form:input type="password"
-									class="form-control" id="pwd" path="password" required />
-							</div>
-							<div class="checkbox">
-								<input type="checkbox" value=""> <label class="form-check-label"
-									for="exampleCheck1">Remember me next time</label>
-							</div>
-							<button type="button" id="button_signup" class="btn btn-secondary">Sign up</button>
-							<input type="submit" id="button_login" value="Log In" class="btn btn-primary" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form:form>
+    <form:form id="form1" action="./login" modelAttribute="Users">
+        <div class="container">
+            <div class="page-header text-center">
+                <h1>CAB</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Log in</strong>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="usr">Name:</label> 
+                                <form:input type="text" class="form-control"
+                                    id="usr" path="userID" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label> 
+                                <form:input type="password"
+                                    class="form-control" id="pwd" path="password" required />
+                            </div>
+                            <div class="checkbox">                               
+                                <input type="checkbox" value="">
+                                <label class="form-check-label" for="exampleCheck1">Remember me next time</label>
+                            </div> 
+                            <div class="form-group">                                                 
+                                <button class="btn btn-primary" type="submit">Log in</button>
+                            </div>                           
+                        </div>
+                    </div>
+                    <p class="text-muted font-italic mb-3 pb-0">Don't have an account? Sign up an account now</p>
+                    <button type="submit" class="btn btn-primary mb-3">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form:form>
 </body>
 </html>

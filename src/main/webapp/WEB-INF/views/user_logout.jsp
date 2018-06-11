@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <cab:headImports />
-<title>Insert title here</title>
+<title>Account Logout</title>
 </head>
 <body>
 	<cab:nav />
@@ -19,12 +19,10 @@
 				<div class="card">
 					<h5 class="card-header">Log out</h5>
 					<div class="card-body">
-						<p class="text-center">You are not signed out</p>
+						<p class="text-center">Hi there!</p>
+						<p class="text-center">You have now logged out</p>
 						<p class="text-center">
-							You can
-							<a href="alert-link">sign in</a>
-							again here.
-						</p>
+						<a href=" ">Sign in</a> again?</p>
 					</div>
 				</div>
 			</div>

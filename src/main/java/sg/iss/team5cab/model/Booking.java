@@ -1,6 +1,6 @@
 package sg.iss.team5cab.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 import javax.persistence.Column;
@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.mapping.Set;
 
 @Entity
 @Table(name="booking")
@@ -25,10 +24,10 @@ private Facility facility;
 
 //private int facilityID;
 //private String userID;
-@Column(name="start_Date")
-private Date startDate;
-@Column(name="end_Date")
-private Date endDate;
+@Column(name="start_Date",columnDefinition="DATE")
+private LocalDate startDate;
+@Column(name="end_Date",columnDefinition="DATE")
+private LocalDate endDate;
 @Column(columnDefinition="TINYINT")
 private boolean isUnderMaintenance;  
 @Column(columnDefinition="TINYINT")
@@ -51,19 +50,25 @@ public int getBookingID() {
 public void setBookingID(int bookingID) {
 	this.bookingID = bookingID;
 }
-public Date getStartDate() {
+
+public LocalDate getStartDate() {
 	return startDate;
 }
-public void setStartDate(Date startDate) {
+public void setStartDate(LocalDate startDate) {
 	this.startDate = startDate;
 }
-public Date getEndDate() {
+public LocalDate getEndDate() {
 	return endDate;
 }
-public void setEndDate(Date endDate) {
+public void setEndDate(LocalDate endDate) {
 	this.endDate = endDate;
 }
-
+public boolean isUnderMaintenance() {
+	return isUnderMaintenance;
+}
+public void setUnderMaintenance(boolean isUnderMaintenance) {
+	this.isUnderMaintenance = isUnderMaintenance;
+}
 public boolean isCancel() {
 	return isCancel;
 }

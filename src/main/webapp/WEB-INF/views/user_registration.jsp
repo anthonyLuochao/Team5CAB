@@ -14,24 +14,27 @@
 <title>Registration</title>
 </head>
 <body>
+<cab:nav />
+
 	<h1 class="text-center">Registration Form</h1>
 	<div class="container">
 		<div class="card">
 			<div class="card-body">
-				<form class="needs-validation" method="post" enctype="multipart/form-data" action="Your_Action_Page.php" novalidate>
+				<form:form class="needs-validation" action="team5cab/public/register" modelAttribute="Users">
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
-							<label for="validationCustom01">Name</label> <input type="text"
+							<label for="validationCustom01">Name</label> <form:input type="text"
 								class="form-control" id="validationCustom01" placeholder="Name"
-								required>
+								required="required" path="name" />
 							<div class="invalid-feedback">Please provide the name.</div>
 						</div>
 
 						<div class="col-md-4 mb-3">
 
-							<label for="validationCustom02">UserID</label> <input type="text"
+							<label for="validationCustom02">UserID</label> 
+							<form:input type="text"
 								class="form-control" id="validationCustom02"
-								placeholder="UserID" required />
+								placeholder="UserID" path="userID" required="required" />
 							<div class="invalid-feedback">Please provide the UserID.</div>
 						</div>
 						<div class="col-md-4 mb-3">
@@ -40,9 +43,9 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroupPrepend">@</span>
 								</div>
-								<input type="text" class="form-control" id="validationEmail"
+								<form:input type="text" class="form-control" id="validationEmail"
 									placeholder="Email" aria-describedby="inputGroupPrepend"
-									required>
+									required="required" path="email"/>
 
 								<div class="invalid-feedback">Please provide the email.</div>
 
@@ -55,14 +58,16 @@
 					<div class="form-row">
 							<div class="col-6 col-md-4 mb-3">
 									<label for="validationCustom03">Phone number</label>
-									<input type="text" class="form-control" id="validationCustom03" placeholder="Phone number" required>
+									<form:input type="text" class="form-control" id="validationCustom03" 
+									placeholder="Phone number" path="phoneNumber" required="required"/>
 									<div class="invalid-feedback">
 										Please provide a phone number.
 									</div>
 								</div>
 								<div class="col-6 col-md-4 mb-3">
 									<label for="validationCustom04">Password</label>
-									<input type="text" class="form-control" id="validationCustom04" placeholder="Password" required>
+									<form:input type="text" class="form-control" id="validationCustom04" 
+									placeholder="Password" required="required" path="password"/>
 									<div class="invalid-feedback">
 										Please provide a password.
 									</div>
@@ -79,7 +84,8 @@
 					   <div class="form-row">
 							<div class=" col-6 col-sm-4 mb-3">
 								<label for="validationCustom05">Address</label>
-								<input type="text" class="form-control" id="validationCustom05" placeholder="Address" required>
+								<form:input type="text" class="form-control" id="validationCustom05" placeholder="Address" 
+								required="required" path="address"/>
 								<div class="invalid-feedback">
 									Please provide the address.
 								</div>
@@ -87,7 +93,8 @@
 							<div class="col-6 col-sm-8 mb-3">
 								<label for="Regisatration">Date of Birth</label>
 								<div class="input-group mb-3 date input-daterange" data-provide="datepicker">
-									<input type="text" class="form-control" placeholder="Choose Start Date">
+									<form:input type="text" class="form-control" placeholder="Choose Start Date"
+									path="dob"/>
 									<div id="validation-text" class="mb-3">
 									</div>
 								</div>
@@ -114,7 +121,7 @@
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary" />
 					</div>
-				</form>
+				</form:form>
 
 			</div>
 

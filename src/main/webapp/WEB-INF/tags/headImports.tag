@@ -18,3 +18,4 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="jquery.js"></script>
+<base href="http://localhost:8080/" />

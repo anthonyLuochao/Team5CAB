@@ -16,7 +16,7 @@
 					Search Facilities </a></li>
 		</ul>
 		<ul class="navbar-nav">	
-			<li class="nav-item"><a class="nav-link" href="">Login</a></li>
+			<li class="nav-item"><a class="nav-link" href="team5cab/public/login">Login</a></li>
 			<li class="nav-item"><a class="nav-link" href="">Register</a></li>
 		</ul>
 	</div>

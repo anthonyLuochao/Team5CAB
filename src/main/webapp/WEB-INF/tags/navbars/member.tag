@@ -25,6 +25,6 @@
 	</ul>
 
 	<ul class="navbar-nav">
-	<li class="nav-item"><a class="nav-link" href="">Logout</a></li> 
+	<li class="nav-item"><a class="nav-link" href="team5cab/public/logout">Logout</a></li> 
 	</ul>
 </nav> 

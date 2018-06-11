@@ -9,7 +9,7 @@
 		<div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="/www/admin/facility" role="button">
+				<a class="nav-link" href="" role="button">
 				Manage Facilities
 				</a>
 			</li>
@@ -33,7 +33,7 @@
 			</li>
 			</ul>
 			<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="">Logout</a></li> 
+			<li class="nav-item"><a class="nav-link" href="team5cab/public/logout">Logout</a></li> 
 			</ul>
 		</div>
 </nav>

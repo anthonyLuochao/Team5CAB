@@ -10,9 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class FrontController {
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ModelAndView test() {
-		return new ModelAndView("home");
+	@RequestMapping(value= {"/", "public/welcome"}, method=RequestMethod.GET)
+	public ModelAndView welcomeAnon(HttpSession session) {
+		session.setAttribute("role", "anon");
+		return new ModelAndView("welcome");
 	}
 	
 	@RequestMapping(value="/admin/welcome", method=RequestMethod.GET)
@@ -24,12 +25,6 @@ public class FrontController {
 	@RequestMapping(value="/member/welcome", method=RequestMethod.GET)
 	public ModelAndView welcomeMember(HttpSession session) {
 		session.setAttribute("role", "member");
-		return new ModelAndView("welcome");
-	}
-
-	@RequestMapping(value="/welcome", method=RequestMethod.GET)
-	public ModelAndView welcomeAnon(HttpSession session) {
-		session.setAttribute("role", "anon");
 		return new ModelAndView("welcome");
 	}
 }

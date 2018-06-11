@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +14,7 @@
 </head>
 <body>
 	<cab:nav />
-	<form id="form1" runat="server">
+	<form:form id="form1" action="./login" modelAttribute="Users">
 		<div class="container">
 			<div class="page-header text-center">
 				<h1>CAB</h1>
@@ -26,25 +27,25 @@
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label for="usr">Name:</label> <input type="text" class="form-control"
-									id="usr">
+								<label for="usr">Name:</label> <form:input type="text" class="form-control"
+									id="usr" path="userID" />
 							</div>
 							<div class="form-group">
-								<label for="pwd">Password:</label> <input type="password"
-									class="form-control" id="pwd">
+								<label for="pwd">Password:</label> <form:input type="password"
+									class="form-control" id="pwd" path="password"/>
 							</div>
 							<div class="checkbox">
 								<input type="checkbox" value=""> <label class="form-check-label"
 									for="exampleCheck1">Remember me next time</label>
 							</div>
-							<button type="button" id="button_signup" class="btn">Sign up</button>
-							<button type="button" id="button_login1" class="btn">Log in</button>
+							<button type="button" id="button_signup" class="btn btn-secondary">Sign up</button>
+							<input type="submit" id="button_login" value="Log In" class="btn btn-primary" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
+	</form:form>
 
 </body>
 </html>

@@ -1,6 +1,5 @@
 package sg.iss.team5cab.repo;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -20,4 +19,8 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 			@Param("fID") int fID);
 //	@Query("SELECT u FROM User u WHERE u.name=:un AND u.password=:pwd")
 //	User findUserByNamePwd(@Param("un") String uname, @Param("pwd") String pwd);
+	
+	@Query("Select b from Booking b where b.facilityID=:id")
+	List<Booking> findBookingsByFacilityID(@Param("id") int fid);
+	
 }

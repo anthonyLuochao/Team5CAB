@@ -14,17 +14,20 @@ public interface FacilityRepository extends JpaRepository<Facility, Integer> {
 	@Query("SELECT f FROM Facility f where f.facilityName = :name")
 	Facility findByName(@Param("name") String name);
 	
-	@Query("SELECT f FROM Facility f where f.facilityType = :type")
-	ArrayList<Facility> findByType(@Param("type") String type);
+
+	//@Query("SELECT f FROM Facility f where f.facilityType = :type")
+	//ArrayList<Facility> findByType(@Param("type") String type);
+	
 	
 	@Query("SELECT f FROM Facility f where f.isDamaged = :isDamaged")
-	ArrayList<Facility> findIsDamaged(int isDamaged);
+	ArrayList<Facility> findIsDamaged(@Param("isDamaged") boolean isDamaged);
+
 	
-	@Query("SELECT f FROM Facility f where f.isDeleted = 0")
-	ArrayList<Facility> findIsDeleted(int isDeleted);
+	@Query("SELECT f FROM Facility f where f.isDeleted = true")
+	ArrayList<Facility> findIsDeleted(@Param("isDeleted")boolean isDeleted);
 	
-	@Query("SELECT f FROM Facility f Inner Join Booking b on f.facilityID=b.facilityID where f.typeID=:type and f.isDamaged=0 and b.start_Date =: startDate and b.end_Date=: endDate")
-    ArrayList<Facility>findIsAvailable(String typeId,Date startDate,Date endDate,int isDamaged);
+//	@Query("SELECT f FROM Facility f Inner Join Booking b on f.facilityID=b.facilityID where and f.isDamaged=false and b.start_Date =: startDate and b.end_Date=: endDate")
+//    ArrayList<Facility>findIsAvailable(String typeId,Date startDate,Date endDate,boolean isDamaged);
 	
 	
 }

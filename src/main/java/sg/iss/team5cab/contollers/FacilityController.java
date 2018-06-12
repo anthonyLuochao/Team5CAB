@@ -25,16 +25,16 @@ public class FacilityController {
 @Autowired
 private FacilityServices fService;
 
-@RequestMapping(value="/facility-create-update", method =RequestMethod.GET)
+@RequestMapping(value="/search", method =RequestMethod.GET)
 public ModelAndView newFacilityPage()
 {
-	ModelAndView mav=new ModelAndView("facility-search","facility", new Facility());
-	mav.addObject("facilitylist", fService.findAllFacilities());
+	ModelAndView mav=new ModelAndView("facility_search");
+	mav.addObject("Facility", fService.findAllFacilities());
 	return mav;
 			
 }
 
-@RequestMapping(value="/facility-create-update", method =RequestMethod.POST)
+@RequestMapping(value="/create", method =RequestMethod.POST)
 public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
 		final RedirectAttributes redirectAttributes)
 {
@@ -51,15 +51,15 @@ public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, 
 			
 }
 
-   @RequestMapping(value= "/facility-search",method=RequestMethod.GET)
+   @RequestMapping(value= "/searchuser",method=RequestMethod.GET)
    public ModelAndView facilitySearchPage() {
-	   ModelAndView mav=new ModelAndView("facility-search");
+	   ModelAndView mav=new ModelAndView("facility_search");
 	   ArrayList<Facility> facilityList=fService.findAllFacilities();
-	   mav.addObject("facilityList", facilityList);
+	   mav.addObject("Facility", facilityList);
 	   return mav;
    }
    
-   @RequestMapping(value="/facility-create-update",method=RequestMethod.GET)
+   @RequestMapping(value="/update",method=RequestMethod.GET)
    public ModelAndView updateFacilityPage(@PathVariable int fid) {
      ModelAndView mav=new ModelAndView("facility-create-update") ;      
 	 Facility facility = fService.findFacility(fid);
@@ -69,7 +69,7 @@ public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, 
 	 
    }
    
- @RequestMapping(value="/facility-create-update/",method=RequestMethod.POST)
+ @RequestMapping(value="/update/confirmation",method=RequestMethod.POST)
  public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility,BindingResult result,
 		 @PathVariable int fid,final RedirectAttributes redirectAttributes) {
 	 
@@ -86,7 +86,7 @@ public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, 
 	 	
  }
 
-@RequestMapping(value="/facility-search",method=RequestMethod.GET)
+@RequestMapping(value="/facility/delete",method=RequestMethod.GET)
 public boolean deleteFacilty(@PathVariable int fid) {
 	ModelAndView mav=new ModelAndView();
 	Facility facility=fService.findFacility(fid);

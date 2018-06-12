@@ -72,7 +72,7 @@ public String getAddress() {
 public void setAddress(String address) {
 	this.address = address;
 }
-public boolean isDamaged() {
+public boolean getIsDamaged() {
 	return isDamaged;
 }
 public void setDamaged(boolean isDamaged) {

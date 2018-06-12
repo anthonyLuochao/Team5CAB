@@ -23,7 +23,8 @@
 				<form:form class="needs-validation" action="team5cab/public/register" modelAttribute="Users">
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
-							<label for="validationCustom01">Name</label> <form:input type="text"
+							<label for="validationCustom01">Name</label> 
+							<form:input type="text"
 								class="form-control" id="validationCustom01" placeholder="Name"
 								required="required" path="name" />
 							<div class="invalid-feedback">Please provide the name.</div>

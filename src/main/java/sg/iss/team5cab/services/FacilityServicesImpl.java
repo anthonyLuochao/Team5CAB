@@ -20,31 +20,16 @@ public class FacilityServicesImpl implements FacilityServices{
 	private FacilityRepository fRepo;
 	private BookingService bService;
 	
-//	@Override
-//	@Transactional	
-//	public ArrayList<Facility> findAllFacilities(){	
-//		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findAll();
-//		return f;
-//	}
-	
-//	@Override
-//	@Transactional
-//	public Facility findFacility(int fid)
-//	{
-//		return fRepo.findOne(fid);
-//	}
-	
-//	@Override
-//	@Transactional
-//	
-//	public ArrayList<Facility> findByTypeList(String typeId){		
-//		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findByType(typeId);		
-//		return f;
-//	}
 	
 	@Override
-	@Transactional	
-	public ArrayList<Facility> findIsDamagedList(int isDamaged){		
+	@Transactional
+	public Facility findFacilityById(int id){
+		return fRepo.findOne(id);
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Facility> findIsDamagedList(boolean isDamaged){		
 		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findIsDamaged(isDamaged);		
 		return f;
 	}
@@ -76,7 +61,7 @@ public class FacilityServicesImpl implements FacilityServices{
 	@Transactional
     public boolean deleteFacility(Facility fac)
 	{
-		//fac.setisDeleted(true);
+		fac.setIsDeleted(true);
 		if(fRepo.saveAndFlush(fac).equals(null))
 		{
 			return false;
@@ -86,12 +71,16 @@ public class FacilityServicesImpl implements FacilityServices{
 		
 	}
 	
+	
 	@Override
 	@Transactional
-	public ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,int isDamaged)
+	public ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,boolean isDamaged)
 	{	
-		ArrayList<Facility> result1,result2,result3,result=new ArrayList<Facility>();
-	
+		ArrayList<Facility> result1 =new ArrayList<Facility>();
+		ArrayList<Facility> result2 =new ArrayList<Facility>();
+		ArrayList<Facility> result3 =new ArrayList<Facility>();
+		ArrayList<Facility> result =new ArrayList<Facility>();
+		
 			result1=findIsDamagedList(isDamaged);
 			result=result1;
 			
@@ -137,6 +126,7 @@ public class FacilityServicesImpl implements FacilityServices{
 	
 			return result;		
 	}
+
 	
 	
 	

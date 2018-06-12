@@ -12,11 +12,11 @@ public interface FacilityServices {
 	
 	Facility findFacility(int fid);	
 	
-	ArrayList<Facility> findByTypeList(String typeId);
+	//ArrayList<Facility> findByTypeList(String typeId);
 	
 //	Facility findFacilityName(String fname);
 	
-	ArrayList<Facility> findIsDamagedList(int isDamaged);
+	ArrayList<Facility> findIsDamagedList(boolean isDamaged);
 		
 	Facility createFacility(Facility facility);
 	

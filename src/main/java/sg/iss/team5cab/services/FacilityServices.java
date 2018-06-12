@@ -26,7 +26,7 @@ public interface FacilityServices {
 	
 	ArrayList<Facility> findFacilityByDateRange(LocalDate startDate,LocalDate endDate);
 	
-	//ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,int isDamaged);
+	ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,int isDamaged);
 	
 
 }

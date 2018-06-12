@@ -11,13 +11,13 @@ import sg.iss.team5cab.model.Facility;
 
 public interface FacilityRepository extends JpaRepository<Facility, Integer> {
 	
-	@Query("SELECT f FROM Facility f where f.facilityname = :name")
+	@Query("SELECT f FROM Facility f where f.facilityName = :name")
 	Facility findByName(@Param("name") String name);
 	
-	@Query("SELECT f FROM Facility f where f.typeID = : type")
+	@Query("SELECT f FROM Facility f where f.facilityType = :type")
 	ArrayList<Facility> findByType(@Param("type") String type);
 	
-	@Query("SELECT f FROM Facility f where f.isDamaged = 1")
+	@Query("SELECT f FROM Facility f where f.isDamaged = :isDamaged")
 	ArrayList<Facility> findIsDamaged(int isDamaged);
 	
 	@Query("SELECT f FROM Facility f where f.isDeleted = 0")

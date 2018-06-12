@@ -79,8 +79,7 @@ public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, 
 	 ModelAndView mav=new ModelAndView();
 	// String message="Department was sucessfully updated";
 	 
-	   fService.updateFacility(facility);
-	 
+	   fService.updateFacility(facility);	 
 		mav.setViewName("redirect:/facility-confirmation");	
 	    redirectAttributes.addFlashAttribute("facility", facility);
 	     return mav;    

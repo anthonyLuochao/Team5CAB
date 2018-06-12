@@ -17,16 +17,18 @@ pageEncoding="ISO-8859-1"%>
 	<h1 style="text-align: center;">Update Facility</h1>
 	<hr>
 	<div class="container">
-		<card class="card mt-5">
-			<form:form action="" method="post" class="col-12 card-body needs-validation" novalidate>
+		<card class="card mt-5" >
+			<form:form action="team5cab/facility/update/" method="post" class="col-12 card-body needs-validation" validation="novalidate" modelAttribute="Facility">
 				<div class="row">
 					<div class="col-4">
-						<img src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" id="" class="rounded img-fluid mb-3"
-							alt="Facility Image">
+						<img src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" id="facilityImg" class="rounded img-fluid mb-3"
+							alt="Facility Image"
+							 >
 						<div class="text-center">
 							<button type="button" class="btn" onclick="chooseImg()">Change Image</button>
 						</div>
-						<input type="file" id="my_file" hidden>
+						<form:input path="" type="file" id="my_file" hidden="hidden"
+							onchange="document.getElementById('facility-img').src = window.URL.createObjectURL(this.files[0])"/>
 					</div>
 					<div class="col-8">
 						<div class="input-group mb-3">

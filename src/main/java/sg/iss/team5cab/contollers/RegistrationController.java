@@ -55,7 +55,7 @@ public class RegistrationController extends HttpServlet
 		else 
 		{
 			//user.CreateUser();
-			JOptionPane.showMessageDialog(frame, "regitered successfully.");
+			JOptionPane.showMessageDialog(frame, "registered successfully.");
 			ModelAndView mav = new ModelAndView("user_login");
 			return mav;
 		}

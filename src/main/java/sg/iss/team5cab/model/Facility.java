@@ -1,4 +1,6 @@
 package sg.iss.team5cab.model;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -6,10 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.mapping.Set;
-import sg.iss.team5cab.model.Booking;
-import java.util.Collection;
-import java.util.List;
 
 
 @Entity
@@ -36,10 +34,10 @@ private String damageReason;
 @Column(columnDefinition="TINYINT")
 private boolean isDeleted;
 
-public boolean isDeleted() {
+public boolean getIsDeleted() {
 	return isDeleted;
 }
-public void setDeleted(boolean isDeleted) {
+public void setIsDeleted(boolean isDeleted) {
 	this.isDeleted = isDeleted;
 }
 public int getFacilityID() {

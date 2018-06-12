@@ -123,7 +123,11 @@ public class FacilityServicesImpl implements FacilityServices{
 			
 			result=result3;
 			}				
-	
+			
+			System.out.println("Executing finf facility");
+			for (Facility facility : result) {
+				System.out.println(result);
+			}
 			return result;		
 	}
 

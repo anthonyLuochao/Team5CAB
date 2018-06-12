@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -21,36 +21,36 @@
 	<div class="container">
 		<card class="card mt-5"> <form:form
 			action="team5cab/facility/search"
-			class="col-12 card-body needs-validate" modelAttribute="Facility">
+			class="col-12 card-body needs-validate" modelAttribute="Facility" method="POST">
 
 			<div class="input-group mb-3">
-				<form:select path="" required="required" id="facility-type"
+				<form:select path="" required="required" id="facility-type" name="typeName"
 					class="form-control">
-					<option value="" selected disabled>Select your facility
-						type</option>
-					<option value="Type1">Type1</option>
-					<option value="Type2">Type2</option>
-					<
+					<form:option value="typeNames" label="Select your facility" selected="selected"
+					 disabled="disabled">Select your facility type
+					</form:option>
+					<form:options items="${typeNames}" />
 				</form:select>
-				<label class="form-check-label">
+				<label class="form-check-label"/>
 			</div>
 
 			<div class="input-group mb-3 date input-daterange"
 				data-provide="datepicker">
-				<input type="text" class="form-control"
-					placeholder="Choose Start Date">
+				<form:input path="" type="text" class="form-control" name="startDate"
+					placeholder="Choose Start Date"/>
 				<div class="input-group-addon">to</div>
-				<input type="text" class="form-control"
-					placeholder="Choose Start Date">
+				<form:input path="" type="text" class="form-control" name="endDate"
+					placeholder="Choose End Date"/>
 			</div>
 			<div class="form-check mb-3">
-				<label class="form-check-label"> <input
-					class="form-check-input" type="checkbox" value=""> Search
+				<label class="form-check-label"> 
+				<form:checkbox path="" name="isDamaged"
+					class="form-check-input" value="true"/> Search
 					for unusable facilities
 				</label>
 			</div>
 			<div class="text-center">
-				<button type="submit" class="btn btn-primary mb-3" onclick="">Search</button>
+			<input type="submit"  class="btn btn-primary" value="Search" formmethod="post">
 			</div>
 		</form:form> </card>
 
@@ -73,32 +73,16 @@
 						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
 						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-						<a href="<c:url value="../booking/search"/>"
-						   class="btn btn-primary" >Book</a>
-						<a href="<c:url value="../booking/search"/>"
-						   class="btn btn-secondary" >Edit</a> 
-								</button>
-								<button type="submit" class="btn btn-secondary"
-									formaction="./facility/edit">Edit</button>
-								<button type="button" class="btn btn-danger" data-toggle="modal"
-									data-target="#deleteModal">Delete</button></td>
+							<a href="<c:url value="../booking/search"/>"
+							   class="btn btn-primary" >Book</a>
+							<a href="<c:url value="team5cab/facility/update/${facility.facilityID}"/>"
+							   class="btn btn-secondary" >Edit</a>
+						   	<a href="<c:url value="../facility/delete"/>"
+						   	   class="btn btn-danger" data-toggle="modal"
+									data-target="#deleteModal">Delete</a>  
+
 					</tr>
 				</c:forEach>
-				<c:forEach var="user" items="${Users}">
-					<tr>
-						<td class="align-middle"><c:out value="${user.name}" /></td>
-						<td class="align-middle"><c:out value="${user.userID}" /></td>
-						<td class="align-middle"><c:out value="${user.email}" /></td>
-						<td class="align-middle"><c:out value="${user.phoneNumber}" /></td>
-						<td class="align-middle"><a
-							href="<c:url value="team5cab/admin/user/edit/${user.userID}" />"
-							class="btn btn-secondary">Edit</a> <a
-							href="<c:url value="team5cab/admin/user/delete/${user.userID}" />"
-							class="btn btn-danger">Delete</a></td>
-					</tr>
-				</c:forEach>
-
-
 				<tr>
 					<td class="align-middle">FB-1</td>
 					<td class="align-middle">Football Court</td>

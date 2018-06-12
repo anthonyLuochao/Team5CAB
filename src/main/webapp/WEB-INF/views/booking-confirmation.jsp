@@ -20,9 +20,8 @@
         <h1 style="text-align: center;">Booking Confirmation</h1>
         <hr>
         <div class="container">
-            <form action="" method="post" class="col-12 card-body needs-validation" novalidate>
                 <p class="text-muted font-italic mb-0 pb-0">User ID</p>
-                <h5 class="">Actual User ID</h5>
+                <h5 class="">${booking.user.userID }</h5>
     
                 <p class="text-muted font-italic mb-0 pb-0">Facility Name</p>
                 <h5 class="">Actual Facility Name</h5>
@@ -37,7 +36,6 @@
                     <button type="submit" id='validateDate' class="btn " >Back to Create Booking</button>
                     <button type="submit" id='validateDate' class="btn " >Home</button>
                 </div>
-            </form>
         </div>
     </body>
 </html>

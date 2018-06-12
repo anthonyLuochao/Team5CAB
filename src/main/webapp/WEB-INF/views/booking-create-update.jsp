@@ -24,14 +24,15 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name"
                         disabled />
-                    <label class="form-check-label ml-5 pt-1" hidden>
+                    <input type="text" class="form-control" aria-label="User ID" aria-describedby="InputGroup-sizing-default" placeholder="User ID" />
+                    <label class="form-check-label ml-5 pt-1">
                         <input type="checkbox" class="form-check-input" value="">For Maintenance
                     </label>
                 </div>
                 <div class="input-group date input-daterange mb-3" data-provide="datepicker">
                     <input type="text" class="form-control" id="booking-start" placeholder="Choose Start Date">
                     <div class="input-group-addon">to</div>
-                    <input type="text" class="form-control" id="booking-end" placeholder="Choose Start Date">
+                    <input type="text" class="form-control" id="booking-end" placeholder="Choose End Date">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mb-3" onclick="">Book</button>

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sg.iss.team5cab.model.Booking;
+import sg.iss.team5cab.model.Facility;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	@Query("SELECT b FROM Booking b WHERE b.endDate <=:endDate AND"
@@ -24,8 +25,8 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 //	@Query("SELECT u FROM User u WHERE u.name=:un AND u.password=:pwd")
 //	User findUserByNamePwd(@Param("un") String uname, @Param("pwd") String pwd);
 	
-	@Query("Select b from Booking b where b.facility.facilityID=:id") //where b.facilityID = f.facilityID
-	List<Booking> findBookingsByFacilityID(@Param("id") int fid); 
+	@Query("Select b from Booking b where b.facility.facilityID=:fid") //where b.facilityID = f.facilityID
+	List<Booking> findBookingsByFacilityID(@Param("fid") int fid); 
 	
 	
 }

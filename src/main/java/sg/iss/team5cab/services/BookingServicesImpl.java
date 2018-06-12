@@ -12,12 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Booking;
+import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.BookingRepository;
+import sg.iss.team5cab.repo.FacilityRepository;
 import utils.CABDate;
 
 @Service
 public class BookingServicesImpl implements BookingService {
 
+	@Resource
+	FacilityRepository fRepo;
+	
 	@Resource
 	BookingRepository bRepo;
 	//Screen Booking-create-update
@@ -129,7 +134,7 @@ public class BookingServicesImpl implements BookingService {
 	}
 	
 
-	Date today = CABDate.getToday();
+	
 	
 	
 	/* (non-Javadoc)
@@ -138,21 +143,40 @@ public class BookingServicesImpl implements BookingService {
 	@Override
 	@Transactional
 	public ArrayList<Date> findAvailableDates(int fid){
+		//Facility f = fRepo.findOne(fid);
 		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
 		ArrayList<Date> localdatelist = new ArrayList<Date>();
+		Date today = CABDate.getToday();
 		
+		for (int i = 0; i < 7; i++) {
+			Date date = CABDate.plusDays(today, i);
+			localdatelist.add(date);
+			System.out.println(date.toString());
+		}
+		/*
 		for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
 			localdatelist.add(date);
-		}
+			System.out.println(date.toString());
+		}*/
 		
+		for (Booking b : listOfBookingsByFid) {
+			for (Date d : localdatelist) {
+				if(d.before(b.getEndDate()) && d.after(b.getStartDate())) {
+					localdatelist.remove(d);
+				}
+			}
+		}
+		return localdatelist;
+		
+		/*
 		for (Booking b : listOfBookingsByFid) {
 			for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
 				if(date.before(b.getEndDate()) && date.after(b.getStartDate())) {
 					localdatelist.remove(date);
 				}
 			}	
-		}
-		return localdatelist;
+		}*/
+		
 	}
 	
 	/* (non-Javadoc)

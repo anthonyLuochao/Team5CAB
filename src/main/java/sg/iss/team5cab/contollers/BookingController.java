@@ -13,7 +13,7 @@ import sg.iss.team5cab.model.Booking;
 import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.services.BookingService;
 
-@RequestMapping(value="/booking")
+
 @Controller
 public class BookingController {
 	@Autowired
@@ -30,12 +30,16 @@ public class BookingController {
 	}
 
 	@RequestMapping(value = "/create/{id}", method = RequestMethod.POST)
-	public ModelAndView createNewStudent(@ModelAttribute Booking booking, 
+	public ModelAndView createNewBooking(@ModelAttribute Booking booking, 
 			final RedirectAttributes redirectAttributes) {
 		bService.createBooking(booking);
 		String message = "New booking " + booking.getBookingID() + " was successfully created.";
 		redirectAttributes.addFlashAttribute("message", message);
 		return new ModelAndView("redirect:/booking/display");
 	}
+	
+	@RequestMapping(value="/admin/booking/search",method=Requestmethod.POST)
+	public ModelAndView searchBooking(@ModelAttribute)
+	
 
 }

@@ -36,10 +36,10 @@ private String damageReason;
 @Column(columnDefinition="TINYINT")
 private boolean isDeleted;
 
-public boolean isDeleted() {
+public boolean getIsDeleted() {
 	return isDeleted;
 }
-public void setDeleted(boolean isDeleted) {
+public void setIsDeleted(boolean isDeleted) {
 	this.isDeleted = isDeleted;
 }
 public int getFacilityID() {

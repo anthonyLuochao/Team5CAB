@@ -23,10 +23,10 @@ private List<Booking> bookings;
 private String name;
 private String email;
 private String address;
-public boolean isDeleted() {
+public boolean getIsDeleted() {
 	return isDeleted;
 }
-public void setDeleted(boolean isDeleted) {
+public void setIsDeleted(boolean isDeleted) {
 	this.isDeleted = isDeleted;
 }
 private String phoneNumber;

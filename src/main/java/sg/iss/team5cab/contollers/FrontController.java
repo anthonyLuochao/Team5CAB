@@ -18,7 +18,7 @@ public class FrontController {
 	@RequestMapping(value= {"/", "public/welcome"}, method=RequestMethod.GET)
 	public ModelAndView welcomeAnon(HttpSession session) {
 		session.setAttribute("role", "anon");
-		return new ModelAndView("welcome");
+		return new ModelAndView("users_create");
 	}
 	
 	@RequestMapping(value="/admin/welcome", method=RequestMethod.GET)

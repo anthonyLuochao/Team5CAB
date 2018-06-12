@@ -2,6 +2,7 @@ package sg.iss.team5cab.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -74,5 +75,9 @@ public class UsersServicesImpl implements UsersService {
 		// TODO Auto-generated method stub
 		Users u = uRepo.findUserByUID(userid);
 		return u;
+	}
+
+	public String RandomPassword() {
+		return UUID.randomUUID().toString();
 	}
 }

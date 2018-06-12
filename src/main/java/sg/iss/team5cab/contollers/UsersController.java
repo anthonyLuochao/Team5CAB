@@ -1,6 +1,8 @@
 package sg.iss.team5cab.contollers;
 
-import org.junit.runner.Request;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,53 +15,66 @@ import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.UsersService;
 
 @Controller
-@RequestMapping(value="/home")
- public class UsersController {
+public class UsersController {
 
 	//@Autowired
 	@Autowired
 	private UsersService uService;
+
+	@RequestMapping(value="/admin/user/search", method = RequestMethod.GET)
+	public ModelAndView displaySearchUser()
+	{
+		ArrayList<Users> users = uService.findAllUsers();
+		ModelAndView mav = new ModelAndView("users_search","Users", users);
+		mav.addObject("searchTerm", new Users());
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/user/search", method = RequestMethod.POST)
+	public ModelAndView displaySearchUser(@ModelAttribute("searchTerm") Users user)
+	{
+		ArrayList<Users> users = uService.findUsersByIdOrName(user.getName(), user.getName());
+		return new ModelAndView("users_search","Users", users);
+	}	
+	
 	@RequestMapping(value="/adduser",method = RequestMethod.POST)
 	public ModelAndView addUser(@ModelAttribute Users users)
 	{
 		ModelAndView mav = new ModelAndView("userconfirmationpage","Users",new Users());
-		
 		uService.CreateUser(users);
-		//String message = "User was successfully created.";
-		
 		return mav;
 	}
-	@RequestMapping(value="searchUser", method = RequestMethod.GET)
-	public ModelAndView selectUser (@PathVariable String userid)
-	{
-		ModelAndView mav = new ModelAndView("searchUser","Users",new Users());
-		Users users = uService.findUserByUID(userid);
-		
-		return mav;
-	}
-	@RequestMapping(value="/edituser",method = RequestMethod.POST)
-    public ModelAndView editUser(@ModelAttribute Users users)
+	
+	@RequestMapping(value="/admin/user/edit/{userID}",method = RequestMethod.GET)
+    public ModelAndView editUser(@PathVariable String userID)
     {
-    	ModelAndView mav = new ModelAndView("userconfirmationpage","Users",new Users());    	
-    	uService.changeUser(users);
-    	//String message = "User was successfully updated.";
-    	return mav;
+		Users user = uService.findUserByUID(userID);
+		ModelAndView mav = new ModelAndView("users_edit", "User", user);
+		mav.addObject("roleList", getRoles());
+		return mav;
     }
-	@RequestMapping(value="/searchuser",method = RequestMethod.POST)
-	  public ModelAndView SearchUser(@PathVariable String userid)
-	    {
-	    	ModelAndView mav = new ModelAndView("searchUser","Users",new Users());
-	    	uService.findAllUsers();	  
-	    	return mav;
-	    }
-	@RequestMapping(value="/removeuser",method = RequestMethod.GET)
-    public void removeUser(@PathVariable String userid) 
+
+	@RequestMapping(value="/admin/user/edit",method = RequestMethod.POST)
+    public ModelAndView editUser(@ModelAttribute("User") Users updatedUser)
     {
-    	ModelAndView mav = new ModelAndView("/removeuser","Users",new Users());
-    	Users users = uService.findUserByUID(userid);
+    	Users oldUser = uService.findUser(updatedUser.getUserID());
+    	updatedUser.setPassword(oldUser.getPassword());
+    	uService.changeUser(updatedUser);
+    	return new ModelAndView("user-confirmation");
+    }
+
+	@RequestMapping(value="/admin/user/delete/{userid}",method = RequestMethod.GET)
+    public ModelAndView removeUser(@PathVariable("userid") String userid) 
+    {
     	//String message = "User was successfully deleted.";
     	uService.removeUser(userid);
+    	return new ModelAndView("redirect:/admin/user/search");
     }
 	
-	
+	private ArrayList<String> getRoles() {
+		ArrayList<String> roles = new ArrayList<String>();
+		roles.add("Member");
+		roles.add("Admin");
+		return roles;
+	}
 }

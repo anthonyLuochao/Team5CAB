@@ -1,7 +1,6 @@
 package sg.iss.team5cab.services;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -24,7 +23,7 @@ public class UsersServicesImpl implements UsersService {
 //	}
     public ArrayList<Users> findAllUsers()
     {
-		ArrayList<Users> ul = (ArrayList<Users>) uRepo.findAll();
+		ArrayList<Users> ul = (ArrayList<Users>) uRepo.findAllExceptDeleted();
     	return ul;
     	
     }
@@ -51,7 +50,7 @@ public class UsersServicesImpl implements UsersService {
 	public void removeUser(String userid) {
 		// TODO Auto-generated method stub
 		Users u = uRepo.findOne(userid);
-		u.setRole("");
+		u.setIsDeleted(true);
 		uRepo.saveAndFlush(u);
 	}
 
@@ -63,10 +62,9 @@ public class UsersServicesImpl implements UsersService {
 	}
 
 	@Override
-	public Users findUserDetailByUID(String userid, String name) {
+	public ArrayList<Users> findUsersByIdOrName(String userid, String name) {
 		// TODO Auto-generated method stub
-		Users u = uRepo.findUserDetailByUID(userid, name);
-		return u;
+		return uRepo.findUsersByIdOrName(userid, name);
 	}
 
 	@Override

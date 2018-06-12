@@ -1,6 +1,7 @@
 package sg.iss.team5cab.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,10 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.mapping.Set;
-import sg.iss.team5cab.model.Booking;
-import java.util.Collection;
-import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="users")
 public class Users {
@@ -23,13 +21,14 @@ private List<Booking> bookings;
 private String name;
 private String email;
 private String address;
-public boolean isDeleted() {
+public boolean getIsDeleted() {
 	return isDeleted;
 }
-public void setDeleted(boolean isDeleted) {
+public void setIsDeleted(boolean isDeleted) {
 	this.isDeleted = isDeleted;
 }
 private String phoneNumber;
+@DateTimeFormat(pattern = "dd/MM/yyyy")
 private Date dob; 
 private String role;
 private String password;

@@ -125,7 +125,7 @@ public class BookingServicesImpl implements BookingService {
 	@Override
 	public List<Booking> displayAll()
 	{
-		 return bRepo.findAll();
+		 return (List<Booking>)bRepo.findAll();
 	}
 	
 

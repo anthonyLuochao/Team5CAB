@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.iss.team5cab.model.Users;
-import sg.iss.team5cab.services.UserService;
+import sg.iss.team5cab.services.UsersService;
 
 @Controller
 @RequestMapping(value="/home")
@@ -18,7 +18,7 @@ import sg.iss.team5cab.services.UserService;
 
 	//@Autowired
 	@Autowired
-	private UserService uService;
+	private UsersService uService;
 	@RequestMapping(value="/adduser",method = RequestMethod.POST)
 	public ModelAndView addUser(@ModelAttribute Users users)
 	{

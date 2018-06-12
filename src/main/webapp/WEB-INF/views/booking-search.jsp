@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,11 +26,11 @@
             <form action="POST" method="post" class="col-12 card-body needs-validation" novalidate>
 
                 <div class="input-group mb-3">
-                    <select required id="facility-type" class="form-control" required>
+                    <form:select path= "listOfFacilityType" required="required" id="facility-type" class="form-control">
                         <option value="" selected disabled>Select your facility Type</option>
-                        <option value="Facility1">Facility Type 1</option>
-                        <option value="Facility2">Facility Type 2</option>
-                    </select>
+                        <form:options items="${listOfFacilityType}" />
+                       
+                    </form:select>
                     <div class="invalid-feedback">
                         Please select Facility Type
                     </div>

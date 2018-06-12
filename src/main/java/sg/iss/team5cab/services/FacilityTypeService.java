@@ -8,5 +8,7 @@ public interface FacilityTypeService {
 
 	List<FacilityType> findAll();
 
+	List<String> findAllType();
+
 
 }

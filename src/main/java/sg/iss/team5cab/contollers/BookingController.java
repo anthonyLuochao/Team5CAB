@@ -1,5 +1,7 @@
 package sg.iss.team5cab.contollers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,8 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team5cab.model.Booking;
-import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.services.BookingService;
+import sg.iss.team5cab.services.FacilityTypeService;
 
 
 @Controller
@@ -38,8 +40,18 @@ public class BookingController {
 		return new ModelAndView("redirect:/booking/display");
 	}
 	
-	@RequestMapping(value="/admin/booking/search",method=Requestmethod.POST)
-	public ModelAndView searchBooking(@ModelAttribute)
+	@Autowired
+	FacilityTypeService ftService;
+	
+	@RequestMapping(value="/admin/booking/search",method=RequestMethod.GET)
+	public ModelAndView loadFacilityTypeToDropdownList()
+	{
+		ModelAndView mav=new ModelAndView();
+		//fList<String> typeName=ftService.findAllType();
+		mav.addObject("listOfFacilityType",ftService.findAllType());
+		mav.setViewName("booking-search");
+		return mav;
+	}
 	
 
 }

@@ -23,6 +23,12 @@ public class FacilityTypeServiceImpl implements FacilityTypeService{
 		
 		 return (List<FacilityType>)ftRepo.findAll();
 	}
-
+	@Transactional
+	@Override
+	public List<String> findAllType()
+	{
+		return (List<String>)ftRepo.findTypeName();
+	}
+	
 
 }

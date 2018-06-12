@@ -18,7 +18,7 @@
 	<div class="container text-left">
 		<h1 class="text-center">Add new user</h1>
 		<div class="card mt-5">
-			<form:form action="team5cab/admin/users_create" method="post" class="col-12 card-body justify-content-center needs-validation"  modelAttribute="Users">
+			<form:form action="team5cab/admin/user/create" method="post" class="col-12 card-body justify-content-center needs-validation"  modelAttribute="Users">
 					<div class="input-group mb-3">
 						<form:input type="text" class="form-control" aria-label="User ID" aria-describedby="inputGroup-sizing-default" placeholder="User ID"
 						path="userID"	required="required"/>
@@ -78,7 +78,7 @@
 							Please provide a role.
 						</div>
 					</div>
-					<input type="submit" class="btn btn-secondary" value="Cancel">
+					<a href="/team5cab/admin/welcome" class="btn btn-secondary">Cancel</a>
 					<input type="submit" class="btn btn-primary" value="Add user">
 				</form:form>
 		</div>

@@ -19,7 +19,7 @@ public interface UsersService {
 	
 	Users authenticate(String userid, String password);
 	
-	Users findUserDetailByUID(String userid, String name );
+	ArrayList<Users> findUsersByIdOrName(String userid, String name );
 	
 	Users findUserByUID(String userid);
 

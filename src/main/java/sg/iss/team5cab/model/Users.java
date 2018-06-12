@@ -2,7 +2,6 @@ package sg.iss.team5cab.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +21,10 @@ private List<Booking> bookings;
 private String name;
 private String email;
 private String address;
-public boolean isDeleted() {
+public boolean getIsDeleted() {
 	return isDeleted;
 }
-public void setDeleted(boolean isDeleted) {
+public void setIsDeleted(boolean isDeleted) {
 	this.isDeleted = isDeleted;
 }
 private String phoneNumber;

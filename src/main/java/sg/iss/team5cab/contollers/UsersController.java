@@ -2,7 +2,6 @@ package sg.iss.team5cab.contollers;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,45 @@ import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.UsersService;
 
 @Controller
-//@RequestMapping(value="/home")
- public class UsersController extends HttpServlet{
-
+public class UsersController {
 	@Autowired
 	private UsersService uService;
+
+	@RequestMapping(value="/admin/user/search", method = RequestMethod.GET)
+	public ModelAndView displaySearchUser()
+	{
+		ArrayList<Users> users = uService.findAllUsers();
+		ModelAndView mav = new ModelAndView("users_search","Users", users);
+		mav.addObject("searchTerm", new Users());
+		return mav;
+	}
 	
-	@RequestMapping(value="/admin/users_create",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/user/search", method = RequestMethod.POST)
+	public ModelAndView displaySearchUser(@ModelAttribute("searchTerm") Users user)
+	{
+		ArrayList<Users> users = uService.findUsersByIdOrName(user.getName(), user.getName());
+		return new ModelAndView("users_search","Users", users);
+	}	
+	
+	@RequestMapping(value="/admin/user/edit/{userID}",method = RequestMethod.GET)
+    public ModelAndView editUser(@PathVariable String userID)
+    {
+		Users user = uService.findUserByUID(userID);
+		ModelAndView mav = new ModelAndView("users_edit", "User", user);
+		mav.addObject("roleList", getRoles());
+		return mav;
+    }
+
+	@RequestMapping(value="/admin/user/edit",method = RequestMethod.POST)
+    public ModelAndView editUser(@ModelAttribute("User") Users updatedUser)
+    {
+    	Users oldUser = uService.findUser(updatedUser.getUserID());
+    	updatedUser.setPassword(oldUser.getPassword());
+    	uService.changeUser(updatedUser);
+    	return new ModelAndView("user-confirmation", "User", updatedUser);
+    }
+	
+	@RequestMapping(value="/admin/user/create",method = RequestMethod.GET)
 	public ModelAndView Usercreateview(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView("users_create","Users",new Users());
@@ -32,63 +63,29 @@ import sg.iss.team5cab.services.UsersService;
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/users_create",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/user/create",method = RequestMethod.POST)
 	public ModelAndView addUser(@ModelAttribute("Users") Users users, HttpSession session,RedirectAttributes redirectAttributes)
 	{
-        //users.setPassword("12345");
-		users.setPassword(uService.RandomPassword());
-		Users user = uService.CreateUser(users);
-		
-		ModelAndView mav = new ModelAndView("user-confirmation","Users",user);
-		//String message = "User was successfully created.";	
-		//redirectAttributes.addFlashAttribute("Users",users);
-		return mav;
+		if (uService.findUserByUID(users.getUserID()) != null) {
+			users.setUserID("");
+			ModelAndView mav = new ModelAndView("users_create","Users", users);
+			mav.addObject("roleList", getRoles());
+			return mav;
+		}
+		else {
+			users.setPassword(uService.RandomPassword());
+			uService.CreateUser(users);
+			return new ModelAndView("user-confirmation","User", users);
+		}
 	}
-	@RequestMapping(value="/admin/users_create/confirmation",method = RequestMethod.GET)
-	public ModelAndView confirmation(@ModelAttribute("Users")Users users,HttpSession session)
-	{
-		ModelAndView mav = new ModelAndView("user-confirmation","Users",new Users());
-//		usersinfo.addAllAttributes((Collection<?>) users);
-		return mav;
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value="searchUser", method = RequestMethod.GET)
-	public ModelAndView selectUser (@PathVariable String userid)
-	{
-		ModelAndView mav = new ModelAndView("searchUser","Users",new Users());
-		Users users = uService.findUserByUID(userid);
-		
-		return mav;
-	}
-	@RequestMapping(value="/edituser",method = RequestMethod.POST)
-    public ModelAndView editUser(@ModelAttribute Users users)
+
+
+	@RequestMapping(value="/admin/user/delete/{userid}",method = RequestMethod.GET)
+    public ModelAndView removeUser(@PathVariable("userid") String userid) 
     {
-    	ModelAndView mav = new ModelAndView("userconfirmationpage","Users",new Users());    	
-    	uService.changeUser(users);
-    	//String message = "User was successfully updated.";
-    	return mav;
-    }
-	@RequestMapping(value="/searchuser",method = RequestMethod.POST)
-	  public ModelAndView SearchUser(@PathVariable String userid)
-	    {
-	    	ModelAndView mav = new ModelAndView("searchUser","Users",new Users());
-	    	uService.findAllUsers();	  
-	    	return mav;
-	    }
-	@RequestMapping(value="/removeuser",method = RequestMethod.GET)
-    public void removeUser(@PathVariable String userid) 
-    {
-    	ModelAndView mav = new ModelAndView("/removeuser","Users",new Users());
-    	Users users = uService.findUserByUID(userid);
     	//String message = "User was successfully deleted.";
     	uService.removeUser(userid);
+    	return new ModelAndView("redirect:/admin/user/search");
     }
 	
 	private ArrayList<String> getRoles() {

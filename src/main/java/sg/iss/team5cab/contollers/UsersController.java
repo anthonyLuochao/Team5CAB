@@ -1,7 +1,8 @@
 package sg.iss.team5cab.contollers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,14 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.UsersService;
 
 @Controller
 public class UsersController {
-
-	//@Autowired
 	@Autowired
 	private UsersService uService;
 
@@ -37,14 +37,6 @@ public class UsersController {
 		return new ModelAndView("users_search","Users", users);
 	}	
 	
-	@RequestMapping(value="/adduser",method = RequestMethod.POST)
-	public ModelAndView addUser(@ModelAttribute Users users)
-	{
-		ModelAndView mav = new ModelAndView("userconfirmationpage","Users",new Users());
-		uService.CreateUser(users);
-		return mav;
-	}
-	
 	@RequestMapping(value="/admin/user/edit/{userID}",method = RequestMethod.GET)
     public ModelAndView editUser(@PathVariable String userID)
     {
@@ -60,8 +52,33 @@ public class UsersController {
     	Users oldUser = uService.findUser(updatedUser.getUserID());
     	updatedUser.setPassword(oldUser.getPassword());
     	uService.changeUser(updatedUser);
-    	return new ModelAndView("user-confirmation");
+    	return new ModelAndView("user-confirmation", "User", updatedUser);
     }
+	
+	@RequestMapping(value="/admin/user/create",method = RequestMethod.GET)
+	public ModelAndView Usercreateview(HttpSession session)
+	{
+		ModelAndView mav = new ModelAndView("users_create","Users",new Users());
+		mav.addObject("roleList", getRoles());
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin/user/create",method = RequestMethod.POST)
+	public ModelAndView addUser(@ModelAttribute("Users") Users users, HttpSession session,RedirectAttributes redirectAttributes)
+	{
+		if (uService.findUserByUID(users.getUserID()) != null) {
+			users.setUserID("");
+			ModelAndView mav = new ModelAndView("users_create","Users", users);
+			mav.addObject("roleList", getRoles());
+			return mav;
+		}
+		else {
+			users.setPassword(uService.RandomPassword());
+			uService.CreateUser(users);
+			return new ModelAndView("user-confirmation","User", users);
+		}
+	}
+
 
 	@RequestMapping(value="/admin/user/delete/{userid}",method = RequestMethod.GET)
     public ModelAndView removeUser(@PathVariable("userid") String userid) 

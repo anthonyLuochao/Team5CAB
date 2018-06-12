@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="text-center">
-                    <a href=""  class="btn btn-secondary" >Cancel</a>
+                    <a href="/team5cab/admin/user/search"  class="btn btn-secondary" >Cancel</a>
                     <input type="submit" class="btn btn-primary" value="Update user">
                 </div>
             </form:form>

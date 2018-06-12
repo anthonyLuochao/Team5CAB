@@ -24,4 +24,6 @@ public interface UsersService {
 	Users findUserByUID(String userid);
 
 	void removeUser(String userid);
+	
+	String RandomPassword();
 }

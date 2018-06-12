@@ -28,7 +28,7 @@ public void setIsDeleted(boolean isDeleted) {
 	this.isDeleted = isDeleted;
 }
 private String phoneNumber;
-@DateTimeFormat(pattern = "dd/MM/yyyy")
+@DateTimeFormat(pattern="MM/dd/yyyy")
 private Date dob; 
 private String role;
 private String password;
@@ -88,7 +88,5 @@ public String toString() {
 			+ address + ", phoneNumber=" + phoneNumber + ", dob=" + dob + ", role=" + role + ", password=" + password
 			+ "]";
 }
-
-
 
 }

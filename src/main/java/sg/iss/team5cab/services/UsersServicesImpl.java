@@ -1,6 +1,7 @@
 package sg.iss.team5cab.services;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -15,12 +16,6 @@ public class UsersServicesImpl implements UsersService {
 	@Resource
 	UsersRepository uRepo;
 	
-//	@Transactional DAO methods that uses JPARepo
-
-//    public Users createUser(Users users) {
-//		
-//    	return UsersRepository.saveAndFlush(users);
-//	}
     public ArrayList<Users> findAllUsers()
     {
 		ArrayList<Users> ul = (ArrayList<Users>) uRepo.findAllExceptDeleted();
@@ -72,5 +67,9 @@ public class UsersServicesImpl implements UsersService {
 		// TODO Auto-generated method stub
 		Users u = uRepo.findUserByUID(userid);
 		return u;
+	}
+
+	public String RandomPassword() {
+		return UUID.randomUUID().toString();
 	}
 }

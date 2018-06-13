@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Booking;
-import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.BookingRepository;
 import sg.iss.team5cab.repo.FacilityRepository;
 import utils.CABDate;
@@ -71,16 +70,14 @@ public class BookingServicesImpl implements BookingService {
 	/* (non-Javadoc)
 	 * @see sg.iss.team5cab.services.BookingService#deleteBooking(int, java.time.LocalDate, java.time.LocalDate, java.lang.String)
 	 */
+	
 	@Transactional
 	@Override
-	public void deleteBooking(int fID,Date start,Date end,String uID)
+	public Booking deleteBooking(int bookingID)
 	{
-		 List<Booking> b= bRepo.findBookingDates(end,start, fID,uID);
-		 for(Booking book:b)
-		 {
-			 book.setCancel(true);
-			 bRepo.saveAndFlush(book);
-		 }
+		Booking book=bRepo.findOne(bookingID);
+		book.setCancel(true);
+		return bRepo.saveAndFlush(book);
 	}
 	@Transactional
 	@Override
@@ -194,5 +191,17 @@ public class BookingServicesImpl implements BookingService {
 			}
 		}
 		return false;
+	}
+	@Override
+	@Transactional
+	public List<Integer> findAllFacilityID()
+	{
+		return bRepo.findAllFacilityID();
+	}
+	@Override
+	@Transactional
+	public Booking findBookingByID(int ID)
+	{
+		return bRepo.findOne(ID);
 	}
 }

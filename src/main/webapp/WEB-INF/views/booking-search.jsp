@@ -25,11 +25,14 @@
     <div class="container">
         <card class="card mt-5">
             <form:form action="/team5cab/admin/booking/search" method="post" class="col-12 card-body needs-validation" modelAttribute="booking">
-
+				
+                    <input type="text" class="form-control"  placeholder="User ID"
+                        required="required" path="users.userID" />
+                  
                 <div class="input-group mb-3">
-                    <form:select path= "facility.facilityType.typeName" required="required" id="facility-type" class="form-control">
+                    <form:select path= "facility.facilityID" required="required" id="facility-type" class="form-control">
                         <option value="" selected disabled>Select your facility Type</option>
-                        <form:options items="${listOfFacilityType}" />
+                        <form:options items="${listOfFacilityID}" />
                        
                     </form:select>
                     <div class="invalid-feedback">
@@ -72,8 +75,8 @@
                     <td class="align-middle"><c:out value="${booking.endDate}"/></td>
                     <td class="align-middle"><c:out value="${booking.users.userID}"/></td>
                     <td class="align-middle">
-                        <button type="button" class="btn btn-secondary">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        <a href="<c:url value="/admin/booking/edit/${booking.bookingID}" />" class="btn btn-secondary">Edit</a>
+                    	<a href="<c:url value="/admin/booking/delete/${booking.bookingID}" />" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
                 </c:forEach>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,16 +35,7 @@ public class FacilityController {
 		return new ArrayList<String>();
 	}
 	
-//	@RequestMapping(value = "/search", method = RequestMethod.GET)
-//	public ModelAndView newFacilityPage(@ModelAttribute("Facility") Facility fac) {
-//
-//		ModelAndView mav = new ModelAndView("facility_search");
-//
-//		mav.addObject("Facility", fService.findFacility(null, null, null, false));
-//		mav.addObject("typeNames", getTypeNames());
-//
-//		return mav;
-//	}
+
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -83,30 +75,41 @@ public class FacilityController {
 	     return mav;
 	}
 
-		private ArrayList<FacilityType> getFacilityType() {
-	
-			ArrayList<FacilityType> fType = new ArrayList<FacilityType>();
-	
-			FacilityType fT = new FacilityType();
-			fT.setTypeID("FB");
-			fType.add(fT);
-	
-			// fType.add("TT");
-			// fType.add("FB");
-	
-			return fType;
-		}
+	private ArrayList<FacilityType> getFacilityType() {
 
+		ArrayList<FacilityType> fType = new ArrayList<FacilityType>();
+
+		FacilityType fT = new FacilityType();
+		fT.setTypeID("FB");
+		fT.setTypeName("FootBall");
+		fType.add(fT);
 		
 
+		// fType.add("TT");
+		// fType.add("FB");
+
+		return fType;
+	}
+
+		
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView newFacilityPage(@ModelAttribute("Facility") Facility fac) {
+
+		ModelAndView mav = new ModelAndView("facility_search");
+
+		mav.addObject("Facility", fService.findFacility(null, null, null, false));
+		mav.addObject("facilityType", getFacilityType());
+
+		return mav;
+	}
      
     @RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView FacilitySearchPage(@ModelAttribute("Facility") Facility fac, BindingResult result,
 			final RedirectAttributes redirectAttributes, @RequestParam("typeName") String typeName,
-			@RequestParam(value = "startDate", required = false) Date startDate,
-			@RequestParam(value = "endDate", required = false) Date endDate,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "MM-dd-yyyy") Date startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "MM-dd-yyyy") Date endDate,
 			@RequestParam(value = "isDamaged", required = false) boolean isDamaged) {
-
+    	System.out.println("Executing Search Controller.....");
 		ModelAndView mav = new ModelAndView();
 		String typeId = "";
 		switch (typeName) {
@@ -137,13 +140,9 @@ public class FacilityController {
 
 		}
 		mav.setViewName("facility_search");
-		System.out.println("Executing methodssssss");
-		System.out.println(typeId);
-		System.out.println(startDate);
-		System.out.println(endDate);
-		System.out.println(isDamaged);
+		System.out.println("Before Search.....");
 		mav.addObject("Facility", fService.findFacility(typeId, startDate, endDate, isDamaged));
-
+		System.out.println("After Search.....");
 		mav.addObject("typeNames", getTypeNames());
 
 		return mav;
@@ -211,22 +210,28 @@ public class FacilityController {
 //
 //	}
 //
-//	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
-//	public ModelAndView updateFacilityPage(@PathVariable int fid, HttpServletRequest request) {
-//		ModelAndView mav = new ModelAndView("facility_create_update");
-//		Facility facility = fService.findFacilityById(fid);
-//		mav.addObject("facility", facility);
-//
-//		return mav;
-//
-//	}
-//
-//	@RequestMapping(value = "/facility/delete", method = RequestMethod.GET)
-//	public boolean deleteFacilty(@PathVariable int fid) {
-//		ModelAndView mav = new ModelAndView();
-//		Facility facility = fService.findFacilityById(fid);
-//		return fService.deleteFacility(facility);
-//
-//	}
+	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
+	public ModelAndView updateFacilityPage(@PathVariable int fid, HttpServletRequest request) {
+		Facility facility = fService.findFacilityById(fid);
+		ModelAndView mav = new ModelAndView("facility_create_update","Facility",facility);
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/facility//{fid}", method = RequestMethod.GET)
+	public ModelAndView deleteFacilty(@PathVariable int fid) {
+		ModelAndView mav = new ModelAndView();
+		String msg;
+		
+		Facility facility = fService.findFacilityById(fid);
+		boolean isDeleted =fService.deleteFacility(facility);
+		
+		 if(isDeleted) msg="The facility is deleted";
+		 else msg="The facility is not deleted";
+		 
+		mav.setViewName("redirect:/search");
+		mav.addObject("message",msg);
+		return mav;
+	}
 
 }

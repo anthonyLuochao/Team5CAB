@@ -29,7 +29,7 @@ pageEncoding="ISO-8859-1"%>
 					<form:option value="typeNames" label="Select your facility" selected="selected"
 					 disabled="disabled">Select your facility type
 					</form:option>
-					<form:options items="${typeNames}" />
+					<form:options items="${facilityType}" itemValue="typeID" itemLabel="typeName"/>
 
 				</form:select>
 				<label class="form-check-label"/>
@@ -78,7 +78,7 @@ pageEncoding="ISO-8859-1"%>
 							   class="btn btn-primary" >Book</a>
 							<a href="<c:url value="team5cab/facility/update/${facility.facilityID}"/>"
 							   class="btn btn-secondary" >Edit</a>
-						   	<a href="<c:url value="../facility/delete"/>"
+						   	<a href="<c:url value="../facility/delete/${facility.facilityID}"/>"
 						   	   class="btn btn-danger" data-toggle="modal"
 									data-target="#deleteModal">Delete</a>  
 
@@ -133,7 +133,7 @@ pageEncoding="ISO-8859-1"%>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<p>Facility deleted</p>
+					<p>{}</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -15,7 +15,7 @@ public interface BookingService {
 	Booking updateBooking(Booking booking);
 	List<Booking> findBookingByMember(int fID, Date start, Date end);
 	List<Booking> findBookingByAdmin(int fID, Date start, Date end, String uID);
-	void deleteBooking(int fID, Date start, Date end, String uID);
+	
 	boolean checkFacilityAvailability(int fID, Date start, Date end);
 
 
@@ -24,5 +24,10 @@ public interface BookingService {
 	ArrayList<Date> findAvailableDates(int fid);
 
 	boolean isBookingClash(int fid, Date startDate, Date endDate);
+	List<Integer> findAllFacilityID();
+
+	Booking findBookingByID(int ID);
+
+	Booking deleteBooking(int bookingID);
 
 }

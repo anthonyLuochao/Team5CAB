@@ -1,21 +1,21 @@
 package sg.iss.team5cab.model;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.mapping.Set;
-import sg.iss.team5cab.model.Booking;
-import java.util.Collection;
-import java.util.List;
 
 
 @Entity
 @Table(name="facility")
 public class Facility {
-@Id
+@Id@GeneratedValue(strategy=GenerationType.AUTO)
 private int facilityID;
 
 @OneToMany(mappedBy="facility")

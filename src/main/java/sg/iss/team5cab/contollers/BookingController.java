@@ -1,5 +1,7 @@
 package sg.iss.team5cab.contollers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.iss.team5cab.model.Booking;
-import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.BookingService;
-//import sg.iss.team5cab.services.FacilityService;
 import sg.iss.team5cab.services.UsersService;
 
 @Controller
@@ -62,15 +62,50 @@ public class BookingController {
 	@Autowired
 	//FacilityTypeService ftService;
 	
+
+	
 	@RequestMapping(value="/admin/booking/search",method=RequestMethod.GET)
-	public ModelAndView loadFacilityTypeToDropdownList()
+	public ModelAndView createSearchPage()
 	{
 		ModelAndView mav=new ModelAndView();
-		//fList<String> typeName=ftService.findAllType();
-		//mav.addObject("listOfFacilityType",ftService.findAllType());
+		mav.addObject("booking",new Booking());
+		
+		mav.addObject("listOfFacilityID",bService.findAllFacilityID());
 		mav.setViewName("booking-search");
 		return mav;
 	}
+	@RequestMapping(value="/admin/booking/search",method=RequestMethod.POST)
+	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking)
+	{
+		ModelAndView mav=new ModelAndView();
+		List<Booking> listBookings=bService.findBookingByAdmin(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());//facilityID userID hardcoded
+		mav.addObject("listOfBookings",listBookings);
+		mav.setViewName("booking-search");
+		return mav;
+		}
+	@RequestMapping(value="/admin/booking/edit/{bookingID}",method = RequestMethod.GET)
+    public ModelAndView editBooking(@PathVariable int bookingID)
+    {
+		Booking booking  = bService.findBookingByID(bookingID);
+		ModelAndView mav = new ModelAndView("booking-edit", "Booking", booking);
+		
+		return mav;
+    }
+	@RequestMapping(value="/admin/booking/edit/{bookingID}",method = RequestMethod.POST)
+    public ModelAndView editBookingConfirmation(@ModelAttribute("booking") Booking book)
+    {
+    	ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(book));
+       	return mav;
+    }
+	@RequestMapping(value="/admin/booking/delete/{bookingID}",method=RequestMethod.GET)
+	public ModelAndView deleteBooking(@PathVariable int bookingID)
+	{
+		Booking book=bService.findBookingByID(bookingID);
+		bService.deleteBooking(bookingID);
+		return new ModelAndView("redirect:/admin/booking/search");
+	}
+	
+
 	
 
 }

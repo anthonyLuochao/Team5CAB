@@ -1,6 +1,5 @@
 package sg.iss.team5cab.services;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.FacilityRepository;
-import sg.iss.team5cab.repo.UsersRepository;
 
 @Service
 public class FacilityServicesImpl{// implements FacilityService{
@@ -148,24 +146,7 @@ public class FacilityServicesImpl{// implements FacilityService{
 	
 	
 	
-//	@Override
-//	@Transactional
-//	public ArrayList<Facility> findFacilityByDateRange(LocalDate startDate,LocalDate endDate)
-//	{
-//		ArrayList<Facility> returnList=new ArrayList<Facility>();
-//		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findAll();
-//		for(Facility fac : f)
-//		{
-////			boolean result = bService.checkFacilityAvailability(fac.getFacilityID(),startDate,endDate);
-////			if(result)
-////			{
-////				returnList.add(fac);
-////			}
-//		}
-//		return returnList;
-//		
-//	}
-//	
+
 }	
 
 

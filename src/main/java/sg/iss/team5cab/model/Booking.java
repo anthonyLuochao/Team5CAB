@@ -4,15 +4,19 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="booking")
 public class Booking {
-@Id
+@Id@GeneratedValue(strategy=GenerationType.AUTO)
 private int bookingID;
 @ManyToOne
 @JoinColumn(name="userID",nullable=false)
@@ -23,8 +27,10 @@ private Facility facility;
 
 //private int facilityID;
 //private String userID;
+@DateTimeFormat(pattern="MM/dd/yyyy")
 @Column(name="start_Date",columnDefinition="DATE")
 private Date startDate;
+@DateTimeFormat(pattern="MM/dd/yyyy")
 @Column(name="end_Date",columnDefinition="DATE")
 private Date endDate;
 @Column(columnDefinition="TINYINT")

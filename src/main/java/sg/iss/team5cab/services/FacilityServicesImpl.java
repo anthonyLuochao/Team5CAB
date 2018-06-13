@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Facility;
+import sg.iss.team5cab.model.FacilityType;
 import sg.iss.team5cab.repo.FacilityRepository;
 import utils.CABDate;
 
@@ -61,7 +62,9 @@ public class FacilityServicesImpl implements FacilityServices{
 	@Transactional
     public boolean deleteFacility(Facility fac)
 	{
-		fac.setIsDeleted(true);
+		Facility f = fRepo.findOne(fac.getFacilityID());
+		
+		f.setIsDeleted(true);
 		if(fRepo.saveAndFlush(fac).equals(null))
 		{
 			return false;
@@ -74,15 +77,15 @@ public class FacilityServicesImpl implements FacilityServices{
 	
 	@Override
 	@Transactional
-	public ArrayList<Facility> findFacility(String typeID, Date startDate,Date endDate,boolean isDamaged)
+	public ArrayList<Facility> findFacility(FacilityType ft, Date startDate,Date endDate,boolean isDamaged)
 	{	
 		ArrayList<Facility> facilityList;
 		ArrayList<Facility> returnList;
 		
-		if (typeID == null || typeID == "") // when no typeID is requested
+		if (ft == null) // when no typeID is requested
 			facilityList = fRepo.findIsDamaged(isDamaged);
 		else
-			facilityList = fRepo.findIsDamagedOfType(isDamaged,  typeID);
+			facilityList = fRepo.findIsDamagedOfType(isDamaged,  ft);
 
 		if (startDate == null && endDate == null) 
 			return facilityList;
@@ -90,10 +93,10 @@ public class FacilityServicesImpl implements FacilityServices{
 		else {
 			returnList = new ArrayList<Facility>();
 			Date epoch= new Date(0L);
-			startDate = startDate.after(epoch) ? startDate : epoch;
-
 			Date checkEndDate = CABDate.plusDays(CABDate.getToday(), 7);
-			endDate = endDate.before(checkEndDate) ? endDate : checkEndDate;
+			
+			startDate = startDate.after(epoch) || startDate != null ? startDate : epoch;
+			endDate = endDate.before(checkEndDate) || endDate != null ? endDate : checkEndDate;
 
 			for (Facility f : facilityList) {
 				if (bService.checkFacilityAvailability(f, startDate, endDate))

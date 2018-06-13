@@ -41,9 +41,9 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
 	@Query("Select b from Booking b "
 			+ "where not "
-			+ "(b.startDate > startDate and "
-			+ "b.endDate < endDate) "
-			+ "and b.facility = facility"
+			+ "(b.startDate > :startDate and "
+			+ "b.endDate < :endDate) "
+			+ "and b.facility = :facility "
 			+ "order by b.startDate")
 	ArrayList<Booking> findBookingsBetweenStartAndEndDateInclusiveByFacility(
 			@Param("startDate") Date startDate,

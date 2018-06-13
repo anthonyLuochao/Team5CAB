@@ -76,12 +76,10 @@ public class BookingServicesImpl implements BookingService {
 		end = end.after(checkEndDate) ? checkEndDate : end;
 
 		// get all bookings between start and end date, including those at include the start and end date
-		if (f == null) {
-			bookings = bRepo.findBookingsBetweenStartAndEndDateInclusive(start, end);
-		}
-		else {
-			bookings = bRepo.findBookingsBetweenStartAndEndDateInclusiveByFacility(start, end, f);
-		}
+
+		bookings = bRepo.findBookingsBetweenStartAndEndDateInclusiveByFacility(start, end, f);
+		
+		System.out.println(bookings.size());
 		
 		ArrayList<Date> dates = BookingDatesToDateList(bookings);
 		Date checkDate = dates.get(0);

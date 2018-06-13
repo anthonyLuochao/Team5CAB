@@ -14,20 +14,26 @@ import sg.iss.team5cab.repo.FacilityRepository;
 import sg.iss.team5cab.repo.UsersRepository;
 
 @Service
-public class FacilityServicesImpl implements FacilityServices{
+public class FacilityServicesImpl{// implements FacilityService{
 	
 	@Resource
 	private FacilityRepository fRepo;
 	private BookingService bService;
 	
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#findFacilityById(int)
+	 */
+
 	@Transactional
 	public Facility findFacilityById(int id){
 		return fRepo.findOne(id);
 	}
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#findIsDamagedList(boolean)
+	 */
+
 	@Transactional
 	public ArrayList<Facility> findIsDamagedList(boolean isDamaged){		
 		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findIsDamaged(isDamaged);		
@@ -35,7 +41,10 @@ public class FacilityServicesImpl implements FacilityServices{
 	}
 		
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#createFacility(sg.iss.team5cab.model.Facility)
+	 */
+
 	@Transactional
 	public Facility createFacility(Facility fac)
 	{
@@ -43,7 +52,10 @@ public class FacilityServicesImpl implements FacilityServices{
 	}
 	
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#updateFacility(sg.iss.team5cab.model.Facility)
+	 */
+
 	@Transactional
 	public Facility updateFacility(Facility fac)
 	{
@@ -57,7 +69,10 @@ public class FacilityServicesImpl implements FacilityServices{
 //		fRepo.delete(fac);
 //	}
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#deleteFacility(sg.iss.team5cab.model.Facility)
+	 */
+
 	@Transactional
     public boolean deleteFacility(Facility fac)
 	{
@@ -72,7 +87,10 @@ public class FacilityServicesImpl implements FacilityServices{
 	}
 	
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#findFacility(java.lang.String, java.util.Date, java.util.Date, boolean)
+	 */
+
 	@Transactional
 	public ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,boolean isDamaged)
 	{	

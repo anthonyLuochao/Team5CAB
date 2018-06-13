@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,24 +22,24 @@
     <hr>
     <div class="container">
         <div class="card mt-5">
-            <form action="" method="post" class="col-12 card-body">
+            <form:form action="team5cab/admin/booking/create" method="post" class="col-12 card-body" modelAttribute="booking">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name"
-                        disabled />
-                    <input type="text" class="form-control" aria-label="User ID" aria-describedby="InputGroup-sizing-default" placeholder="User ID" />
+                    <form:hidden path="facility.facilityID" />
+                    <form:input type="text" class="form-control" path="facility.facilityName" placeholder="Facility Name" />
+                    <form:input type="text" class="form-control" path="users.userID" placeholder="User ID" />
                     <label class="form-check-label ml-5 pt-1">
                         <input type="checkbox" class="form-check-input" value="">For Maintenance
                     </label>
                 </div>
                 <div class="input-group date input-daterange mb-3" data-provide="datepicker">
-                    <input type="text" class="form-control" id="booking-start" placeholder="Choose Start Date">
+                    <form:input type="text" class="form-control" id="booking-start" placeholder="Choose Start Date" path="startDate"/>
                     <div class="input-group-addon">to</div>
-                    <input type="text" class="form-control" id="booking-end" placeholder="Choose End Date">
+                    <form:input type="text" class="form-control" id="booking-end" placeholder="Choose End Date" path="endDate" />
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary mb-3" onclick="">Book</button>
+                    <button type="submit" class="btn btn-primary mb-3">Book</button>
                 </div>
-            </form>
+            </form:form>
         </div>
 
     </div>

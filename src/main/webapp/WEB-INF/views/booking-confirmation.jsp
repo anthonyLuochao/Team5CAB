@@ -33,8 +33,12 @@
                 <h5 class="">11/06/1990</h5>
     
                 <div class="text-center">
+                	<a href="/team5cab/${sessionScope.role}/facility/search" class="btn btn-secondary">Back to Create Booking</a>
+                	<a href="/team5cab/${sessionScope.role}/welcome" class="btn btn-secondary">Home</a>
+                	<!-- 
                     <button type="submit" id='validateDate' class="btn " >Back to Create Booking</button>
                     <button type="submit" id='validateDate' class="btn " >Home</button>
+                     -->
                 </div>
         </div>
     </body>

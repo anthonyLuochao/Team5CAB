@@ -34,16 +34,16 @@ public class FacilityController {
 		return new ArrayList<String>();
 	}
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView newFacilityPage(@ModelAttribute("Facility") Facility fac) {
-
-		ModelAndView mav = new ModelAndView("facility_search");
-
-		mav.addObject("Facility", fService.findFacility(null, null, null, false));
-		mav.addObject("typeNames", getTypeNames());
-
-		return mav;
-	}
+//	@RequestMapping(value = "/search", method = RequestMethod.GET)
+//	public ModelAndView newFacilityPage(@ModelAttribute("Facility") Facility fac) {
+//
+//		ModelAndView mav = new ModelAndView("facility_search");
+//
+//		mav.addObject("Facility", fService.findFacility(null, null, null, false));
+//		mav.addObject("typeNames", getTypeNames());
+//
+//		return mav;
+//	}
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -54,6 +54,33 @@ public class FacilityController {
 		System.out.println("inside create load");
 		return mav;
 
+	}
+	
+	@RequestMapping(value="/create", method =RequestMethod.POST)
+	public ModelAndView createNewFacility(@ModelAttribute("Facility") Facility facility, 
+			final RedirectAttributes redirectAttributes)
+	{
+		
+		System.out.println("inside create load");
+		System.out.println(facility.toString());
+	
+	
+		//if(result.hasErrors())
+		//return new ModelAndView("facility_create_update");
+		
+		ModelAndView mav=new ModelAndView();
+		//String message="New Facility" + facility.getFacilityName() + "was sucessfully created";
+		System.out.println("inside create load");
+		
+	try {
+		fService.createFacility(facility);
+	}catch(Exception e)
+	{
+		System.out.println(e.getMessage());
+	}
+		mav.setViewName("redirect:/facility/create/confirmation");	
+	    redirectAttributes.addFlashAttribute("facility", facility);
+	     return mav;
 	}
 
 		private ArrayList<FacilityType> getFacilityType() {
@@ -70,32 +97,7 @@ public class FacilityController {
 			return fType;
 		}
 
-		@RequestMapping(value="/create", method =RequestMethod.POST)
-		public ModelAndView createNewFacility(@ModelAttribute("Facility") Facility facility, 
-				final RedirectAttributes redirectAttributes)
-		{
-			
-			System.out.println("inside create load");
-			System.out.println(facility.toString());
 		
-		
-			//if(result.hasErrors())
-			//return new ModelAndView("facility_create_update");
-			
-			ModelAndView mav=new ModelAndView();
-			//String message="New Facility" + facility.getFacilityName() + "was sucessfully created";
-			System.out.println("inside create load");
-			
-		try {
-			fService.createFacility(facility);
-		}catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
-			mav.setViewName("redirect:/facility/create/confirmation");	
-		    redirectAttributes.addFlashAttribute("facility", facility);
-		     return mav;
-		}
 
      
     @RequestMapping(value = "/search", method = RequestMethod.POST)
@@ -192,39 +194,39 @@ public class FacilityController {
 
 
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
-			final RedirectAttributes redirectAttributes) {
-		if (result.hasErrors())
-			return new ModelAndView("facility_create_update");
-
-		ModelAndView mav = new ModelAndView();
-		// String message="New Facility" + facility.getFacilityName() + "was sucessfully
-		// created";
-
-		fService.createFacility(facility);
-		mav.setViewName("redirect:/facility-confirmation");
-		redirectAttributes.addFlashAttribute("facility", facility);
-		return mav;
-
-	}
-
-	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
-	public ModelAndView updateFacilityPage(@PathVariable int fid, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("facility_create_update");
-		Facility facility = fService.findFacilityById(fid);
-		mav.addObject("facility", facility);
-
-		return mav;
-
-	}
-
-	@RequestMapping(value = "/facility/delete", method = RequestMethod.GET)
-	public boolean deleteFacilty(@PathVariable int fid) {
-		ModelAndView mav = new ModelAndView();
-		Facility facility = fService.findFacilityById(fid);
-		return fService.deleteFacility(facility);
-
-	}
+//	@RequestMapping(value = "/create", method = RequestMethod.POST)
+//	public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
+//			final RedirectAttributes redirectAttributes) {
+//		if (result.hasErrors())
+//			return new ModelAndView("facility_create_update");
+//
+//		ModelAndView mav = new ModelAndView();
+//		// String message="New Facility" + facility.getFacilityName() + "was sucessfully
+//		// created";
+//
+//		fService.createFacility(facility);
+//		mav.setViewName("redirect:/facility-confirmation");
+//		redirectAttributes.addFlashAttribute("facility", facility);
+//		return mav;
+//
+//	}
+//
+//	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
+//	public ModelAndView updateFacilityPage(@PathVariable int fid, HttpServletRequest request) {
+//		ModelAndView mav = new ModelAndView("facility_create_update");
+//		Facility facility = fService.findFacilityById(fid);
+//		mav.addObject("facility", facility);
+//
+//		return mav;
+//
+//	}
+//
+//	@RequestMapping(value = "/facility/delete", method = RequestMethod.GET)
+//	public boolean deleteFacilty(@PathVariable int fid) {
+//		ModelAndView mav = new ModelAndView();
+//		Facility facility = fService.findFacilityById(fid);
+//		return fService.deleteFacility(facility);
+//
+//	}
 
 }

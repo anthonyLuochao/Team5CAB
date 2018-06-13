@@ -12,11 +12,11 @@ pageEncoding="ISO-8859-1"%>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<cab:headImports />
-	<title>Update Facility</title>
+	<title>Create Facility</title>
 </head>
 <body>
 	<cab:nav />
-	<h1 style="text-align: center;">Update Facility</h1>
+	<h1 style="text-align: center;">Create Facility</h1>
 	<hr>
 	<div class="container">
 
@@ -39,10 +39,7 @@ pageEncoding="ISO-8859-1"%>
 						<div class="input-group mb-3">
 							<form:select path="facilityType" required="required" id="facilityType" class="form-control">
 								<option value="facilitytype" selected disabled>Facility Type</option>
-								<!-- <options items="${fType}"/> 
-								 <c:forTokens items = "${fType}" delims = " " var = "name">
-         							<form:option value="<c:out value = "${name}""/>
-         						</c:forTokens>-->
+								
 								<!-- <option value="Type1">MR</option>
 								<option value="Type2">TT</option> -->
 							</form:select>

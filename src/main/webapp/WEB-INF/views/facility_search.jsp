@@ -30,6 +30,7 @@ pageEncoding="ISO-8859-1"%>
 					 disabled="disabled">Select your facility type
 					</form:option>
 					<form:options items="${typeNames}" />
+
 				</form:select>
 				<label class="form-check-label"/>
 			</div>

@@ -3,6 +3,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,7 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="facility")
 public class Facility {
-@Id
+	
+@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int facilityID;
 
 @OneToMany(mappedBy="facility")
@@ -73,7 +76,7 @@ public void setAddress(String address) {
 public boolean getIsDamaged() {
 	return isDamaged;
 }
-public void setDamaged(boolean isDamaged) {
+public void setIsDamaged(boolean isDamaged) {
 	this.isDamaged = isDamaged;
 }
 public String getDamageReason() {
@@ -84,7 +87,7 @@ public void setDamageReason(String damageReason) {
 }
 @Override
 public String toString() {
-	return "Facility [facilityID=" + facilityID + " TypeID=" + facilityType.getTypeID()
+	return "Facility [facilityID=" + facilityID + " TypeID="
 			+ ", facilityName=" + facilityName + ", description=" + description + ", address=" + address
 			+ ", isDamaged=" + isDamaged + ", damageReason=" + damageReason + "]";
 }

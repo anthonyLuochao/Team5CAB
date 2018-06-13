@@ -21,31 +21,24 @@
     <h1 style="text-align: center;">Facility Create Confirmation</h1>
     <hr>
     <div class="container">
-        <form:form action="" method="post" class="col-12 card-body needs-validation" novalidate>
+        <form:form action="team5cab/facility/create/confirmation" method="post" class="col-12 card-body needs-validation" validate="novalidate" modelAttribute="Facility">
             <p class="text-muted font-italic mb-0 pb-0">Facility ID</p>
-            <h5 class="">{facility.facilityID}</h5>
+            <h5 class="">${facility.facilityID}</h5>
 
             <p class="text-muted font-italic mb-0 pb-0">Facility Type</p>
-            <h5 class="">{facility.facilityType}</h5>
+            <h5 class="">${facility.facilityType}</h5>
 
             <p class="text-muted font-italic mb-0 pb-0">Facility Name</p>
-            <h5 class="">{facility.facilityName}</h5>
+            <h5 class="">${facility.facilityName}</h5>
 
             <p class="text-muted font-italic mb-0 pb-0">Address</p>
-            <h5 class="">{facility.address}</h5>
+            <h5 class="">${facility.address}</h5>
 
             <p class="text-muted font-italic mb-0 pb-0">Address</p>
-            <h5 class="mb-5">{facility.description}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur aliquid unde repudiandae culpa eos tempore eligendi aut.
-                Sapiente facere debitis laboriosam quo nobis saepe odio voluptates ad hic, aspernatur maiores! Ullam, eaque
-                vero id animi alias enim porro molestiae quod quam fugit saepe! Esse cupiditate quos earum eos, nobis fugiat
-                dignissimos suscipit nesciunt neque ipsa quis, voluptatem sapiente aliquam amet. Atque, enim adipisci molestias
-                est quo voluptas fugiat aperiam ex nam vitae, saepe dolor reiciendis ipsam quam harum nisi ducimus quos reprehenderit
-                quasi consectetur recusandae? Sunt illum alias facilis debitis?</h5>
-
+            <h5 class="mb-5">${facility.description}</h5>
                 <div class="text-center">
-                    <button type="submit" id='validateDate' class="btn " formaction="./create">Back to Create Facility</button>
-                    <button type="submit" id='validateDate' class="btn " formaction="../welcome">Home</button>
+                    <button type="submit" id='validateDate' class="btn " onclick="window.location.href='team5cab/facility/create'">Back to Create Facility</button>
+                    <button type="submit" id='validateDate' class="btn " onclick="window.location.href='team5cab/welcome'">Home</button>
                 </div>
         </form:form>
     </div>

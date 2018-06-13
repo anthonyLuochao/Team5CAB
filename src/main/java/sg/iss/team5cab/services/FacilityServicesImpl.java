@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Facility;
+import sg.iss.team5cab.model.FacilityType;
 import sg.iss.team5cab.repo.FacilityRepository;
 import sg.iss.team5cab.repo.UsersRepository;
 
@@ -39,6 +40,7 @@ public class FacilityServicesImpl implements FacilityServices{
 	@Transactional
 	public Facility createFacility(Facility fac)
 	{
+		System.out.println("facility:"+fac.toString());
 		return fRepo.saveAndFlush(fac);
 	}
 	
@@ -74,7 +76,7 @@ public class FacilityServicesImpl implements FacilityServices{
 	
 	@Override
 	@Transactional
-	public ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,boolean isDamaged)
+	public ArrayList<Facility> findFacility(String typeID,Date startDate,Date endDate,boolean isDamaged)
 	{	
 		ArrayList<Facility> result1 =new ArrayList<Facility>();
 		ArrayList<Facility> result2 =new ArrayList<Facility>();
@@ -83,12 +85,12 @@ public class FacilityServicesImpl implements FacilityServices{
 		
 			result1=findIsDamagedList(isDamaged);
 			result=result1;
-			
-			if(typeId!=null)
+			System.out.println("result");
+			if(typeID!=null)
 			{
 			for(Facility fac : result1)
 			{
-				if(fac.getFacilityType().equals(typeId))
+				if(fac.getFacilityType().getTypeID().equals(typeID))
 				{
 					result2.add(fac);					
 				}

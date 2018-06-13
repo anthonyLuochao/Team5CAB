@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,8 +38,10 @@
             <p class="text-muted font-italic mb-0 pb-0">Address</p>
             <h5 class="mb-5">${facility.description}</h5>
                 <div class="text-center">
-                    <button type="submit" id='validateDate' class="btn " onclick="window.location.href='team5cab/facility/create'">Back to Create Facility</button>
-                    <button type="submit" id='validateDate' class="btn " onclick="window.location.href='team5cab/welcome'">Home</button>
+                	<c:if test="${sessionScope.role == 'admin' }" >
+						<a href="team5cab/admin/facility/create'">Back to Create Facility</a>
+                    </c:if>
+                    <a class="btn " href="team5cab/welcome">Home</a>
                 </div>
         </form:form>
     </div>

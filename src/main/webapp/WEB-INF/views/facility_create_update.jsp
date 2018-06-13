@@ -21,7 +21,7 @@ pageEncoding="ISO-8859-1"%>
 	<div class="container">
 
 		<card class="card mt-5">
-		 <form:form	action="team5cab/facility/create" class="col-12 card-body needs-validate" modelAttribute="Facility">
+		 <form:form	action="team5cab/admin/facility/create" class="col-12 card-body needs-validate" modelAttribute="Facility">
 		 
 		<!-- 	<form action="" method="post" class="col-12 card-body needs-validation" > -->
 				<div class="row">
@@ -40,7 +40,7 @@ pageEncoding="ISO-8859-1"%>
 						<div class="input-group mb-3">
 							<form:select path="facilityType.typeID" required="required" id="facility-type" class="form-control">
 							<option value="" selected disabled>Select Your facility Type</option>
-							<form:options items="${listOfFacilityType}"/>
+							<form:options items="${listOfFacilityType}" />
 							</form:select>
 							
 						</div>
@@ -63,11 +63,11 @@ pageEncoding="ISO-8859-1"%>
 
 						<div class="form-check mb-3">
 							<label class="form-check-label">
-								<input class="form-check-input" path="isDamaged" id="facility-unusable" type="checkbox" value=""/> Facility is unusable
+							<form:checkbox class="form-check-input" path="isDamaged" id="facility-unusable"/> Facility is unusable
 							</label>
 						</div>
 						<div class="text-center">
-							<button type="submit" class="btn btn-primary mb-3" onclick="">Update</button>
+							<button type="submit" class="btn btn-primary mb-3">Update</button>
 						</div>
 					</div>
 					</row>

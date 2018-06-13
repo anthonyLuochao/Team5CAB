@@ -20,7 +20,7 @@ pageEncoding="ISO-8859-1"%>
 	<hr>
 	<div class="container">
 		<card class="card mt-5"> <form:form
-			action="team5cab/facility/search"
+			action="/team5cab/${sessionScope.role}/facility/search"
 			class="col-12 card-body needs-validate" modelAttribute="Facility" method="POST">
 
 			<div class="input-group mb-3">
@@ -51,7 +51,7 @@ pageEncoding="ISO-8859-1"%>
 				</label>
 			</div>
 			<div class="text-center">
-			<input type="submit"  class="btn btn-primary" value="Search" formmethod="post">
+			<input type="submit"  class="btn btn-primary" value="Search">
 			</div>
 		</form:form> </card>
 

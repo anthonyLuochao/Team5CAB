@@ -1,6 +1,5 @@
 package sg.iss.team5cab.contollers;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team5cab.model.Facility;
-import sg.iss.team5cab.model.FacilityType;
-import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.FacilityServices;
 import sg.iss.team5cab.services.FacilityTypeService;
 
 @Controller
-@RequestMapping(value = "/facility")
 public class FacilityController {
 
 	@Autowired
@@ -35,7 +31,7 @@ public class FacilityController {
 	private FacilityTypeService ftService;	
 
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/facility/create", method = RequestMethod.GET)
 	public ModelAndView createFacilityPage() {
 		ModelAndView mav = new ModelAndView("facility_create_update");		
 		mav.addObject("Facility", new Facility());
@@ -45,7 +41,7 @@ public class FacilityController {
 
 	}
 	
-	@RequestMapping(value="/create", method =RequestMethod.POST)
+	@RequestMapping(value="/admin/facility/create", method =RequestMethod.POST)
 	public ModelAndView createNewFacility(@ModelAttribute("Facility") Facility facility, 
 			final RedirectAttributes redirectAttributes)
 	{
@@ -57,12 +53,12 @@ public class FacilityController {
 		System.out.println("printing faciliyt");
 		System.out.println(facility.toString());
 		fService.createFacility(facility);		
-		mav.setViewName("redirect:/facility/create/confirmation");	
+		mav.setViewName("redirect:/admin/facility/create/confirmation");	
 	    redirectAttributes.addFlashAttribute("facility", facility);
 	     return mav;
 	}
 	
-	@RequestMapping(value = "/create/confirmation", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/facility/create/confirmation", method = RequestMethod.GET)
 	public ModelAndView createFacilityConfirmationPage(@ModelAttribute("Facility") Facility facility) {
 		ModelAndView mav = new ModelAndView("facility-confirmation");
 		mav.addObject("Facility", facility);
@@ -72,7 +68,7 @@ public class FacilityController {
 
 
 		
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	@RequestMapping(value = {"/admin/facility/search", "/member/facility/search"}, method = RequestMethod.GET)
 	public ModelAndView newFacilityPage(@ModelAttribute("Facility") Facility fac) {
 
 		ModelAndView mav = new ModelAndView("facility_search");
@@ -83,7 +79,7 @@ public class FacilityController {
 		return mav;
 	}
      
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/facility/search", "/member/facility/search"}, method = RequestMethod.POST)
 	public ModelAndView FacilitySearchPage(@ModelAttribute("Facility") Facility fac, BindingResult result,
 			final RedirectAttributes redirectAttributes, @RequestParam("typeName") String typeName,
 			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "MM-dd-yyyy") Date startDate,
@@ -129,7 +125,7 @@ public class FacilityController {
 	}
 
 
-	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/facility/update/{fid}", method = RequestMethod.GET)
 	public ModelAndView updateFacilityPage(@PathVariable int fid, HttpServletRequest request) {
 		Facility facility = fService.findFacilityById(fid);
 		ModelAndView mav = new ModelAndView("facility_create_update","Facility",facility);
@@ -138,7 +134,7 @@ public class FacilityController {
 	
 	}
 
-	@RequestMapping(value = "/update/confirmation", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/facility/update/confirmation", method = RequestMethod.POST)
 	public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
 			@PathVariable int fid, final RedirectAttributes redirectAttributes) {
 

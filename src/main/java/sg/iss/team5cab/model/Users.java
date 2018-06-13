@@ -2,7 +2,6 @@ package sg.iss.team5cab.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,3 +1,6 @@
+package sg.iss.team5cab.contollers;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.iss.team5cab.model.Booking;
 import sg.iss.team5cab.services.BookingService;
+import sg.iss.team5cab.services.FacilityTypeService;
 
 @Controller
 public class BookingController {
@@ -32,16 +36,28 @@ public class BookingController {
 	
 	@Autowired
 	FacilityTypeService ftService;
+
 	
 	@RequestMapping(value="/admin/booking/search",method=RequestMethod.GET)
 	public ModelAndView loadFacilityTypeToDropdownList()
 	{
 		ModelAndView mav=new ModelAndView();
-		//fList<String> typeName=ftService.findAllType();
+		mav.addObject("booking",new Booking());
 		mav.addObject("listOfFacilityType",ftService.findAllType());
 		mav.setViewName("booking-search");
 		return mav;
 	}
+	@RequestMapping(value="/admin/booking/search",method=RequestMethod.POST)
+	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking)
+	{
+		ModelAndView mav=new ModelAndView();
+		List<Booking> listBookings=bService.findBookingByAdmin(13, booking.getStartDate(), booking.getEndDate(), "Robin1234");//facilityID userID hardcoded
+		mav.addObject("listOfBookings",listBookings);
+		mav.setViewName("booking-search");
+		return mav;
+	}
+	
+
 	
 
 }

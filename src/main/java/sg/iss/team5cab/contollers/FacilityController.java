@@ -29,7 +29,7 @@ private FacilityServices fService;
 public ModelAndView newFacilityPage()
 {
 	ModelAndView mav=new ModelAndView("facility_search");
-	mav.addObject("Facility", fService.findAllFacilities());
+	mav.addObject("Facility", fService.findFacility(null, null, null, false));
 	return mav;
 			
 }
@@ -51,20 +51,20 @@ public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, 
 			
 }
 
-   @RequestMapping(value= "/searchuser",method=RequestMethod.GET)
-   public ModelAndView facilitySearchPage() {
-	   ModelAndView mav=new ModelAndView("facility_search");
-	   ArrayList<Facility> facilityList=fService.findAllFacilities();
-	   mav.addObject("Facility", facilityList);
-	   return mav;
-   }
+//   @RequestMapping(value= "/searchuser",method=RequestMethod.GET)
+//   public ModelAndView facilitySearchPage() {
+//	   ModelAndView mav=new ModelAndView("facility_search");
+//	   ArrayList<Facility> facilityList=fService.findAllFacilities();
+//	   mav.addObject("Facility", facilityList);
+//	   return mav;
+//   }
    
    @RequestMapping(value="/update",method=RequestMethod.GET)
    public ModelAndView updateFacilityPage(@PathVariable int fid) {
      ModelAndView mav=new ModelAndView("facility-create-update") ;      
-	 Facility facility = fService.findFacility(fid);
+	 Facility facility = fService.findFacilityById(fid);
 	 mav.addObject("facility",facility);
-	 mav.addObject("fidlist", fService.findAllFacilities());
+	 mav.addObject("fidlist", fService.findFacility(null, null, null, false));
 	 return mav;	 
 	 
    }
@@ -89,7 +89,7 @@ public ModelAndView createNewFacility(@ModelAttribute @Valid Facility facility, 
 @RequestMapping(value="/facility/delete",method=RequestMethod.GET)
 public boolean deleteFacilty(@PathVariable int fid) {
 	ModelAndView mav=new ModelAndView();
-	Facility facility=fService.findFacility(fid);
+	Facility facility=fService.findFacilityById(fid);
 	return fService.deleteFacility(facility);	
 
 

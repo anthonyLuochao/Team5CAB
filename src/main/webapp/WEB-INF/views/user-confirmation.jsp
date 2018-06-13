@@ -17,39 +17,36 @@
     
     <body>
     <cab:nav/>
-    
-        <!--End of template-->
-    
-        <h1 style="text-align: center;">Booking Confirmation</h1>
+        <h1 style="text-align: center;">User Details Confirmation</h1>
         <hr>
         <div class="container">
-                <p class="text-muted font-italic mb-0 pb-0">User ID</p>
-                
-                <h5 ><c:out value="${Users.userID}"/></h5>
-    
-                <p class="text-muted font-italic mb-0 pb-0">Name</p>
-               
-                <h5 class=""><c:out value="${Users.name}"/></h5>
-    
-                <p class="text-muted font-italic mb-0 pb-0">Email</p>
-                <h5 class=""><c:out value="${Users.email}"/></h5>
-    
-                <p class="text-muted font-italic mb-0 pb-0">Address</p>
-                <h5 class=""><c:out value="${Users.address }"/></h5>
-    
-                <p class="text-muted font-italic mb-0 pb-0">Phone Number</p>
-                <h5 class=""><c:out value="${Users.phoneNumber}"/></h5>
+			<p class="text-muted font-italic mb-0 pb-0">User ID</p>
+			<h5 class="">${User.userID}</h5>
 
-                <p class="text-muted font-italic mb-0 pb-0">Birthday</p>
-                <h5 class=""><fmt:formatDate value="${Users.dob}" pattern="MM/dd/yyyy" /></h5>
-    
-                <p class="text-muted font-italic mb-0 pb-0">Role</p>
-                <h5 class=""><c:out value="${Users.role}"/></h5>
-        
-                <div class="text-center">
-                    <button type="submit" id='validateDate' class="btn " >Back to Create Users</button>
-                    <button type="submit" id='validateDate' class="btn " >Home</button>
-                </div>
+			<p class="text-muted font-italic mb-0 pb-0">Name</p>
+			<h5 class="">${User.name}</h5>
+
+			<p class="text-muted font-italic mb-0 pb-0">Email</p>
+			<h5 class="">${User.email}</h5>
+
+			<p class="text-muted font-italic mb-0 pb-0">Address</p>
+			<h5 class="">${User.address}</h5>
+
+			<p class="text-muted font-italic mb-0 pb-0">Phone Number</p>
+			<h5 class="">${User.phoneNumber}</h5>
+
+			<p class="text-muted font-italic mb-0 pb-0">Birthday</p>
+			<h5 class=""><fmt:formatDate value="${User.dob}" pattern="MM/dd/yyyy" /></h5>
+
+			<p class="text-muted font-italic mb-0 pb-0">Role</p>
+			<h5 class="">${User.role}</h5>
+	
+			<div class="text-center">
+				<c:if test="${sessionScope.role==admin}">
+					<a href="/team5cab/admin/users/search" class="btn btn-secondary">Back to Search Users</a>
+				</c:if>
+				<a href="/team5cab/${sessionScope.role}/welcome" class="btn btn-secondary">Home</a>
+			</div>
         </div>
     </body>
 </html>

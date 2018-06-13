@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,10 +24,10 @@
     <hr>
     <div class="container">
         <card class="card mt-5">
-            <form action="POST" method="post" class="col-12 card-body needs-validation" novalidate>
+            <form:form action="/team5cab/admin/booking/search" method="post" class="col-12 card-body needs-validation" modelAttribute="booking">
 
                 <div class="input-group mb-3">
-                    <form:select path= "listOfFacilityType" required="required" id="facility-type" class="form-control">
+                    <form:select path= "facility.facilityType.typeName" required="required" id="facility-type" class="form-control">
                         <option value="" selected disabled>Select your facility Type</option>
                         <form:options items="${listOfFacilityType}" />
                        
@@ -50,10 +51,10 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" onclick="">Search</button>
                 </div>
-            </form>
+            </form:form>
         </card>
 
-        <table id="search-booking-table" class="table table-hover" style="margin-top: 100px; display: none">
+        <table id="search-booking-table" class="table table-hover" style="margin-top: 100px; display: block;">
             <thead>
                 <tr>
                     <th>Facility Name</th>
@@ -64,16 +65,18 @@
                 </tr>
             </thead>
             <tbody>
+            <c:forEach var="booking" items="${listOfBookings}">
                 <tr>
-                    <td class="align-middle">Basketball Court</td>
-                    <td class="align-middle">18-Jun-2018</td>
-                    <td class="align-middle">18-Jun-2018</td>
-                    <td class="align-middle">Hello</td>
+                      <td class="align-middle">${booking.facility.facilityID }</td>
+                    <td class="align-middle"><c:out value="${booking.startDate}"/></td>
+                    <td class="align-middle"><c:out value="${booking.endDate}"/></td>
+                    <td class="align-middle"><c:out value="${booking.users.userID}"/></td>
                     <td class="align-middle">
                         <button type="button" class="btn btn-secondary">Edit</button>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     </td>
                 </tr>
+                </c:forEach>
                 <tr>
                     <td class="align-middle">Football Court</td>
                     <td class="align-middle">21-Jun-2018</td>

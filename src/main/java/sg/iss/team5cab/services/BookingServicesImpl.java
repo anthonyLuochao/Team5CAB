@@ -51,7 +51,7 @@ public class BookingServicesImpl implements BookingService {
 	/* (non-Javadoc)
 	 * @see sg.iss.team5cab.services.BookingService#findBookingByAdmin(int, java.time.LocalDate, java.time.LocalDate, java.lang.String)
 	 */
-	@Transactional
+	@Transactional 
 	@Override
 	public List<Booking> findBookingByAdmin(int fID,Date start,Date end,String uID)
 	{

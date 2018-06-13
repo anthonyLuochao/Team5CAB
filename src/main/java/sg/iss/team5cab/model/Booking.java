@@ -27,11 +27,11 @@ private Facility facility;
 
 //private int facilityID;
 //private String userID;
-@DateTimeFormat(pattern = "dd/mm/yyyy") 
+@DateTimeFormat(pattern = "MM/dd/yyyy") 
 @Column(name="start_Date",columnDefinition="DATE")
 private Date startDate;
 
-@DateTimeFormat(pattern = "dd/mm/yyyy") 
+@DateTimeFormat(pattern = "MM/dd/yyyy") 
 @Column(name="end_Date",columnDefinition="DATE")
 private Date endDate;
 @Column(columnDefinition="TINYINT")
@@ -75,10 +75,10 @@ public boolean isUnderMaintenance() {
 public void setUnderMaintenance(boolean isUnderMaintenance) {
 	this.isUnderMaintenance = isUnderMaintenance;
 }
-public boolean isCancel() {
+public boolean getIsCancel() {
 	return isCancel;
 }
-public void setCancel(boolean isCancel) {
+public void setIsCancel(boolean isCancel) {
 	this.isCancel = isCancel;
 }
 @Override

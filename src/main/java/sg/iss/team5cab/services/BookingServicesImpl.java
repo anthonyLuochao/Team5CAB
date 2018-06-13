@@ -1,6 +1,7 @@
 package sg.iss.team5cab.services;
 
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -59,7 +60,7 @@ public class BookingServicesImpl implements BookingService {
 		 List<Booking> b= bRepo.findBookingDates(end,start, fID,uID);
 		 for(Booking book:b)
 		 {
-			 book.setCancel(true);
+			 book.setIsCancel(true);
 			 bRepo.saveAndFlush(book);
 		 }
 	}
@@ -71,6 +72,7 @@ public class BookingServicesImpl implements BookingService {
 		
 		// Availability should only be checked between today and X days from today.
 		Date today = CABDate.getToday();
+		System.out.println(today);
 		Date checkEndDate = CABDate.plusDays(today, 7);
 		start = start.before(today) ? today : start;
 		end = end.after(checkEndDate) ? checkEndDate : end;
@@ -79,19 +81,13 @@ public class BookingServicesImpl implements BookingService {
 
 		bookings = bRepo.findBookingsBetweenStartAndEndDateInclusiveByFacility(start, end, f);
 		
-		System.out.println(bookings.size());
+		if (bookings.size() == 0)
+			return true;
 		
 		ArrayList<Date> dates = BookingDatesToDateList(bookings);
-		Date checkDate = dates.get(0);
-		// If, during the loop, the current checkDate is before the date compared in the list
-		// return true as there the current checkDate is available for booking.
-		for (Date date : dates) {
-			if (checkDate.before(date))
-				return true;
-			else
-				CABDate.plusDays(checkDate, 1);
-		}
-		return false;
+		
+		long days = ChronoUnit.DAYS.between(CABDate.getLocalDateTime(start), CABDate.getLocalDateTime(end)) + 1;
+		return (long) dates.size() < days; 
 	}
 	
 	@Transactional
@@ -181,9 +177,14 @@ public class BookingServicesImpl implements BookingService {
 	public ArrayList<Date> BookingDatesToDateList(List<Booking> bookings) {
 		ArrayList<Date> dates = new ArrayList<Date>();
 		for (Booking b : bookings) {
-			for (Date date = b.getStartDate(); !date.equals(b.getEndDate()); CABDate.plusDays(date, 1)) {
+			System.out.println(b);
+			Date date = b.getStartDate();
+			do {
 				dates.add(date);
-			}
+				date = CABDate.plusDays(date,  1);
+			} 
+			while(!date.after(b.getEndDate()));
+			System.out.println(dates);
 		}
 		return dates;
 	}

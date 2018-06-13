@@ -82,11 +82,7 @@ public class FacilityController {
      
     @RequestMapping(value = "/search", method = RequestMethod.POST)
 	public ModelAndView FacilitySearchPage(@ModelAttribute("Booking") Booking book, BindingResult result,
-			final RedirectAttributes redirectAttributes
-/*			@RequestParam(value = "facilityType", required = false) String facilityTypeName,*/
-/*			@RequestParam(value = "startDate", required = false) String startDate,*/
-/*			@RequestParam(value = "endDate", required = false) String endDate,*/
-/*			@RequestParam(value = "isDamaged", required = false) boolean isDamaged)*/)
+			final RedirectAttributes redirectAttributes)
     		throws Exception{
     	
     	System.out.println("Executing Search Controller.....");
@@ -96,11 +92,15 @@ public class FacilityController {
 		System.out.println("YO");
 		System.out.println(book.getFacility().getFacilityType());
 		Facility f = book.getFacility();
-		FacilityType ft = f.getFacilityType() != null ? f.getFacilityType() : null;
-			
+		FacilityType ft = f.getFacilityType().getTypeID().equals("") ? null :f.getFacilityType();
+		System.out.println(book.getFacility().getFacilityType());
+
 		Date sDate=book.getStartDate();
 		Date eDate=book.getEndDate();
 		boolean isDmged = book.getFacility().getIsDamaged();
+
+		System.out.println(sDate);
+		System.out.println(eDate);
 		
 		
 		mav.setViewName("facility_search");

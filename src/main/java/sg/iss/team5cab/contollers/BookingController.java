@@ -56,7 +56,8 @@ public class BookingController {
 	{
 		ModelAndView mav=new ModelAndView();
 		List<Booking> listBookings=bService.findBookingByAdmin(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());//facilityID userID hardcoded
-		mav.addObject("listOfBookings",listBookings);
+		
+		mav.addObject("bookings",listBookings);
 		mav.setViewName("booking-search");
 		return mav;
 		}
@@ -64,14 +65,26 @@ public class BookingController {
     public ModelAndView editBooking(@PathVariable int bookingID)
     {
 		Booking booking  = bService.findBookingByID(bookingID);
-		ModelAndView mav = new ModelAndView("booking-edit", "Booking", booking);
+		ModelAndView mav = new ModelAndView("booking-edit", "booking", booking);
 		
 		return mav;
     }
-	@RequestMapping(value="/admin/booking/edit/{bookingID}",method = RequestMethod.POST)
-    public ModelAndView editBookingConfirmation(@ModelAttribute("booking") Booking book)
+	@RequestMapping(value="/admin/booking/edit",method = RequestMethod.POST)
+    public ModelAndView editBookingConfirmation(@ModelAttribute("booking") Booking updatedBooking)
     {
-    	ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(book));
+//		System.out.println(updatedBooking);
+		Booking oldBooking=bService.findBookingByID(updatedBooking.getBookingID());
+		
+		oldBooking.setStartDate(updatedBooking.getStartDate());
+		oldBooking.setEndDate(updatedBooking.getEndDate());
+//		
+//		updatedBooking.setIsCancel(oldBooking.getIsCancel());
+//		//updatedBooking.setBookingID(oldBooking.getBookingID());
+//		updatedBooking.setFacility(oldBooking.getFacility());
+//		updatedBooking.setUnderMaintenance(oldBooking.getIsUnderMaintenance());
+//		updatedBooking.getUsers().setUserID(oldBooking.getUsers().getUserID());
+		
+    	ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(oldBooking));
        	return mav;
     }
 	@RequestMapping(value="/admin/booking/delete/{bookingID}",method=RequestMethod.GET)

@@ -26,7 +26,7 @@
         <card class="card mt-5">
             <form:form action="/team5cab/admin/booking/search" method="post" class="col-12 card-body needs-validation" modelAttribute="booking">
 				
-                    <input type="text" class="form-control"  placeholder="User ID"
+                    <form:input type="text" class="form-control"  placeholder="User ID"
                         required="required" path="users.userID" />
                   
                 <div class="input-group mb-3">
@@ -40,9 +40,9 @@
                     </div>
                 </div>
                 <div class="input-group mb-3 date input-daterange" data-provide="datepicker">
-                    <input type="text" class="form-control" placeholder="Choose Start Date" >
+                    <form:input path="startDate" type="text" class="form-control" placeholder="Choose Start Date" />
                     <div class="input-group-addon">to</div>
-                    <input type="text" class="form-control" placeholder="Choose Start Date" >
+                    <form:input path="endDate" type="text" class="form-control" placeholder="Choose Start Date" />
 
                     <div id="validation-text" class="mb-3">
                     </div>
@@ -68,39 +68,20 @@
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="booking" items="${listOfBookings}">
+            <c:forEach var="item" items="${bookings}">
                 <tr>
-                      <td class="align-middle">${booking.facility.facilityID }</td>
-                    <td class="align-middle"><c:out value="${booking.startDate}"/></td>
-                    <td class="align-middle"><c:out value="${booking.endDate}"/></td>
-                    <td class="align-middle"><c:out value="${booking.users.userID}"/></td>
+                      <td class="align-middle">${item.facility.facilityID }</td>
+                    <td class="align-middle"><c:out value="${item.startDate}"/></td>
+                    <td class="align-middle"><c:out value="${item.endDate}"/></td>
+                    <td class="align-middle"><c:out value="${item.users.userID}"/></td>
                     <td class="align-middle">
-                        <a href="<c:url value="/admin/booking/edit/${booking.bookingID}" />" class="btn btn-secondary">Edit</a>
-                    	<a href="<c:url value="/admin/booking/delete/${booking.bookingID}" />" class="btn btn-danger">Delete</a>
+                        <a href="<c:url value="/admin/booking/edit/${item.bookingID}" />" class="btn btn-secondary">Edit</a>
+                    	<a href="<c:url value="/admin/booking/delete/${item.bookingID}" />" class="btn btn-danger">Cancel</a>
                     </td>
                 </tr>
                 </c:forEach>
-                <tr>
-                    <td class="align-middle">Football Court</td>
-                    <td class="align-middle">21-Jun-2018</td>
-                    <td class="align-middle">23-Jun-2018</td>
-                    <td class="align-middle">World</td>
-                    <td class="align-middle">
-                        <button type="button" class="btn btn-secondary">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="align-middle">Tennis Court</td>
-                    <td class="align-middle">22-Jun-2018</td>
-                    <td class="align-middle">25-Jun-2018</td>
-                    <td class="align-middle">!</td>
-                    <td class="align-middle">
-                        <button type="button" class="btn btn-secondary">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
+                
+                </tbody>
         </table>
     </div>
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -21,20 +22,20 @@
         <hr>
         <div class="container">
                 <p class="text-muted font-italic mb-0 pb-0">User ID</p>
-                <h5 class="">${booking.user.userID }</h5>
+                <h5 class="">${booking.users.userID }</h5>
     
                 <p class="text-muted font-italic mb-0 pb-0">Facility Name</p>
-                <h5 class="">Actual Facility Name</h5>
+                <h5 class="">${booking.facility.facilityName}</h5>
     
                 <p class="text-muted font-italic mb-0 pb-0">Start Date</p>
-                <h5 class="">10/06/1990</h5>
+                <h5 class=""><fmt:formatDate value="${booking.startDate}" pattern="MM/dd/yyyy" /></h5>
     
                 <p class="text-muted font-italic mb-0 pb-0">End Date</p>
-                <h5 class="">11/06/1990</h5>
+                <h5 class=""><fmt:formatDate value="${booking.endDate}" pattern="MM/dd/yyyy" /></h5>
     
                 <div class="text-center">
-                    <button type="submit" id='validateDate' class="btn " >Back to Create Booking</button>
-                    <button type="submit" id='validateDate' class="btn " >Home</button>
+                    <a href="/team5cab/admin/booking/create" type="submit" id='validateDate' class="btn "> Back to Create Booking </a>
+                    <a href="/team5cab" type="submit" id='validateDate' class="btn " >Home</a>
                 </div>
         </div>
     </body>

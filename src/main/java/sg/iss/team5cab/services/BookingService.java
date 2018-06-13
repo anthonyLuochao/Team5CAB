@@ -30,4 +30,6 @@ public interface BookingService {
 
 	Booking deleteBooking(int bookingID);
 
+	List<Booking> findAllBooking();
+
 }

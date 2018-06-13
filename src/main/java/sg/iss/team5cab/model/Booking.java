@@ -16,7 +16,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="booking")
 public class Booking {
-@Id@GeneratedValue(strategy=GenerationType.AUTO)
+@Id
+@GeneratedValue(strategy=GenerationType.AUTO)
 private int bookingID;
 @ManyToOne
 @JoinColumn(name="userID",nullable=false)
@@ -68,16 +69,17 @@ public Date getEndDate() {
 public void setEndDate(Date endDate) {
 	this.endDate = endDate;
 }
-public boolean isUnderMaintenance() {
+public boolean getIsUnderMaintenance() {
 	return isUnderMaintenance;
 }
 public void setUnderMaintenance(boolean isUnderMaintenance) {
 	this.isUnderMaintenance = isUnderMaintenance;
 }
-public boolean isCancel() {
+public boolean getIsCancel() {
 	return isCancel;
 }
-public void setCancel(boolean isCancel) {
+
+public void setIsCancel(boolean isCancel) {
 	this.isCancel = isCancel;
 }
 @Override

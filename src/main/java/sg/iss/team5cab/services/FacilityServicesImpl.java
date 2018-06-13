@@ -52,12 +52,7 @@ public class FacilityServicesImpl implements FacilityServices{
 		return fRepo.saveAndFlush(fac);
 	}
 	
-//	@Override
-//	@Transactional
-//	public void deleteFacility(Facility fac)
-//	{
-//		fRepo.delete(fac);
-//	}
+
 	
 	@Override
 	@Transactional
@@ -133,27 +128,6 @@ public class FacilityServicesImpl implements FacilityServices{
 			return result;		
 	}
 
-	
-	
-	
-//	@Override
-//	@Transactional
-//	public ArrayList<Facility> findFacilityByDateRange(LocalDate startDate,LocalDate endDate)
-//	{
-//		ArrayList<Facility> returnList=new ArrayList<Facility>();
-//		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findAll();
-//		for(Facility fac : f)
-//		{
-////			boolean result = bService.checkFacilityAvailability(fac.getFacilityID(),startDate,endDate);
-////			if(result)
-////			{
-////				returnList.add(fac);
-////			}
-//		}
-//		return returnList;
-//		
-//	}
-//	
 }	
 
 

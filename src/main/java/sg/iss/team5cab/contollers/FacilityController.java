@@ -49,17 +49,11 @@ public class FacilityController {
 	public ModelAndView createNewFacility(@ModelAttribute("Facility") Facility facility, 
 			final RedirectAttributes redirectAttributes)
 	{
-		ModelAndView mav=new ModelAndView();	
-		//if(result.hasErrors())
-		//return new ModelAndView("facility_create_update");		
-		
-		//String message="New Facility" + facility.getFacilityName() + "was sucessfully created";
-		System.out.println("printing faciliyt");
-		System.out.println(facility.toString());
+		ModelAndView mav=new ModelAndView();			
 		fService.createFacility(facility);		
 		mav.setViewName("redirect:/facility/create/confirmation");	
 	    redirectAttributes.addFlashAttribute("facility", facility);
-	     return mav;
+	    return mav;
 	}
 	
 	@RequestMapping(value = "/create/confirmation", method = RequestMethod.GET)
@@ -70,6 +64,33 @@ public class FacilityController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
+	public ModelAndView updateFacilityPage(@PathVariable int fid ) {
+		
+		Facility facility = fService.findFacilityById(fid);		
+		ModelAndView mav = new ModelAndView("facility_edit","Facility",facility);		
+		return mav;
+	
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public ModelAndView updatenewFacility(@ModelAttribute("Facility") Facility facility, 
+			final RedirectAttributes redirectAttributes)
+	{
+		ModelAndView mav=new ModelAndView();	
+		fService.updateFacility(facility);		
+		mav.setViewName("redirect:/facility/update/confirmation");	
+	    redirectAttributes.addFlashAttribute("facility", facility);
+	    return mav;
+	}
+	
+	@RequestMapping(value = "/update/confirmation", method = RequestMethod.GET)
+	public ModelAndView updateFacility(@ModelAttribute("Facility") Facility facility) {		
+		ModelAndView mav = new ModelAndView("facility-confirmation","Facility", facility);		
+		return mav;
+
+	}	
+	
 
 		
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -127,38 +148,11 @@ public class FacilityController {
 
 		return mav;
 	}
-
-
-	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
-	public ModelAndView updateFacilityPage(@PathVariable int fid, HttpServletRequest request) {
-		Facility facility = fService.findFacilityById(fid);
-		ModelAndView mav = new ModelAndView("facility_create_update","Facility",facility);
 	
-		return mav;
+
+
 	
-	}
-
-	@RequestMapping(value = "/update/confirmation", method = RequestMethod.POST)
-	public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
-			@PathVariable int fid, final RedirectAttributes redirectAttributes) {
-
-		if (result.hasErrors())
-			return new ModelAndView("facility-create-update");
-
-		ModelAndView mav = new ModelAndView();
-		// String message="Department was sucessfully updated";
-
-		fService.updateFacility(facility);
-		mav.setViewName("redirect:/facility-confirmation");
-		redirectAttributes.addFlashAttribute("facility", facility);
-		return mav;
-
-	}
-
-
-
-
-
+	
 	@RequestMapping(value = "/delete/{fid}", method = RequestMethod.GET)
 	public ModelAndView deleteFacilty(@PathVariable int fid) {
 		ModelAndView mav = new ModelAndView();

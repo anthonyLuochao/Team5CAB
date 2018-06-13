@@ -18,7 +18,7 @@
 
     <!--End of template-->
 
-    <h1 style="text-align: center;">Facility Create Confirmation</h1>
+    <h1 style="text-align: center;">Facility Confirmation</h1>
     <hr>
     <div class="container">
         <form:form action="team5cab/facility/create/confirmation" method="post" class="col-12 card-body needs-validation" validate="novalidate" modelAttribute="Facility">
@@ -37,8 +37,8 @@
             <p class="text-muted font-italic mb-0 pb-0">Address</p>
             <h5 class="mb-5">${facility.description}</h5>
                 <div class="text-center">
-                    <button type="submit" id='validateDate' class="btn " onclick="window.location.href='team5cab/facility/create'">Back to Create Facility</button>
-                    <button type="submit" id='validateDate' class="btn " onclick="window.location.href='team5cab/welcome'">Home</button>
+                    <a href="/team5cab/facility/search" class="btn btn-secondary " >Back to Search Facility </a>                   
+                    <a href = "/team5cab/welcome"  class="btn btn-primary" >Home</a>
                 </div>
         </form:form>
     </div>

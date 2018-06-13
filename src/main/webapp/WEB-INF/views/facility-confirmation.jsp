@@ -19,7 +19,7 @@
 
     <!--End of template-->
 
-    <h1 style="text-align: center;">Facility Create Confirmation</h1>
+    <h1 style="text-align: center;">Facility Confirmation</h1>
     <hr>
     <div class="container">
         <form:form action="team5cab/facility/create/confirmation" method="post" class="col-12 card-body needs-validation" validate="novalidate" modelAttribute="Facility">

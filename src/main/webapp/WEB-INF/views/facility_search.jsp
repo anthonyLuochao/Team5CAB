@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,17 +19,20 @@
 	<h1 style="text-align: center;">Search Facility</h1>
 	<hr>
 	<div class="container">
-		<card class="card mt-5">
-		<form action="" method="post" class="col-12 card-body needs-validate"
-			novalidate>
+		<card class="card mt-5"> <form:form
+			action="team5cab/facility/search"
+			class="col-12 card-body needs-validate" modelAttribute="Facility">
 
 			<div class="input-group mb-3">
-				<select required id="facility-type" class="form-control">
+				<form:select path="" required="required" id="facility-type"
+					class="form-control">
 					<option value="" selected disabled>Select your facility
 						type</option>
 					<option value="Type1">Type1</option>
 					<option value="Type2">Type2</option>
-				</select> <label class="form-check-label">
+					<
+				</form:select>
+				<label class="form-check-label">
 			</div>
 
 			<div class="input-group mb-3 date input-daterange"
@@ -46,8 +52,7 @@
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary mb-3" onclick="">Search</button>
 			</div>
-		</form>
-		</card>
+		</form:form> </card>
 
 		<table id="search-facility-table" class="table table-hover"
 			style="margin-top: 100px;">
@@ -61,24 +66,38 @@
 				</tr>
 			</thead>
 			<tbody>
-
-				<!-- 
-				<c:forEach var="facility" items="${facilityList}">
+				<c:forEach var="facility" items="${Facility}">
 					<tr>
-						<td class="align-middle">{facility.facilityID}</td>
-						<td class="align-middle">{facility.facilityName}</td>
-						<td class="align-middle">{facility.facilityType}</td>
-						<td class="align-middle">{facility.isDamaged}</td>
+						<td class="align-middle"><c:out value="${facility.facilityID}"/></td>
+						<td class="align-middle"><c:out value="${facility.facilityName}"/></td>
+						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
+						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-							<button type="button" class="btn btn-primary" formaction="../booking/search">Book</button>
-							<button type="button" class="btn btn-secondary" formaction="./facility/edit">Edit</button>
-							<button type="button" class="btn btn-danger" data-toggle="modal"
-								data-target="#deleteModal">Delete</button>
-						</td>
+						<a href="<c:url value="../booking/search"/>"
+						   class="btn btn-primary" >Book</a>
+						<a href="<c:url value="../booking/search"/>"
+						   class="btn btn-secondary" >Edit</a> 
+								</button>
+								<button type="submit" class="btn btn-secondary"
+									formaction="./facility/edit">Edit</button>
+								<button type="button" class="btn btn-danger" data-toggle="modal"
+									data-target="#deleteModal">Delete</button></td>
 					</tr>
 				</c:forEach>
-			
-			    -->
+				<c:forEach var="user" items="${Users}">
+					<tr>
+						<td class="align-middle"><c:out value="${user.name}" /></td>
+						<td class="align-middle"><c:out value="${user.userID}" /></td>
+						<td class="align-middle"><c:out value="${user.email}" /></td>
+						<td class="align-middle"><c:out value="${user.phoneNumber}" /></td>
+						<td class="align-middle"><a
+							href="<c:url value="team5cab/admin/user/edit/${user.userID}" />"
+							class="btn btn-secondary">Edit</a> <a
+							href="<c:url value="team5cab/admin/user/delete/${user.userID}" />"
+							class="btn btn-danger">Delete</a></td>
+					</tr>
+				</c:forEach>
+
 
 				<tr>
 					<td class="align-middle">FB-1</td>
@@ -117,7 +136,7 @@
 		<li class="page-item"><a class="page-link" href="#">Next</a></li>
 	</ul>
 	</nav>
-	
+
 	<!-- Modal -->
 	<div class="modal fade" id="deleteModal" role="dialog">
 		<div class="modal-dialog">

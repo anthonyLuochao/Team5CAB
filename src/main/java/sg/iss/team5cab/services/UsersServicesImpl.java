@@ -1,7 +1,7 @@
 package sg.iss.team5cab.services;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -16,15 +16,9 @@ public class UsersServicesImpl implements UsersService {
 	@Resource
 	UsersRepository uRepo;
 	
-//	@Transactional DAO methods that uses JPARepo
-
-//    public Users createUser(Users users) {
-//		
-//    	return UsersRepository.saveAndFlush(users);
-//	}
     public ArrayList<Users> findAllUsers()
     {
-		ArrayList<Users> ul = (ArrayList<Users>) uRepo.findAll();
+		ArrayList<Users> ul = (ArrayList<Users>) uRepo.findAllExceptDeleted();
     	return ul;
     	
     }
@@ -51,7 +45,7 @@ public class UsersServicesImpl implements UsersService {
 	public void removeUser(String userid) {
 		// TODO Auto-generated method stub
 		Users u = uRepo.findOne(userid);
-		u.setRole("");
+		u.setIsDeleted(true);
 		uRepo.saveAndFlush(u);
 	}
 
@@ -63,10 +57,9 @@ public class UsersServicesImpl implements UsersService {
 	}
 
 	@Override
-	public Users findUserDetailByUID(String userid, String name) {
+	public ArrayList<Users> findUsersByIdOrName(String userid, String name) {
 		// TODO Auto-generated method stub
-		Users u = uRepo.findUserDetailByUID(userid, name);
-		return u;
+		return uRepo.findUsersByIdOrName(userid, name);
 	}
 
 	@Override
@@ -74,5 +67,9 @@ public class UsersServicesImpl implements UsersService {
 		// TODO Auto-generated method stub
 		Users u = uRepo.findUserByUID(userid);
 		return u;
+	}
+
+	public String RandomPassword() {
+		return UUID.randomUUID().toString();
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Booking;
+import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.BookingRepository;
 import utils.CABDate;
 
@@ -62,6 +63,37 @@ public class BookingServicesImpl implements BookingService {
 			 bRepo.saveAndFlush(book);
 		 }
 	}
+
+	@Transactional
+	@Override
+	public boolean checkFacilityAvailability(Facility f, Date start, Date end) {
+		ArrayList<Booking> bookings;
+		
+		// Availability should only be checked between today and X days from today.
+		Date today = CABDate.getToday();
+		Date checkEndDate = CABDate.plusDays(today, 7);
+		start = start.before(today) ? today : start;
+		end = end.after(checkEndDate) ? checkEndDate : end;
+
+		// get all bookings between start and end date, including those at include the start and end date
+
+		bookings = bRepo.findBookingsBetweenStartAndEndDateInclusiveByFacility(start, end, f);
+		
+		System.out.println(bookings.size());
+		
+		ArrayList<Date> dates = BookingDatesToDateList(bookings);
+		Date checkDate = dates.get(0);
+		// If, during the loop, the current checkDate is before the date compared in the list
+		// return true as there the current checkDate is available for booking.
+		for (Date date : dates) {
+			if (checkDate.before(date))
+				return true;
+			else
+				CABDate.plusDays(checkDate, 1);
+		}
+		return false;
+	}
+	
 	@Transactional
 	@Override
 	public boolean checkFacilityAvailability(int fID,Date start,Date end)
@@ -144,5 +176,15 @@ public class BookingServicesImpl implements BookingService {
 			}
 		}
 		return false;
+	}
+	
+	public ArrayList<Date> BookingDatesToDateList(List<Booking> bookings) {
+		ArrayList<Date> dates = new ArrayList<Date>();
+		for (Booking b : bookings) {
+			for (Date date = b.getStartDate(); !date.equals(b.getEndDate()); CABDate.plusDays(date, 1)) {
+				dates.add(date);
+			}
+		}
+		return dates;
 	}
 }

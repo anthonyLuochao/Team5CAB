@@ -1,6 +1,5 @@
 package sg.iss.team5cab.services;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +16,11 @@ public interface FacilityServices {
 	
 	Facility updateFacility(Facility facility);
 	
-	boolean deleteFacility(Facility facility);		
+	boolean deleteFacility(Facility facility);
+	
+	//ArrayList<Facility> findFacilityByDateRange(LocalDate startDate,LocalDate endDate);
+	
+	ArrayList<Facility> findFacility(FacilityType ft,Date startDate,Date endDate,boolean isDamaged);
 
 	ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,boolean isDamaged);	
 

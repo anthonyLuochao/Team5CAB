@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="booking")
 public class Booking {
@@ -25,8 +27,11 @@ private Facility facility;
 
 //private int facilityID;
 //private String userID;
+@DateTimeFormat(pattern = "dd/mm/yyyy") 
 @Column(name="start_Date",columnDefinition="DATE")
 private Date startDate;
+
+@DateTimeFormat(pattern = "dd/mm/yyyy") 
 @Column(name="end_Date",columnDefinition="DATE")
 private Date endDate;
 @Column(columnDefinition="TINYINT")

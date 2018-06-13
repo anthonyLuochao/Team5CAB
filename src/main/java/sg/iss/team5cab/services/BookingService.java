@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import sg.iss.team5cab.model.Booking;
+import sg.iss.team5cab.model.Facility;
 
 public interface BookingService {
 	Booking createBooking(Booking booking);
@@ -14,4 +15,5 @@ public interface BookingService {
 	List<Booking> findBookingByAdmin(int fID, Date start, Date end, String uID);
 	void deleteBooking(int fID, Date start, Date end, String uID);
 	boolean checkFacilityAvailability(int fID, Date start, Date end);
+	boolean checkFacilityAvailability(Facility f, Date start, Date end);
 }

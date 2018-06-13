@@ -34,8 +34,12 @@
                 <h5 class=""><fmt:formatDate value="${booking.endDate}" pattern="MM/dd/yyyy" /></h5>
     
                 <div class="text-center">
-                    <a href="/team5cab/admin/booking/create" type="submit" id='validateDate' class="btn "> Back to Create Booking </a>
-                    <a href="/team5cab" type="submit" id='validateDate' class="btn " >Home</a>
+
+
+                	<a href="/team5cab/${sessionScope.role}/facility/search" class="btn btn-secondary">Back to Create Booking</a>
+                	<a href="/team5cab/${sessionScope.role}/welcome" class="btn btn-secondary">Home</a>
+                	
+
                 </div>
         </div>
     </body>

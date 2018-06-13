@@ -87,7 +87,7 @@ public void setDamageReason(String damageReason) {
 }
 @Override
 public String toString() {
-	return "Facility [facilityID=" + facilityID + " TypeID="
+	return "Facility [facilityID=" + facilityID + " TypeID="+facilityType.getTypeID()
 			+ ", facilityName=" + facilityName + ", description=" + description + ", address=" + address
 			+ ", isDamaged=" + isDamaged + ", damageReason=" + damageReason + "]";
 }

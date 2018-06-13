@@ -22,6 +22,7 @@ pageEncoding="ISO-8859-1"%>
 
 		<card class="card mt-5">
 		 <form:form	action="team5cab/facility/create" class="col-12 card-body needs-validate" modelAttribute="Facility">
+		 
 		<!-- 	<form action="" method="post" class="col-12 card-body needs-validation" > -->
 				<div class="row">
 					<div class="col-4">
@@ -37,12 +38,11 @@ pageEncoding="ISO-8859-1"%>
 					<div class="col-8">
 						
 						<div class="input-group mb-3">
-							<form:select path="facilityType" required="required" id="facilityType" class="form-control">
-								<option value="facilitytype" selected disabled>Facility Type</option>
-								
-								<!-- <option value="Type1">MR</option>
-								<option value="Type2">TT</option> -->
+							<form:select path="facilityType.typeID" required="required" id="facility-type" class="form-control">
+							<option value="" selected disabled>Select Your facility Type</option>
+							<form:options items="${listOfFacilityType}"/>
 							</form:select>
+							
 						</div>
 						<div class="input-group mb-3">
 							<form:input type="text" path="facilityName" class="form-control" aria-label="facility-name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name"

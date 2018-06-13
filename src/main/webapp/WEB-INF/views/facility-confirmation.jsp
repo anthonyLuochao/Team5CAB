@@ -26,7 +26,7 @@
             <h5 class="">${facility.facilityID}</h5>
 
             <p class="text-muted font-italic mb-0 pb-0">Facility Type</p>
-            <h5 class="">${facility.facilityType}</h5>
+            <h5 class="">${facility.facilityType.typeID}</h5>
 
             <p class="text-muted font-italic mb-0 pb-0">Facility Name</p>
             <h5 class="">${facility.facilityName}</h5>

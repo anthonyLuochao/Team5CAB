@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.iss.team5cab.model.Booking;
+import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.BookingService;
 import sg.iss.team5cab.services.FacilityTypeService;
 
@@ -39,7 +40,7 @@ public class BookingController {
 
 	
 	@RequestMapping(value="/admin/booking/search",method=RequestMethod.GET)
-	public ModelAndView loadFacilityTypeToDropdownList()
+	public ModelAndView createSearchPage()
 	{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("booking",new Booking());
@@ -55,7 +56,15 @@ public class BookingController {
 		mav.addObject("listOfBookings",listBookings);
 		mav.setViewName("booking-search");
 		return mav;
-	}
+		}
+//	@RequestMapping(value="/admin/booking/edit/{bookingID}",method = RequestMethod.GET)
+//    public ModelAndView editUser(@PathVariable String userID)
+//    {
+//		Users user = uService.findUserByUID(userID);
+//		ModelAndView mav = new ModelAndView("users_edit", "User", user);
+//		mav.addObject("roleList", getRoles());
+//		return mav;
+//    }
 	
 
 	

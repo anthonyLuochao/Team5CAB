@@ -22,6 +22,9 @@ public interface FacilityRepository extends JpaRepository<Facility, Integer> {
 	@Query("SELECT f FROM Facility f where f.isDamaged = :isDamaged")
 	ArrayList<Facility> findIsDamaged(@Param("isDamaged") boolean isDamaged);
 
+	@Query("SELECT f FROM Facility f where f.isDamaged = :isDamaged and f.facilityType.typeName = typeName")
+	ArrayList<Facility> findIsDamagedOfType(@Param("isDamaged") boolean isDamaged, @Param("typeName") String typeName);
+
 	
 	@Query("SELECT f FROM Facility f where f.isDeleted = true")
 	ArrayList<Facility> findIsDeleted(@Param("isDeleted")boolean isDeleted);

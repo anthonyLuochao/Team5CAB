@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,12 +16,12 @@
 <cab:nav />
     <div class="container text-center">
         <h1>User search</h1>
-        <form action="POST" class="my-5">
+        <form:form action="/team5cab/admin/user/search" method="POST" class="my-5" modelAttribute="searchTerm">
             <div class="form-group">
-                <input class="form-control" type="text" name="search" id="user_search" placeholder="Enter a username or a person's name">
+                <form:input path="name" class="form-control" type="text" name="search" id="user_search" placeholder="Enter a username or a person's name" />
             </div>
-            <input type="button"  class="btn btn-primary" value="Search">
-        </form>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form:form>
 
         <table class="table mt-5">
             <thead>
@@ -31,106 +33,18 @@
                     <th></th>
                 </tr>
             </thead>
+			<c:forEach var="user" items="${Users}">
             <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
+                <td class="align-middle"><c:out value="${user.name}" /></td>
+                <td class="align-middle"><c:out value="${user.userID}"/></td>
+                <td class="align-middle"><c:out value="${user.email}" /></td>
+                <td class="align-middle"><c:out value="${user.phoneNumber}" /></td>
                 <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
+                    <a href="<c:url value="team5cab/admin/user/edit/${user.userID}" />" class="btn btn-secondary">Edit</a>
+                    <a href="<c:url value="team5cab/admin/user/delete/${user.userID}" />" class="btn btn-danger">Delete</a>
                </td>
             </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
-            <tr>
-                <td class="align-middle">Meiting</td>
-                <td class="align-middle">IAmMeiting</td>
-                <td class="align-middle">MyEmailIsMeiting@gmail.com</td>
-                <td class="align-middle">91234532</td>
-                <td class="align-middle">
-                    <button class="btn btn-secondary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-               </td>
-            </tr>
+            </c:forEach>
        </table>
     </div>
 

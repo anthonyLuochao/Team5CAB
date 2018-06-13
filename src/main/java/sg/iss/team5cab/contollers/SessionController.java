@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.iss.team5cab.model.Users;
+import sg.iss.team5cab.services.UsersService;
 
 @Controller
 public class SessionController {
 	
-	// TODO:Add in Autowired for UsersService
-	// @Autowired
-	// UsersService usersService;
+	@Autowired
+	UsersService usersService;
 
 	@RequestMapping(value="public/login", method=RequestMethod.GET)
 	public ModelAndView loadLogin(HttpSession session) {
@@ -25,14 +25,10 @@ public class SessionController {
 	
 	@RequestMapping(value="public/login", method=RequestMethod.POST)
 	public ModelAndView processLogin(@ModelAttribute("Users") Users user, HttpSession session) {
-		// TODO: Change following if statement to UsersServices password query
-		// Users authUser = usersService
-		// if (authUser != null) {
-		if (user.getUserID().equals("test") && user.getPassword().equals("123")) {
-			// TODO: Set attribute based on user
-			// session.setAttribute("role", user.getRole);
-			session.setAttribute("role", "admin");
-			return new ModelAndView("welcome");
+		Users authUser = usersService.authenticate(user.getUserID(), user.getPassword());
+		if (authUser != null) {
+			session.setAttribute("role", authUser.getRole().toLowerCase());
+			return new ModelAndView("redirect:/welcome");
 		}
 		else {
 			session.setAttribute("login", "false");

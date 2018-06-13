@@ -14,7 +14,7 @@
 </head>
 <body>
 	<cab:nav />
-    <form:form id="form1" action="./login" modelAttribute="Users">
+    <form:form id="form1" action="team5cab/public/login" modelAttribute="Users">
         <div class="container">
             <div class="page-header text-center">
                 <h1>CAB</h1>

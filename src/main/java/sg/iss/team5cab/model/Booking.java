@@ -2,14 +2,12 @@ package sg.iss.team5cab.model;
 
 import java.util.Date;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.mapping.Set;
 
 @Entity
 @Table(name="booking")
@@ -25,9 +23,9 @@ private Facility facility;
 
 //private int facilityID;
 //private String userID;
-@Column(name="start_Date")
+@Column(name="start_Date",columnDefinition="DATE")
 private Date startDate;
-@Column(name="end_Date")
+@Column(name="end_Date",columnDefinition="DATE")
 private Date endDate;
 @Column(columnDefinition="TINYINT")
 private boolean isUnderMaintenance;  
@@ -51,6 +49,7 @@ public int getBookingID() {
 public void setBookingID(int bookingID) {
 	this.bookingID = bookingID;
 }
+
 public Date getStartDate() {
 	return startDate;
 }
@@ -63,7 +62,12 @@ public Date getEndDate() {
 public void setEndDate(Date endDate) {
 	this.endDate = endDate;
 }
-
+public boolean isUnderMaintenance() {
+	return isUnderMaintenance;
+}
+public void setUnderMaintenance(boolean isUnderMaintenance) {
+	this.isUnderMaintenance = isUnderMaintenance;
+}
 public boolean isCancel() {
 	return isCancel;
 }

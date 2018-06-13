@@ -33,7 +33,15 @@ private String address;
 @Column(columnDefinition="TINYINT")
 private boolean isDamaged;
 private String damageReason;
+@Column(columnDefinition="TINYINT")
+private boolean isDeleted;
 
+public boolean isDeleted() {
+	return isDeleted;
+}
+public void setDeleted(boolean isDeleted) {
+	this.isDeleted = isDeleted;
+}
 public int getFacilityID() {
 	return facilityID;
 }
@@ -64,7 +72,7 @@ public String getAddress() {
 public void setAddress(String address) {
 	this.address = address;
 }
-public boolean isDamaged() {
+public boolean getIsDamaged() {
 	return isDamaged;
 }
 public void setDamaged(boolean isDamaged) {

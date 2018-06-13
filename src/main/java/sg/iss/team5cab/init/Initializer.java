@@ -1,11 +1,6 @@
 package sg.iss.team5cab.init;
 
-import javax.servlet.Filter;
-
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -23,14 +18,4 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
-
-	@Override
-	protected Filter[] getServletFilters() {
-
-		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-		characterEncodingFilter.setEncoding("UTF-8");
-		return new Filter[] { characterEncodingFilter, new SiteMeshFilter() };
-	}
-	
-	
 }

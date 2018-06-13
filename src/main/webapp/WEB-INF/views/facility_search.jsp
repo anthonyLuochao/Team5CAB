@@ -19,16 +19,16 @@ pageEncoding="ISO-8859-1"%>
 	<h1 style="text-align: center;">Search Facility</h1>
 	<hr>
 	<div class="container">
-		<card class="card mt-5"> 
+		<div class="card mt-5"> 
 		
 		<form:form
 			action="team5cab/facility/search"
 			class="col-12 card-body needs-validate" modelAttribute="Booking" method="POST">
 
 			<div class="input-group mb-3">
-				<form:select path="facility.facilityType.typeID" required="required" id="facility-type" name="facilityType"
+				<form:select path="facility.facilityType.typeID" id="facility-type" name="facilityType"
 					class="form-control">
-					<form:option value="typeNames" label="Select your facility" selected="selected"
+					<form:option value="" label="Select your facility" selected="selected"
 					 disabled="disabled">Select your facility type
 					</form:option>
 					<form:options items="${listOfFacilityType}" itemValue="typeID" itemLabel="typeName"/>
@@ -55,11 +55,11 @@ pageEncoding="ISO-8859-1"%>
 			</c:if>
 			</div>
 			<div class="text-center">
-			<input type="submit"  class="btn btn-primary" value="Search" formmethod="post">
+			<input type="submit"  class="btn btn-primary" value="Search" />
 			</div>
 		</form:form> 
 		
-		</card>
+		</div>
 
 		<table id="search-facility-table" class="table table-hover"
 			style="margin-top: 100px;">

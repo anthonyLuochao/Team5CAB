@@ -17,8 +17,6 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter("/AuthenticationFilter")
 public class AuthenticationFilter implements Filter {
-
-	
 	private ServletContext context;
 
 	@Override
@@ -40,18 +38,33 @@ public class AuthenticationFilter implements Filter {
 		String uri = req.getRequestURI();
 		this.context.log("Requested Resource::"+uri);
 		
-		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession(true);
 
+		String role = null;
+		if (session.getAttribute("role") != null)
+			role = session.getAttribute("role").toString();
 		
-		String Role=req.getParameter("role");
+		String uriRole = null;
+		if (uri.contains("admin"))
+			uriRole = "admin";
+		else if (uri.contains("member"))
+			uriRole = "member";
 		
-		if(session==null ||(uri.contains("admin") && !( Role.equals("admin")))){
-			this.context.log("Unauthorized access request");
-			res.sendRedirect("PageNotFound.jsp");
-		}else{
+		if (role == null) {
+			if (uriRole.equals("admin") || uriRole.equals("member"))
+				res.sendRedirect("invalidpage");
+		}
+		else if (role.equals("member")) {
+			if (uriRole == null || uriRole.equals("admin"))
+				res.sendRedirect("invalidpage");
+		}
+		else if (role.equals("admin")) {
+			if (uriRole == null || uriRole.equals("member"))
+				res.sendRedirect("invalidpage");
+		}	
+		else {
 			chain.doFilter(request, response);
 		}
-		
 	}
 
 	@Override

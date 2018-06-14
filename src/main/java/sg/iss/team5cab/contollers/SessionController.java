@@ -64,4 +64,11 @@ public class SessionController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/invalidpage", method=RequestMethod.GET)
+	public ModelAndView InvalidPageAccess(HttpSession session) {
+		session.setAttribute("role",  null);
+		return new ModelAndView("404page");
+	}
+	
 }

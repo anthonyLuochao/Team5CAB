@@ -38,7 +38,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	
 	@Query("Select b from Booking b "
 			+ "where not "
-			+ "(b.startDate > :endDate and "
+			+ "(b.startDate > :endDate or "
 			+ "b.endDate < :startDate) and "
 			+ "b.isCancel = false "
 			+ "order by b.startDate")

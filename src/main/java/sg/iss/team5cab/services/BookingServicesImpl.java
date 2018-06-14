@@ -169,42 +169,13 @@ public class BookingServicesImpl implements BookingService {
 	 */
 	@Override
 	@Transactional
-	public ArrayList<Date> findAvailableDates(int fid){
-		//Facility f = fRepo.findOne(fid);
-		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
-		ArrayList<Date> localdatelist = new ArrayList<Date>();
-		Date today = CABDate.getToday();
-		
-		for (int i = 0; i < 7; i++) {
-			Date date = CABDate.plusDays(today, i);
-			localdatelist.add(date);
-			System.out.println(date.toString());
-		}
-		/*
-		for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
-			localdatelist.add(date);
-			System.out.println(date.toString());
-		}*/
-		
-		for (Booking b : listOfBookingsByFid) {
-			for (Date d : localdatelist) {
-				if(d.before(b.getEndDate()) && d.after(b.getStartDate())) {
-					localdatelist.remove(d);
-				}
-			}
-		}
-		return localdatelist;
-		
-		/*
-		for (Booking b : listOfBookingsByFid) {
-			for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
-				if(date.before(b.getEndDate()) && date.after(b.getStartDate())) {
-					localdatelist.remove(date);
-				}
-			}	
-		}*/
-		
-	}
+	public ArrayList<Date> findUnavailableDates(int fid){
+		Facility f = fRepo.findOne(fid);
+		Date today= CABDate.getToday();
+		Date end = CABDate.plusDays(today, 7);
+		ArrayList<Booking> bookings = bRepo.findBookingsBetweenStartAndEndDateInclusiveByFacility(today, end, f);
+		return BookingDatesToDateList(bookings);
+	}	
 	
 	/* (non-Javadoc)
 	 * @see sg.iss.team5cab.services.BookingService#isBookingClash(int, java.time.LocalDate, java.time.LocalDate)

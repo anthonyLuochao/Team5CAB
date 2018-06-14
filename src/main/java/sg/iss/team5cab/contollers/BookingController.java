@@ -40,10 +40,11 @@ public class BookingController {
 	
 
 	@RequestMapping(value = "/admin/booking/create/{facilityID}", method = RequestMethod.GET)
-	public ModelAndView newBookingPage(@ModelAttribute Booking booking, @PathVariable("facilityID") int facilityID,
+	public ModelAndView newBookingPage(@PathVariable("facilityID") int facilityID,
 			HttpSession session) {
 		// get the user id from session scope
 		
+		Booking booking = new Booking();
 		String userID = session.getAttribute("userID").toString();
 		Users user = uService.findUser(userID);
 		booking.setUsers(user);
@@ -51,11 +52,11 @@ public class BookingController {
 		booking.setFacility(f);
 		
 		ModelAndView mav = new ModelAndView("booking-create-update", "booking", booking);
-		mav.addObject("availableDateList", bService.findAvailableDates(facilityID));
+		mav.addObject("availableDateList", bService.findUnavailableDates(facilityID));
 		return mav;
 	}
 	
-	@RequestMapping(value = "/admin/booking/create/{facilityID}", method = RequestMethod.POST)
+	@RequestMapping(value = {"/admin/booking/create/", "/member/booking/create"}, method = RequestMethod.POST)
 	public ModelAndView newBookingPage(@ModelAttribute Booking booking,
 			HttpSession session,
 			@ModelAttribute("message") String message) {
@@ -86,8 +87,7 @@ public class BookingController {
 		}
 		else{
 			Facility f = fService.findFacilityById(booking.getFacility().getFacilityID());
-			//String userID = session.getAttribute("userID").toString();
-			String userID = "Abraham1234";
+			String userID = session.getAttribute("userID").toString();
 			
 			// Get both objects from their respective id
 			booking.setFacility(f);

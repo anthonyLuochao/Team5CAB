@@ -22,7 +22,7 @@ public interface BookingService {
 
 	List<Booking> displayAll();
 
-	ArrayList<Date> findAvailableDates(int fid);
+	ArrayList<Date> findUnavailableDates(int fid);
 
 	boolean isBookingClash(int fid, Date startDate, Date endDate);
 	List<Integer> findAllFacilityID();

@@ -8,7 +8,7 @@
 	
 	<ul class="navbar-nav mr-auto">
 	<li class="nav-item">
-		<a class="nav-link" href="/member/facility/search" role="button">
+		<a class="nav-link" href="/team5cab/member/facility/search" role="button">
 		Search Facilities
 		</a>
 	</li>
@@ -18,8 +18,8 @@
 		</a>
 
 		<div class="dropdown-menu" aria-labelledby="bookingDropdown">
-		<a class="dropdown-item" href="/member/booking/create">Make Booking</a>
-		<a class="dropdown-item" href="/member/booking/search">Manage Bookings</a>
+		<a class="dropdown-item" href="/team5cab/member/booking/create">Make Booking</a>
+		<a class="dropdown-item" href="/team5cab/member/booking/search">Manage Bookings</a>
 		</div>
 	</li>
 	</ul>

@@ -80,15 +80,14 @@ pageEncoding="ISO-8859-1"%>
 						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
 						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-							<a href="<c:url value="team5cab/${sessionScope.role}/booking/create"/>"
-							   class="btn btn-primary" >Book</a>
-							<c:if test="${sessionScope.role==\"admin\"}">
-								<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"
-							     class="btn btn-secondary" >Edit</a>
-						   		<a href="<c:url value="team5cab/admin/facility/delete/${facility.facilityID}"/>"
-						   	     class="btn btn-danger" >Delete</a> 							
-							</c:if>
-
+						<a href="<c:url value="team5cab/admin/booking/create/${facility.facilityID}"/>"
+						   class="btn btn-primary" >Book</a>
+						<c:if test="${sessionScope.role==\"admin\"}">
+							<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"
+							 class="btn btn-secondary" >Edit</a>
+							   <a href="<c:url value="team5cab/admin/facility/delete/${facility.facilityID}"/>"
+								class="btn btn-danger" >Delete</a> 							
+						</c:if>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -2,6 +2,7 @@ package sg.iss.team5cab.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -12,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.model.FacilityType;
 import sg.iss.team5cab.repo.FacilityRepository;
+
 import utils.CABDate;
+
 
 @Service
 public class FacilityServicesImpl implements FacilityServices{
@@ -24,13 +27,24 @@ public class FacilityServicesImpl implements FacilityServices{
 	private BookingService bService;
 	
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#findFacilityById(int)
+	 */
+
 	@Transactional
 	public Facility findFacilityById(int id){
 		return fRepo.findOne(id);
 	}
-	
 	@Override
+	@Transactional
+	public List<Integer> findFacilityIDByTypeName(String typeName){
+		return fRepo.findFacilityIDByTypeName(typeName);
+	}
+	
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#findIsDamagedList(boolean)
+	 */
+
 	@Transactional
 	public ArrayList<Facility> findIsDamagedList(boolean isDamaged){		
 		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findIsDamaged(isDamaged);		
@@ -38,7 +52,10 @@ public class FacilityServicesImpl implements FacilityServices{
 	}
 		
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#createFacility(sg.iss.team5cab.model.Facility)
+	 */
+
 	@Transactional
 	public Facility createFacility(Facility fac)
 	{
@@ -47,13 +64,17 @@ public class FacilityServicesImpl implements FacilityServices{
 	}
 	
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#updateFacility(sg.iss.team5cab.model.Facility)
+	 */
+
 	@Transactional
 	public Facility updateFacility(Facility fac)
 	{
 		return fRepo.saveAndFlush(fac);
 	}
 	
+
     @Override
 	@Transactional
     public boolean deleteFacility(Facility fac)
@@ -71,7 +92,10 @@ public class FacilityServicesImpl implements FacilityServices{
 	}
 	
 	
-	@Override
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.FacilityService#findFacility(java.lang.String, java.util.Date, java.util.Date, boolean)
+	 */
+
 	@Transactional
 	public ArrayList<Facility> findFacility(FacilityType ft, Date startDate,Date endDate,boolean isDamaged)
 	{	
@@ -96,10 +120,6 @@ public class FacilityServicesImpl implements FacilityServices{
 		}
 	}
 
-	@Override
-	public ArrayList<Facility> findFacility(String typeId, Date startDate, Date endDate, boolean isDamaged) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }	

@@ -26,10 +26,56 @@ public class FacilityController {
 	@Autowired
 	private FacilityServices fService;
 
+//<<<<<<< HEAD
+//@RequestMapping(value="/search", method =RequestMethod.GET)
+//public ModelAndView newFacilityPage()
+//{
+//	ModelAndView mav=new ModelAndView("facility_search");
+//	mav.addObject("Facility", fService.findFacility(null, null, null, false));
+//	return mav;
+//			
+//}
+//=======
 	@Autowired
 	private FacilityTypeService ftService;	
+//>>>>>>> master
 
 
+//<<<<<<< HEAD
+//   @RequestMapping(value= "/searchuser",method=RequestMethod.GET)
+//   public ModelAndView facilitySearchPage() {
+//	   ModelAndView mav=new ModelAndView("facility_search");
+//	   ArrayList<Facility> facilityList=fService.findAllFacilities();
+//	   mav.addObject("Facility", facilityList);
+//	   return mav;
+//   }
+   
+//   @RequestMapping(value="/update",method=RequestMethod.GET)
+//   public ModelAndView updateFacilityPage(@PathVariable int fid) {
+//     ModelAndView mav=new ModelAndView("facility-create-update") ;      
+//	 Facility facility = fService.findFacilityById(fid);
+//	 mav.addObject("facility",facility);
+//	 mav.addObject("fidlist", fService.findFacility(null, null, null, false));
+//	 return mav;	 
+//	 
+//   }
+   
+ @RequestMapping(value="/update/confirmation",method=RequestMethod.POST)
+ public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility,BindingResult result,
+		 @PathVariable int fid,final RedirectAttributes redirectAttributes) {
+	 
+	 if(result.hasErrors())
+		 return new ModelAndView("facility-create-update");
+	 
+	 ModelAndView mav=new ModelAndView();
+	// String message="Department was sucessfully updated";
+	 
+	   fService.updateFacility(facility);	 
+		mav.setViewName("redirect:/facility-confirmation");	
+		return mav;
+	}
+
+		
 	@RequestMapping(value = "/admin/facility/create", method = RequestMethod.GET)
 	public ModelAndView createFacilityPage() {
 		ModelAndView mav = new ModelAndView("facility_create_update");		
@@ -90,8 +136,6 @@ public class FacilityController {
 		return mav;
 	}	
 	
-
-		
 	@RequestMapping(value = {"/admin/facility/search", "/member/facility/search"}, method = RequestMethod.GET)
 	public ModelAndView displayFacilitySearch() {
 
@@ -127,23 +171,7 @@ public class FacilityController {
 		return mav;
 	}
 
-//	@RequestMapping(value = "admin/facility/confirmation", method = RequestMethod.POST)
-//	public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
-//			@PathVariable int fid, final RedirectAttributes redirectAttributes) {
-//
-//		if (result.hasErrors())
-//			return new ModelAndView("facility-create-update");
-//
-//		ModelAndView mav = new ModelAndView();
-//
-//		fService.updateFacility(facility);
-//		mav.setViewName("redirect:/facility-confirmation");
-//		redirectAttributes.addFlashAttribute("facility", facility);
-//		return mav;
-//
-//	}
-
-	@RequestMapping(value = "/admin/facility/delete/{fid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/facility/delete/{fid}", method = RequestMethod.GET)
 	public ModelAndView deleteFacilty(@PathVariable int fid) {
 		ModelAndView mav = new ModelAndView();
 		

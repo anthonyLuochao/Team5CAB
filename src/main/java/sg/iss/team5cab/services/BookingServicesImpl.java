@@ -15,14 +15,21 @@ import org.springframework.transaction.annotation.Transactional;
 import sg.iss.team5cab.model.Booking;
 import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.BookingRepository;
+import sg.iss.team5cab.repo.FacilityRepository;
 import utils.CABDate;
 
 @Service
 public class BookingServicesImpl implements BookingService {
 
 	@Resource
+	FacilityRepository fRepo;
+	
+	@Resource
 	BookingRepository bRepo;
 	//Screen Booking-create-update
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#createBooking(sg.iss.team5cab.model.Booking)
+	 */
 	@Transactional
 	@Override
 	public Booking createBooking(Booking booking)
@@ -31,6 +38,9 @@ public class BookingServicesImpl implements BookingService {
 	}
 	
 	//Screen Booking-create-update
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#updateBooking(sg.iss.team5cab.model.Booking)
+	 */
 	@Transactional
 	@Override
 	public Booking updateBooking(Booking booking)
@@ -39,30 +49,39 @@ public class BookingServicesImpl implements BookingService {
 		 
 	}
 	
-	@Transactional
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#findBookingByAdmin(int, java.time.LocalDate, java.time.LocalDate, java.lang.String)
+	 */
+	@Transactional 
 	@Override
 	public List<Booking> findBookingByAdmin(int fID,Date start,Date end,String uID)
 	{
 		
-		 return bRepo.findBookingDates(end,start, fID,uID);
+		 return bRepo.findBookingDates(start, end, fID, uID);
 	}
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#findBookingByMember(int, java.time.LocalDate, java.time.LocalDate)
+	 */
 	@Transactional
 	@Override
 	public List<Booking> findBookingByMember(int fID,Date start,Date end)
 	{
-		 return bRepo.findBookingDatesForMember(end,start, fID);
+		 return bRepo.findBookingDatesForMember(start,end, fID);
 	}
+	
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#deleteBooking(int, java.time.LocalDate, java.time.LocalDate, java.lang.String)
+	 */
 	
 	@Transactional
 	@Override
-	public void deleteBooking(int fID,Date start,Date end,String uID)
+	public Booking deleteBooking(int bookingID)
 	{
-		 List<Booking> b= bRepo.findBookingDates(end,start, fID,uID);
-		 for(Booking book:b)
-		 {
-			 book.setIsCancel(true);
-			 bRepo.saveAndFlush(book);
-		 }
+
+		Booking book=bRepo.findOne(bookingID);
+		book.setIsCancel(true);
+		return bRepo.saveAndFlush(book);
+
 	}
 
 	@Transactional
@@ -131,36 +150,66 @@ public class BookingServicesImpl implements BookingService {
 	
 	
 	//@Transactional DAO methods that uses JPARepo
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#displayAll()
+	 */
 	@Transactional
 	@Override
 	public List<Booking> displayAll()
 	{
-		 return bRepo.findAll();
+		 return (List<Booking>)bRepo.findAll();
 	}
 	
 
-	Date today = CABDate.getToday();
 	
 	
+	
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#findAvailableDates(int)
+	 */
+	@Override
 	@Transactional
 	public ArrayList<Date> findAvailableDates(int fid){
+		//Facility f = fRepo.findOne(fid);
 		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
 		ArrayList<Date> localdatelist = new ArrayList<Date>();
+		Date today = CABDate.getToday();
 		
+		for (int i = 0; i < 7; i++) {
+			Date date = CABDate.plusDays(today, i);
+			localdatelist.add(date);
+			System.out.println(date.toString());
+		}
+		/*
 		for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
 			localdatelist.add(date);
-		}
+			System.out.println(date.toString());
+		}*/
 		
+		for (Booking b : listOfBookingsByFid) {
+			for (Date d : localdatelist) {
+				if(d.before(b.getEndDate()) && d.after(b.getStartDate())) {
+					localdatelist.remove(d);
+				}
+			}
+		}
+		return localdatelist;
+		
+		/*
 		for (Booking b : listOfBookingsByFid) {
 			for (Date date = today; date.before(CABDate.plusDays(date, 7)); date = CABDate.plusDays(date, 1)) {
 				if(date.before(b.getEndDate()) && date.after(b.getStartDate())) {
 					localdatelist.remove(date);
 				}
 			}	
-		}
-		return localdatelist;
+		}*/
+		
 	}
 	
+	/* (non-Javadoc)
+	 * @see sg.iss.team5cab.services.BookingService#isBookingClash(int, java.time.LocalDate, java.time.LocalDate)
+	 */
+	@Override
 	@Transactional
 	public boolean isBookingClash(int fid, Date startDate, Date endDate) {
 		ArrayList<Booking> listOfBookingsByFid = (ArrayList<Booking>)bRepo.findBookingsByFacilityID(fid); 
@@ -172,6 +221,31 @@ public class BookingServicesImpl implements BookingService {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	@Transactional
+	public List<Integer> findAllFacilityID()
+	{
+		return bRepo.findAllFacilityID();
+	}
+	@Override
+	@Transactional
+	public Booking findBookingByID(int ID)
+	{
+		return bRepo.findOne(ID);
+	}
+	@Override
+	@Transactional
+	public List<Booking> findAllBooking()
+	{
+		return bRepo.findAll();
+	}
+	@Override
+	@Transactional
+	public List<Booking> findBookingByTypeName(String typeName,Date start,Date end,String uID)
+	{
+		return bRepo.findBookingByTypeName(start, end, typeName, uID);
 	}
 	
 	public ArrayList<Date> BookingDatesToDateList(List<Booking> bookings) {

@@ -16,17 +16,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="booking")
 public class Booking {
-@Id@GeneratedValue(strategy=GenerationType.AUTO)
+	
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int bookingID;
+
 @ManyToOne
 @JoinColumn(name="userID",nullable=false)
 private Users users;
+
 @ManyToOne
 @JoinColumn(name="facilityID",nullable=false)
 private Facility facility;
 
-//private int facilityID;
-//private String userID;
 @DateTimeFormat(pattern = "MM/dd/yyyy") 
 @Column(name="start_Date",columnDefinition="DATE")
 private Date startDate;
@@ -34,13 +36,17 @@ private Date startDate;
 @DateTimeFormat(pattern = "MM/dd/yyyy") 
 @Column(name="end_Date",columnDefinition="DATE")
 private Date endDate;
+
 @Column(columnDefinition="TINYINT")
 private boolean isUnderMaintenance;  
+
 @Column(columnDefinition="TINYINT")
 private boolean isCancel;
+
 public Users getUsers() {
 	return users;
 }
+
 public void setUsers(Users users) {
 	this.users = users;
 }
@@ -69,15 +75,16 @@ public Date getEndDate() {
 public void setEndDate(Date endDate) {
 	this.endDate = endDate;
 }
-public boolean isUnderMaintenance() {
+public boolean getIsUnderMaintenance() {
 	return isUnderMaintenance;
 }
-public void setUnderMaintenance(boolean isUnderMaintenance) {
+public void setIsUnderMaintenance(boolean isUnderMaintenance) {
 	this.isUnderMaintenance = isUnderMaintenance;
 }
 public boolean getIsCancel() {
 	return isCancel;
 }
+
 public void setIsCancel(boolean isCancel) {
 	this.isCancel = isCancel;
 }

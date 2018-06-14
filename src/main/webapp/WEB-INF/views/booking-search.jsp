@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,22 +25,27 @@
     <hr>
     <div class="container">
         <card class="card mt-5">
-            <form action="POST" method="post" class="col-12 card-body needs-validation" novalidate>
-
-                <div class="input-group mb-3">
-                    <select required id="facility-type" class="form-control" required>
-                        <option value="" selected disabled>Select your facility Type</option>
-                        <option value="Facility1">Facility Type 1</option>
-                        <option value="Facility2">Facility Type 2</option>
-                    </select>
+            <form:form action="/team5cab/admin/booking/search" method="post" class="col-12 card-body needs-validation" modelAttribute="booking">
+				<div class="form-group">
+				
+                    <form:input type="text" class="form-control"  placeholder="User ID"
+                        required="required" path="users.userID" />
+                </div>  
+                <div class="form-group">
+                    <form:select path= "facility.facilityType.typeName" id="facility-type" class="form-control">
+                        <option value="" required="required" selected disabled>Select your facility Type</option>
+                        <form:options items="${listOfTypeName}" />
+                    </form:select>
+                </div>
+			    <div class="form-group">
                     <div class="invalid-feedback">
                         Please select Facility Type
                     </div>
                 </div>
                 <div class="input-group mb-3 date input-daterange" data-provide="datepicker">
-                    <input type="text" class="form-control" placeholder="Choose Start Date" >
-                    <div class="input-group-addon">to</div>
-                    <input type="text" class="form-control" placeholder="Choose Start Date" >
+                    <form:input path="startDate" type="text" class="form-control" placeholder="Choose Start Date" />
+                    <div class="input-group-addon" required="required">to</div>
+                    <form:input path="endDate" type="text" class="form-control" placeholder="Choose Start Date" required="required"/>
 
                     <div id="validation-text" class="mb-3">
                     </div>
@@ -49,10 +57,10 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" onclick="">Search</button>
                 </div>
-            </form>
+            </form:form>
         </card>
 
-        <table id="search-booking-table" class="table table-hover" style="margin-top: 100px; display: none">
+        <table id="search-booking-table" class="table table-hover" style="margin-top: 100px; display: block;">
             <thead>
                 <tr>
                     <th>Facility Name</th>
@@ -63,37 +71,20 @@
                 </tr>
             </thead>
             <tbody>
+            <c:forEach var="item" items="${bookings}">
                 <tr>
-                    <td class="align-middle">Basketball Court</td>
-                    <td class="align-middle">18-Jun-2018</td>
-                    <td class="align-middle">18-Jun-2018</td>
-                    <td class="align-middle">Hello</td>
+                      <td class="align-middle">${item.facility.facilityType.typeName }</td>
+                    <td class="align-middle"><fmt:formatDate pattern="dd/MM/yyyy" value="${item.startDate}"/> </td>
+                    <td class="align-middle"><fmt:formatDate pattern="dd/MM/yyyy" value="${item.endDate}"/></td>
+                    <td class="align-middle">${item.users.userID}</td>
                     <td class="align-middle">
-                        <button type="button" class="btn btn-secondary">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        <a href="<c:url value="/admin/booking/edit/${item.bookingID}" />" class="btn btn-secondary">Edit</a>
+                    	<a href="<c:url value="/admin/booking/delete/${item.bookingID}" />" class="btn btn-danger">Cancel</a>
                     </td>
                 </tr>
-                <tr>
-                    <td class="align-middle">Football Court</td>
-                    <td class="align-middle">21-Jun-2018</td>
-                    <td class="align-middle">23-Jun-2018</td>
-                    <td class="align-middle">World</td>
-                    <td class="align-middle">
-                        <button type="button" class="btn btn-secondary">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="align-middle">Tennis Court</td>
-                    <td class="align-middle">22-Jun-2018</td>
-                    <td class="align-middle">25-Jun-2018</td>
-                    <td class="align-middle">!</td>
-                    <td class="align-middle">
-                        <button type="button" class="btn btn-secondary">Edit</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
+                </c:forEach>
+                
+                </tbody>
         </table>
     </div>
 
@@ -119,22 +110,6 @@
     </div>
 
     <nav class="mt-5">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
+        
     </nav>
 </body>

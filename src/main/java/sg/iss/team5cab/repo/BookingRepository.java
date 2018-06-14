@@ -12,10 +12,14 @@ import sg.iss.team5cab.model.Facility;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	@Query("SELECT b FROM Booking b WHERE b.endDate <=:endDate AND"
-			+ " b.startDate>=:startDate AND b.facility.facilityID=:fID AND b.users.userID=:uID AND b.isCancel=false")
+			+ " b.startDate>=:startDate	 AND b.facility.facilityID=:fID AND b.users.userID=:uID AND b.isCancel=false")
 	List<Booking> findBookingDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
 			@Param("fID") int fID,@Param("uID") String uID);
 	
+	@Query("SELECT b FROM Booking b WHERE b.endDate <=:endDate AND"
+			+ " b.startDate>=:startDate	 AND b.facility.facilityType.typeName=:typeName AND b.users.userID=:uID AND b.isCancel=false")
+	List<Booking> findBookingByTypeName(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
+			@Param("typeName") String typeName ,@Param("uID") String uID);
 	
 	@Query("SELECT b FROM Booking b WHERE b.endDate <=:endDate AND"
 			+ " b.startDate>=:startDate AND b.facility.facilityID=:fID AND b.isCancel=false")
@@ -26,8 +30,11 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 //	@Query("SELECT u FROM User u WHERE u.name=:un AND u.password=:pwd")
 //	User findUserByNamePwd(@Param("un") String uname, @Param("pwd") String pwd);
 	
-	@Query("Select b from Booking b where b.facility.facilityID=:id")
-	List<Booking> findBookingsByFacilityID(@Param("id") int fid);
+	@Query("Select b from Booking b where b.facility.facilityID=:fid") //where b.facilityID = f.facilityID
+	List<Booking> findBookingsByFacilityID(@Param("fid") int fid); 
+	
+	@Query("Select b.facility.facilityID from Booking b ")
+	List<Integer> findAllFacilityID();
 	
 	@Query("Select b from Booking b "
 			+ "where not "

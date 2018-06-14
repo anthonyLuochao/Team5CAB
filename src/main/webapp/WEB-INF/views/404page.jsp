@@ -244,7 +244,7 @@ body{
         <div class='c'>
             <div class='_404'>404</div>
             <hr>
-            <div class='_1'>Oops, the page you're looking for Disappeared...  </div>
+            <div class='_1'>Oops, the UserID cannot be found...  </div>
             <div class='_2'></div>
             <a class='btn' href='/team5cab/welcome'>BACK TO HOME</a>
         </div>

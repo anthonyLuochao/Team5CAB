@@ -42,7 +42,7 @@
                 <div class="text-center">
 
 					<a href="/team5cab/${sessionScope.role}/booking/create/${booking.facility.facilityID}" class="btn btn-secondary">Back to Create Booking</a>
-                	<a href="/team5cab/${sessionScope.role}/welcome" class="btn btn-secondary">Home</a>
+                	<a href="/team5cab/welcome" class="btn btn-secondary">Home</a>
                 	
 
                 </div>

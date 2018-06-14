@@ -25,7 +25,7 @@
             <form:form action="team5cab/admin/booking/create/{facility.facilityID}" method="post" class="col-12 card-body" modelAttribute="booking">
                 <div class="input-group mb-3">
                     <form:hidden path="facility.facilityID" />
-                    <input type="text" class="form-control" name="facilityName" value="${booking.facility.facilityName}" />
+                    <input type="text" class="form-control" name="facilityName" value="${booking.facility.facilityName}" disabled />
                     <form:hidden path="users.userID" />
                     <c:if test="${sessionScope.role ==\"admin\"}" >
                      	 <label class="form-check-label ml-5 pt-1">

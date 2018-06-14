@@ -39,30 +39,23 @@ public class BookingController {
 	FacilityServices fService;
 	
 
-	@RequestMapping(value = "admin/booking/create/{facilityID}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/booking/create/{facilityID}", method = RequestMethod.GET)
 	public ModelAndView newBookingPage(@ModelAttribute Booking booking, @PathVariable("facilityID") int facilityID,
 			HttpSession session) {
 		// get the user id from session scope
 		
-		//String userID = session.getAttribute("userID").toString();
-		String userID = "Abraham1234";
-		
-		// Get both objects from their respective id
+		String userID = session.getAttribute("userID").toString();
 		Users user = uService.findUser(userID);
-		
-		//Facility facility = fService.findFacilityById(facilityID);
 		booking.setUsers(user);
-		//booking.setFacility(facility);
 		Facility f = fService.findFacilityById(facilityID);
 		booking.setFacility(f);
 		
 		ModelAndView mav = new ModelAndView("booking-create-update", "booking", booking);
-		//mav.addObject("facility", fService.findFacilityById(id));
 		mav.addObject("availableDateList", bService.findAvailableDates(facilityID));
 		return mav;
 	}
 	
-	@RequestMapping(value = "admin/booking/create/{facilityID}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/booking/create/{facilityID}", method = RequestMethod.POST)
 	public ModelAndView newBookingPage(@ModelAttribute Booking booking,
 			HttpSession session,
 			@ModelAttribute("message") String message) {
@@ -109,7 +102,7 @@ public class BookingController {
 	
 
 	
-	@RequestMapping(value= {"/admin/booking/search, /member/booking/search"},method=RequestMethod.GET)
+	@RequestMapping(value= {"/admin/booking/search", "/member/booking/search"},method=RequestMethod.GET)
 	public ModelAndView createSearchPage()
 	{
 		ModelAndView mav=new ModelAndView();
@@ -125,20 +118,9 @@ public class BookingController {
 	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking)
 	{
 		ModelAndView mav=new ModelAndView();
-//		List<Booking> listBookings=null;
-//		for(int facilityID:fService.findFacilityIDByTypeName(booking.getFacility().getFacilityType().getTypeName()))
-//		{
-//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//			System.out.println(facilityID);
-//			List<Booking> book=bService.findBookingByAdmin(facilityID, booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
-//
-//			if(!book.isEmpty())
-//			{
-//			listBookings.addAll(book); 
-//			}
-//		}
 		List<Booking> listBookings=bService.findBookingByTypeName(booking.getFacility().getFacilityType().getTypeName(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
 		mav.addObject("bookings",listBookings);
+		mav.addObject("listOfTypeName",ftService.findAllType());
 		mav.setViewName("booking-search");
 		return mav;
 	}

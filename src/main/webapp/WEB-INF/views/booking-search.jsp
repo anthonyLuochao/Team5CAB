@@ -26,24 +26,26 @@
     <div class="container">
         <card class="card mt-5">
             <form:form action="/team5cab/admin/booking/search" method="post" class="col-12 card-body needs-validation" modelAttribute="booking">
+				<div class="form-group">
 				
                     <form:input type="text" class="form-control"  placeholder="User ID"
                         required="required" path="users.userID" />
-                  
-                <div class="input-group mb-3">
-                    <form:select path= "facility.facilityType.typeName" required="required" id="facility-type" class="form-control">
-                        <option value="" selected disabled>Select your facility Type</option>
+                </div>  
+                <div class="form-group">
+                    <form:select path= "facility.facilityType.typeName" id="facility-type" class="form-control">
+                        <option value="" required="required" selected disabled>Select your facility Type</option>
                         <form:options items="${listOfTypeName}" />
-                       
                     </form:select>
+                </div>
+			    <div class="form-group">
                     <div class="invalid-feedback">
                         Please select Facility Type
                     </div>
                 </div>
                 <div class="input-group mb-3 date input-daterange" data-provide="datepicker">
                     <form:input path="startDate" type="text" class="form-control" placeholder="Choose Start Date" />
-                    <div class="input-group-addon">to</div>
-                    <form:input path="endDate" type="text" class="form-control" placeholder="Choose Start Date" />
+                    <div class="input-group-addon" required="required">to</div>
+                    <form:input path="endDate" type="text" class="form-control" placeholder="Choose Start Date" required="required"/>
 
                     <div id="validation-text" class="mb-3">
                     </div>

@@ -80,33 +80,14 @@ pageEncoding="ISO-8859-1"%>
 						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
 						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-						<a href="<c:url value="../booking/search/${facility.facilityID}"/>"
+						<a href="<c:url value="team5cab/admin/booking/create/${facility.facilityID}"/>"
 						   class="btn btn-primary" >Book</a>
-						<a href="<c:url value="../booking/search"/>"
-						   class="btn btn-secondary" >Edit</a> 
-								</button>
-								<button type="submit" class="btn btn-secondary"
-									formaction="./facility/edit">Edit</button>
-								<button type="button" class="btn btn-danger" data-toggle="modal"
-									data-target="#deleteModal">Delete</button></td>
-					</tr>
-				</c:forEach>
-				<c:forEach var="user" items="${Users}">
-					<tr>
-						<td class="align-middle"><c:out value="${user.name}" /></td>
-						<td class="align-middle"><c:out value="${user.userID}" /></td>
-						<td class="align-middle"><c:out value="${user.email}" /></td>
-						<td class="align-middle"><c:out value="${user.phoneNumber}" /></td>
-						<td class="align-middle">
-							<a href="<c:url value="team5cab/${sessionScope.role}/booking/create"/>"
-							   class="btn btn-primary" >Book</a>
-							<c:if test="${sessionScope.role==\"admin\"}">
-								<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"
-							     class="btn btn-secondary" >Edit</a>
-						   		<a href="<c:url value="team5cab/admin/facility/delete/${facility.facilityID}"/>"
-						   	     class="btn btn-danger" >Delete</a> 							
-							</c:if>
-						</td>
+						<c:if test="${sessionScope.role==\"admin\"}">
+							<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"
+							 class="btn btn-secondary" >Edit</a>
+							   <a href="<c:url value="team5cab/admin/facility/delete/${facility.facilityID}"/>"
+								class="btn btn-danger" >Delete</a> 							
+						</c:if>
 					</tr>
 				</c:forEach>
 			</tbody>

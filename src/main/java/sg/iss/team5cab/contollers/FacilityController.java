@@ -80,7 +80,7 @@ public class FacilityController {
 	public ModelAndView createFacilityPage() {
 		ModelAndView mav = new ModelAndView("facility_create_update");		
 		mav.addObject("Facility", new Facility());
-		mav.addObject("listOfFacilityType",ftService.findAllType());
+		mav.addObject("listOfFacilityType",ftService.findAllTypeByID());
 		mav.setViewName("facility_create_update");
 		return mav;
 
@@ -91,11 +91,8 @@ public class FacilityController {
 			final RedirectAttributes redirectAttributes)
 	{
 		ModelAndView mav=new ModelAndView();	
-		//if(result.hasErrors())
-		//return new ModelAndView("facility_create_update");		
 		
-		//String message="New Facility" + facility.getFacilityName() + "was sucessfully created";
-		System.out.println("printing facility");
+		System.out.println("printing facility==================================================");
 		System.out.println(facility.toString());
 		fService.createFacility(facility);		
 		mav.setViewName("redirect:/admin/facility/create/confirmation");	

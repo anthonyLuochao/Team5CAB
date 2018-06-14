@@ -32,10 +32,10 @@
             <p class="text-muted font-italic mb-0 pb-0">Facility Name</p>
             <h5 class="">${facility.facilityName}</h5>
 
-            <p class="text-muted font-italic mb-0 pb-0">Address</p>
+            <p class="text-muted font-italic mb-0 pb-0">Description</p>
             <h5 class="">${facility.address}</h5>
 
-            <p class="text-muted font-italic mb-0 pb-0">Address</p>
+            <p class="text-muted font-italic mb-0 pb-0">Damage Report</p>
             <h5 class="mb-5">${facility.description}</h5>
                 <div class="text-center">
                 	<c:if test="${sessionScope.role == 'admin' }" >

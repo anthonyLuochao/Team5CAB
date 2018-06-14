@@ -10,5 +10,7 @@ public interface FacilityTypeService {
 	List<FacilityType> findAll();
 
 	List<String> findAllType();
+	
+	List<String>findAllTypeByID();
 
 }

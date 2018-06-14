@@ -47,12 +47,21 @@ public class SessionController {
 	@RequestMapping(value="public/forgetpassword", method=RequestMethod.GET)
 	public ModelAndView forgetpassword(HttpSession session) {
 		session.setAttribute("role",  null);
-		return new ModelAndView("user_forget_password","Users", new Users());
+		return new ModelAndView("user-inputid","Users", new Users());
 	}
 	
 	@RequestMapping(value="public/forgetpassword", method=RequestMethod.POST)
 	public ModelAndView ResetSuccessfully(@ModelAttribute("Users") Users user,HttpSession session) {
-		session.setAttribute("role",  null);
-		return new ModelAndView("user_login","Users", new Users());
+		//session.setAttribute("role",  null);
+		Users u = usersService.findUserByUID(user.getUserID());
+		if( u != null)
+		{
+			return new ModelAndView("user_forget_password","Users", new Users());
+		}
+		else 
+		{
+			return new ModelAndView("404page");
+		}
+		
 	}
 }

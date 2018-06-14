@@ -19,17 +19,19 @@ pageEncoding="ISO-8859-1"%>
 	<h1 style="text-align: center;">Search Facility</h1>
 	<hr>
 	<div class="container">
-		<card class="card mt-5"> <form:form
-			action="/team5cab/${sessionScope.role}/facility/search"
-			class="col-12 card-body needs-validate" modelAttribute="Facility" method="POST">
 
+		<div class="card mt-5"> 
+		<form:form
+			action="/team5cab/${sessionScope.role}/facility/search"
+			class="col-12 card-body needs-validate" modelAttribute="Booking" method="POST">
+		
 			<div class="input-group mb-3">
-				<form:select path="" required="required" id="facility-type" name="typeName"
+				<form:select path="facility.facilityType.typeID" id="facility-type" name="facilityType"
 					class="form-control">
-					<form:option value="typeNames" label="Select your facility" selected="selected"
+					<form:option value="" label="Select your facility" selected="selected"
 					 disabled="disabled">Select your facility type
 					</form:option>
-					<form:options items="${facilityType}" itemValue="typeID" itemLabel="typeName"/>
+					<form:options items="${listOfFacilityType}" itemValue="typeID" itemLabel="typeName"/>
 
 				</form:select>
 				<label class="form-check-label"/>
@@ -37,23 +39,27 @@ pageEncoding="ISO-8859-1"%>
 
 			<div class="input-group mb-3 date input-daterange"
 				data-provide="datepicker">
-				<form:input path="" type="text" class="form-control" name="startDate"
+				<form:input path="startDate" type="text" class="form-control" name="startDate"
 					placeholder="Choose Start Date"/>
 				<div class="input-group-addon">to</div>
-				<form:input path="" type="text" class="form-control" name="endDate"
+				<form:input path="endDate" type="text" class="form-control" name="endDate"
 					placeholder="Choose End Date"/>
 			</div>
 			<div class="form-check mb-3">
+			<c:if test="${sessionScope.role==\"admin\"}">
 				<label class="form-check-label"> 
-				<form:checkbox path="" name="isDamaged"
-					class="form-check-input" value="true"/> Search
-					for unusable facilities
+					<form:checkbox path="facility.isDamaged" name=""
+						class="form-check-input" value="true"/> Search
+						for unusable facilities
 				</label>
+			</c:if>
 			</div>
 			<div class="text-center">
-			<input type="submit"  class="btn btn-primary" value="Search">
+			<input type="submit"  class="btn btn-primary" value="Search" />
 			</div>
-		</form:form> </card>
+		</form:form> 
+		
+		</div>
 
 		<table id="search-facility-table" class="table table-hover"
 			style="margin-top: 100px;">
@@ -74,54 +80,20 @@ pageEncoding="ISO-8859-1"%>
 						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
 						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-							<a href="<c:url value="../booking/search"/>"
+							<a href="<c:url value="team5cab/${sessionScope.role}/booking/create"/>"
 							   class="btn btn-primary" >Book</a>
-							<a href="<c:url value="team5cab/facility/update/${facility.facilityID}"/>"
-							   class="btn btn-secondary" >Edit</a>
-						   	<a href="<c:url value="../facility/delete/${facility.facilityID}"/>"
-						   	   class="btn btn-danger" data-toggle="modal"
-									data-target="#deleteModal">Delete</a>  
+							<c:if test="${sessionScope.role==\"admin\"}">
+								<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"
+							     class="btn btn-secondary" >Edit</a>
+						   		<a href="<c:url value="team5cab/admin/facility/delete/${facility.facilityID}"/>"
+						   	     class="btn btn-danger" >Delete</a> 							
+							</c:if>
 
 					</tr>
 				</c:forEach>
-				<tr>
-					<td class="align-middle">FB-1</td>
-					<td class="align-middle">Football Court</td>
-					<td class="align-middle">Football</td>
-					<td class="align-middle">true</td>
-					<td class="align-middle">
-						<button type="button" class="btn btn-primary">Book</button>
-						<button type="button" class="btn btn-secondary">Edit</button>
-						<button type="button" class="btn btn-danger" data-toggle="modal"
-							data-target="#deleteModal">Delete</button>
-					</td>
-				</tr>
-				<tr>
-					<td class="align-middle">T-1</td>
-					<td class="align-middle">Tennis Court</td>
-					<td class="align-middle">Tennis</td>
-					<td class="align-middle">false</td>
-					<td class="align-middle">
-						<button type="button" class="btn btn-primary">Book</button>
-						<button type="button" class="btn btn-secondary">Edit</button>
-						<button type="button" class="btn btn-danger" data-toggle="modal"
-							data-target="#deleteModal">Delete</button>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
-	<nav class="mt-5">
-	<ul class="pagination justify-content-center">
-		<li class="page-item"><a class="page-link" href="#">Previous</a>
-		</li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">3</a></li>
-		<li class="page-item"><a class="page-link" href="#">Next</a></li>
-	</ul>
-	</nav>
-
 	<!-- Modal -->
 	<div class="modal fade" id="deleteModal" role="dialog">
 		<div class="modal-dialog">

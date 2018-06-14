@@ -5,17 +5,22 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Facility;
+import sg.iss.team5cab.model.FacilityType;
 import sg.iss.team5cab.repo.FacilityRepository;
+import utils.CABDate;
 
 @Service
 public class FacilityServicesImpl implements FacilityServices{
 	
 	@Resource
 	private FacilityRepository fRepo;
+	
+	@Autowired
 	private BookingService bService;
 	
 	
@@ -49,18 +54,13 @@ public class FacilityServicesImpl implements FacilityServices{
 		return fRepo.saveAndFlush(fac);
 	}
 	
-//	@Override
-//	@Transactional
-//	public void deleteFacility(Facility fac)
-//	{
-//		fRepo.delete(fac);
-//	}
-	
-	@Override
+    @Override
 	@Transactional
     public boolean deleteFacility(Facility fac)
 	{
-		fac.setIsDeleted(true);
+		Facility f = fRepo.findOne(fac.getFacilityID());
+		
+		f.setIsDeleted(true);
 		if(fRepo.saveAndFlush(fac).equals(null))
 		{
 			return false;
@@ -73,84 +73,33 @@ public class FacilityServicesImpl implements FacilityServices{
 	
 	@Override
 	@Transactional
-	public ArrayList<Facility> findFacility(String typeID,Date startDate,Date endDate,boolean isDamaged)
+	public ArrayList<Facility> findFacility(FacilityType ft, Date startDate,Date endDate,boolean isDamaged)
 	{	
-		ArrayList<Facility> result1 =new ArrayList<Facility>();
-		ArrayList<Facility> result2 =new ArrayList<Facility>();
-		ArrayList<Facility> result3 =new ArrayList<Facility>();
-		ArrayList<Facility> result =new ArrayList<Facility>();
+		ArrayList<Facility> facilityList;
+		ArrayList<Facility> returnList;
 		
-			result1=findIsDamagedList(isDamaged);
-			result=result1;
-			System.out.println("result");
-			if(typeID!=null)
-			{
-			for(Facility fac : result1)
-			{
-				if(fac.getFacilityType().getTypeID().equals(typeID))
-				{
-					result2.add(fac);					
-				}
+		if (ft == null) // when no typeID is requested
+			facilityList = fRepo.findIsDamaged(isDamaged);
+		else
+			facilityList = fRepo.findIsDamagedOfType(isDamaged,  ft);
+		if (startDate == null && endDate == null) 
+			return facilityList;
+		else {
+			System.out.println(facilityList.size());
+			returnList = new ArrayList<Facility>();
+
+			for (Facility f : facilityList) {
+				if (bService.checkFacilityAvailability(f, startDate, endDate))
+					returnList.add(f);
 			}
-			result=result2;
-			}
-			else
-			{
-				if(startDate!=null && endDate!=null)
-				{
-					for(Facility fac : result1)
-					{
-						if(bService.checkFacilityAvailability(fac.getFacilityID(),startDate,endDate))
-						{
-						result3.add(fac);
-						}
-					}
-				
-				result=result3;
-				}				
-			}
-			
-			if(startDate!=null && endDate!=null)
-			{
-				for(Facility fac : result2)
-				{
-					if(bService.checkFacilityAvailability(fac.getFacilityID(),startDate,endDate))
-					{
-					result3.add(fac);
-					}
-				}
-			
-			result=result3;
-			}				
-			
-			System.out.println("Executing finf facility");
-			for (Facility facility : result) {
-				System.out.println(result);
-			}
-			return result;		
+			return returnList;
+		}
 	}
 
-	
-	
-	
-//	@Override
-//	@Transactional
-//	public ArrayList<Facility> findFacilityByDateRange(LocalDate startDate,LocalDate endDate)
-//	{
-//		ArrayList<Facility> returnList=new ArrayList<Facility>();
-//		ArrayList<Facility> f= (ArrayList<Facility>)fRepo.findAll();
-//		for(Facility fac : f)
-//		{
-////			boolean result = bService.checkFacilityAvailability(fac.getFacilityID(),startDate,endDate);
-////			if(result)
-////			{
-////				returnList.add(fac);
-////			}
-//		}
-//		return returnList;
-//		
-//	}
-//	
+	@Override
+	public ArrayList<Facility> findFacility(String typeId, Date startDate, Date endDate, boolean isDamaged) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }	
-
-

@@ -30,5 +30,4 @@ public class FacilityTypeServiceImpl implements FacilityTypeService{
 	{
 		return (List<String>)ftRepo.findTypeID();
 	}
-
 }

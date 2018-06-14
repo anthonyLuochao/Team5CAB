@@ -2,22 +2,21 @@ package sg.iss.team5cab.contollers;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import sg.iss.team5cab.model.Booking;
 import sg.iss.team5cab.model.Facility;
+import sg.iss.team5cab.model.FacilityType;
 import sg.iss.team5cab.services.FacilityServices;
 import sg.iss.team5cab.services.FacilityTypeService;
 
@@ -50,12 +49,12 @@ public class FacilityController {
 		//return new ModelAndView("facility_create_update");		
 		
 		//String message="New Facility" + facility.getFacilityName() + "was sucessfully created";
-		System.out.println("printing faciliyt");
+		System.out.println("printing facility");
 		System.out.println(facility.toString());
 		fService.createFacility(facility);		
 		mav.setViewName("redirect:/admin/facility/create/confirmation");	
 	    redirectAttributes.addFlashAttribute("facility", facility);
-	     return mav;
+	    return mav;
 	}
 	
 	@RequestMapping(value = "/admin/facility/create/confirmation", method = RequestMethod.GET)
@@ -66,110 +65,93 @@ public class FacilityController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/admin/facility/update/{fid}", method = RequestMethod.GET)
+	public ModelAndView updateFacilityPage(@PathVariable int fid ) {
+		
+		Facility facility = fService.findFacilityById(fid);		
+		ModelAndView mav = new ModelAndView("facility_edit","Facility",facility);		
+		return mav;
+	
+	}
+	
+	@RequestMapping(value="/admin/facility/update", method=RequestMethod.POST)
+	public ModelAndView updatenewFacility(@ModelAttribute("Facility") Facility facility, 
+			final RedirectAttributes redirectAttributes)
+	{
+		ModelAndView mav=new ModelAndView("facility-confirmation", "facility", facility);	
+		fService.updateFacility(facility);		
+	    mav.addObject("facility", facility);
+	    return mav;
+	}
+	
+	@RequestMapping(value = "/update/confirmation", method = RequestMethod.GET)
+	public ModelAndView updateFacility(@ModelAttribute("Facility") Facility facility) {		
+		ModelAndView mav = new ModelAndView("facility-confirmation","Facility", facility);		
+		return mav;
+	}	
+	
 
 		
 	@RequestMapping(value = {"/admin/facility/search", "/member/facility/search"}, method = RequestMethod.GET)
-	public ModelAndView newFacilityPage(@ModelAttribute("Facility") Facility fac) {
+	public ModelAndView displayFacilitySearch() {
 
 		ModelAndView mav = new ModelAndView("facility_search");
 
-		mav.addObject("Facility", fService.findFacility(null, null, null, false));
-		mav.addObject("facilityType", ftService.findAllType());
+		mav.addObject("Booking", new Booking());
+		mav.addObject("listOfFacilityType",ftService.findAll());
+		FacilityType ft = null;
+		mav.addObject("Facility", fService.findFacility(ft,  null, null, false));
 
 		return mav;
 	}
      
     @RequestMapping(value = {"/admin/facility/search", "/member/facility/search"}, method = RequestMethod.POST)
-	public ModelAndView FacilitySearchPage(@ModelAttribute("Facility") Facility fac, BindingResult result,
-			final RedirectAttributes redirectAttributes, @RequestParam("typeName") String typeName,
-			@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "MM-dd-yyyy") Date startDate,
-			@RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "MM-dd-yyyy") Date endDate,
-			@RequestParam(value = "isDamaged", required = false) boolean isDamaged) {
-    	System.out.println("Executing Search Controller.....");
+	public ModelAndView FacilitySearchPage(@ModelAttribute("Booking") Booking book, BindingResult result,
+			final RedirectAttributes redirectAttributes)
+    		throws Exception{
+
 		ModelAndView mav = new ModelAndView();
-		String typeId = "";
-		switch (typeName) {
+		
+		Facility f = book.getFacility();
+		FacilityType ft = f.getFacilityType().getTypeID().equals("") ? null :f.getFacilityType();
+		System.out.println(book.getFacility().getFacilityType());
 
-		case "Meeting Room":
-			typeId = "MR";
-			break;
-		case "Table Tennis":
-			typeId = "TT";
-			break;
-		case "Swimming Pool":
-			typeId = "SP";
-			break;
-		case "Basket Ball":
-			typeId = "BB";
-			break;
-		case "Badminton":
-			typeId = "BT";
-			break;
-		case "Football":
-			typeId = "FB";
-			break;
-		case "Board games":
-			typeId = "BG";
-			break;
-		default:
-			;
+		Date sDate=book.getStartDate();
+		Date eDate=book.getEndDate();
+		boolean isDmged = book.getFacility().getIsDamaged();
 
-		}
 		mav.setViewName("facility_search");
-		System.out.println("Before Search.....");
-		mav.addObject("Facility", fService.findFacility(typeId, startDate, endDate, isDamaged));
-		System.out.println("After Search.....");
-		mav.addObject("typeNames", ftService.findAllType());
-
+		mav.addObject("Facility", fService.findFacility(ft, sDate, eDate, isDmged));
+		mav.addObject("listOfFacilityType",ftService.findAll());
+		
 		return mav;
 	}
 
+//	@RequestMapping(value = "admin/facility/confirmation", method = RequestMethod.POST)
+//	public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
+//			@PathVariable int fid, final RedirectAttributes redirectAttributes) {
+//
+//		if (result.hasErrors())
+//			return new ModelAndView("facility-create-update");
+//
+//		ModelAndView mav = new ModelAndView();
+//
+//		fService.updateFacility(facility);
+//		mav.setViewName("redirect:/facility-confirmation");
+//		redirectAttributes.addFlashAttribute("facility", facility);
+//		return mav;
+//
+//	}
 
-	@RequestMapping(value = "/admin/facility/update/{fid}", method = RequestMethod.GET)
-	public ModelAndView updateFacilityPage(@PathVariable int fid, HttpServletRequest request) {
-		Facility facility = fService.findFacilityById(fid);
-		ModelAndView mav = new ModelAndView("facility_create_update","Facility",facility);
-	
-		return mav;
-	
-	}
-
-	@RequestMapping(value = "admin/facility/update/confirmation", method = RequestMethod.POST)
-	public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
-			@PathVariable int fid, final RedirectAttributes redirectAttributes) {
-
-		if (result.hasErrors())
-			return new ModelAndView("facility-create-update");
-
-		ModelAndView mav = new ModelAndView();
-		// String message="Department was sucessfully updated";
-
-		fService.updateFacility(facility);
-		mav.setViewName("redirect:/facility-confirmation");
-		redirectAttributes.addFlashAttribute("facility", facility);
-		return mav;
-
-	}
-
-
-
-
-
-	@RequestMapping(value = "/delete/{fid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/facility/delete/{fid}", method = RequestMethod.GET)
 	public ModelAndView deleteFacilty(@PathVariable int fid) {
 		ModelAndView mav = new ModelAndView();
-		String msg;
 		
 		Facility facility = fService.findFacilityById(fid);
-		boolean isDeleted =fService.deleteFacility(facility);
-		
-		 if(isDeleted) msg="The facility is deleted";
-		 else msg="The facility is not deleted";
-		 
-		mav.setViewName("redirect:/search");
-		mav.addObject("message",msg);
+		facility.setIsDeleted(true);
+		fService.updateFacility(facility);
+		mav.setViewName("redirect:/admin/facility/search");
 		return mav;
-
+		
 	}
-
 }

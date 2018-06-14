@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import sg.iss.team5cab.model.Facility;
+import sg.iss.team5cab.model.FacilityType;
 
 public interface FacilityServices {
 	
-	ArrayList<Facility> findAllFacilities();
+	//ArrayList<Facility> findAllFacilities();
 	
-	Facility findFacility(int fid);	
+
+	Facility findFacilityById(int fid);	
+
 	
 	//ArrayList<Facility> findByTypeList(String typeId);
 	
@@ -24,9 +27,12 @@ public interface FacilityServices {
 	
 	boolean deleteFacility(Facility facility);
 	
-	ArrayList<Facility> findFacilityByDateRange(LocalDate startDate,LocalDate endDate);
+	//ArrayList<Facility> findFacilityByDateRange(LocalDate startDate,LocalDate endDate);
 	
-	ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,int isDamaged);
+
+	ArrayList<Facility> findFacility(String typeId,Date startDate,Date endDate,boolean isDamaged);
+
+
 	
 
 }

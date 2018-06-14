@@ -24,25 +24,29 @@ private int bookingID;
 @ManyToOne
 @JoinColumn(name="userID",nullable=false)
 private Users users;
+
 @ManyToOne
 @JoinColumn(name="facilityID",nullable=false)
 private Facility facility;
 
-//private int facilityID;
-//private String userID;
-@DateTimeFormat(pattern="MM/dd/yyyy")
+@DateTimeFormat(pattern = "MM/dd/yyyy") 
 @Column(name="start_Date",columnDefinition="DATE")
 private Date startDate;
-@DateTimeFormat(pattern="MM/dd/yyyy")
+
+@DateTimeFormat(pattern = "MM/dd/yyyy") 
 @Column(name="end_Date",columnDefinition="DATE")
 private Date endDate;
+
 @Column(columnDefinition="TINYINT")
 private boolean isUnderMaintenance;  
+
 @Column(columnDefinition="TINYINT")
 private boolean isCancel;
+
 public Users getUsers() {
 	return users;
 }
+
 public void setUsers(Users users) {
 	this.users = users;
 }

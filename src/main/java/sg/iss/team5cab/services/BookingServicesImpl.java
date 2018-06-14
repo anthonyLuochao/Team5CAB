@@ -1,6 +1,7 @@
 package sg.iss.team5cab.services;
 
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.iss.team5cab.model.Booking;
+import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.BookingRepository;
 import sg.iss.team5cab.repo.FacilityRepository;
 import utils.CABDate;
@@ -75,10 +77,38 @@ public class BookingServicesImpl implements BookingService {
 	@Override
 	public Booking deleteBooking(int bookingID)
 	{
+
 		Booking book=bRepo.findOne(bookingID);
 		book.setIsCancel(true);
 		return bRepo.saveAndFlush(book);
+
 	}
+
+	@Transactional
+	@Override
+	public boolean checkFacilityAvailability(Facility f, Date start, Date end) {
+		ArrayList<Booking> bookings;
+		
+		// Availability should only be checked between today and X days from today.
+		Date today = CABDate.getToday();
+		System.out.println(today);
+		Date checkEndDate = CABDate.plusDays(today, 7);
+		start = start.before(today) ? today : start;
+		end = end.after(checkEndDate) ? checkEndDate : end;
+
+		// get all bookings between start and end date, including those at include the start and end date
+
+		bookings = bRepo.findBookingsBetweenStartAndEndDateInclusiveByFacility(start, end, f);
+		
+		if (bookings.size() == 0)
+			return true;
+		
+		ArrayList<Date> dates = BookingDatesToDateList(bookings);
+		
+		long days = ChronoUnit.DAYS.between(CABDate.getLocalDateTime(start), CABDate.getLocalDateTime(end)) + 1;
+		return (long) dates.size() < days; 
+	}
+	
 	@Transactional
 	@Override
 	public boolean checkFacilityAvailability(int fID,Date start,Date end)
@@ -192,6 +222,7 @@ public class BookingServicesImpl implements BookingService {
 		}
 		return false;
 	}
+
 	@Override
 	@Transactional
 	public List<Integer> findAllFacilityID()
@@ -215,5 +246,20 @@ public class BookingServicesImpl implements BookingService {
 	public List<Booking> findBookingByTypeName(String typeName,Date start,Date end,String uID)
 	{
 		return bRepo.findBookingByTypeName(start, end, typeName, uID);
+	}
+	
+	public ArrayList<Date> BookingDatesToDateList(List<Booking> bookings) {
+		ArrayList<Date> dates = new ArrayList<Date>();
+		for (Booking b : bookings) {
+			System.out.println(b);
+			Date date = b.getStartDate();
+			do {
+				dates.add(date);
+				date = CABDate.plusDays(date,  1);
+			} 
+			while(!date.after(b.getEndDate()));
+			System.out.println(dates);
+		}
+		return dates;
 	}
 }

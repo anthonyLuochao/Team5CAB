@@ -6,11 +6,9 @@ import sg.iss.team5cab.model.FacilityType;
 
 public interface FacilityTypeService {
 
+	
 	List<FacilityType> findAll();
 
 	List<String> findAllType();
-
-	 
-
 
 }

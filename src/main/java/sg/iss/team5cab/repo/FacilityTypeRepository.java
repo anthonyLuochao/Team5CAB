@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import sg.iss.team5cab.model.FacilityType;
 
-
-
 public interface FacilityTypeRepository extends JpaRepository<FacilityType, String> {
 	@Query("Select typeName from FacilityType")
 	List<String> findTypeName(); 
 	
+	@Query("Select typeID from FacilityType")
+	List<String>findTypeID(); 
 }

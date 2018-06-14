@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,8 +23,8 @@
 						<strong>Change your Password</strong>
 					</div>
 					<div class="card-body">
-						<form method="post" enctype="multipart/form-data"
-							action="Your_Action_Page.php">
+						<form:form method="post" 
+							action="team5cab/public/forgetpassword" modelAttribute="Users">
 							<div class="form-group">
 								<p>New Password:</p>
 								<input name="password" required="required" type="password"
@@ -47,11 +48,10 @@
 								}
 							</script>
 							<div class="form-group">
-								<button type="button" id="button_cancel"
-									class="btn btn-secondary">Cancel</button>
+							    <a href="/team5cab/public/login" class="btn btn-secondary">Cancel</a>
 								<input type="submit" class="btn btn-primary" value="Ok" />
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>

@@ -1,4 +1,5 @@
 package sg.iss.team5cab.repo;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,31 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	
 	@Query("Select b.facility.facilityID from Booking b ")
 	List<Integer> findAllFacilityID();
+	
+	@Query("Select b from Booking b "
+			+ "where not "
+			+ "(b.startDate > :endDate and "
+			+ "b.endDate < :startDate) and "
+			+ "b.isCancel = false "
+			+ "order by b.startDate")
+	ArrayList<Booking> findBookingsBetweenStartAndEndDateInclusive(
+			@Param("startDate") Date startDate,
+			@Param("endDate") Date endDate
+			);
+
+	@Query("Select b from Booking b "
+			+ "where not "
+			+ "(b.startDate > :endDate or "
+			+ "b.endDate < :startDate) "
+			+ "and b.facility = :facility "
+			+ "and b.isCancel = false "
+			+ "order by b.startDate")
+	ArrayList<Booking> findBookingsBetweenStartAndEndDateInclusiveByFacility(
+			@Param("startDate") Date startDate,
+			@Param("endDate") Date endDate,
+			@Param("facility") Facility facility
+			);
+	
 	
 	
 }

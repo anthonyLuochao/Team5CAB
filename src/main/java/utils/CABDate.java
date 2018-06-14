@@ -20,6 +20,7 @@ public class CABDate {
 	public static LocalDateTime getLocalDateTime(Date date) {
 		Instant i = date.toInstant();
 		return LocalDateTime.ofInstant(i,ZoneId.systemDefault());
+
 	}
 	
 	public static Date plusDays(Date date, int numberOfDays) {

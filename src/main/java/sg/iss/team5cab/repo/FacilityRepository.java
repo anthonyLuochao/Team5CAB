@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sg.iss.team5cab.model.Facility;
+import sg.iss.team5cab.model.FacilityType;
 
 public interface FacilityRepository extends JpaRepository<Facility, Integer> {
 	
-	@Query("SELECT f FROM Facility f where f.facilityName = :name")
+	@Query("SELECT f FROM Facility f where f.facilityName = :name and f.isDeleted = false")
 	Facility findByName(@Param("name") String name);
 	
 
@@ -19,8 +20,11 @@ public interface FacilityRepository extends JpaRepository<Facility, Integer> {
 	//ArrayList<Facility> findByType(@Param("type") String type);
 	
 	
-	@Query("SELECT f FROM Facility f where f.isDamaged = :isDamaged")
+	@Query("SELECT f FROM Facility f where f.isDamaged = :isDamaged and f.isDeleted = false")
 	ArrayList<Facility> findIsDamaged(@Param("isDamaged") boolean isDamaged);
+
+	@Query("SELECT f FROM Facility f where f.isDamaged = :isDamaged and f.facilityType = :ft and f.isDeleted = false")
+	ArrayList<Facility> findIsDamagedOfType(@Param("isDamaged") boolean isDamaged, @Param("ft") FacilityType ft);
 
 	
 	@Query("SELECT f FROM Facility f where f.isDeleted = true")
@@ -30,5 +34,6 @@ public interface FacilityRepository extends JpaRepository<Facility, Integer> {
 //    ArrayList<Facility>findIsAvailable(String typeId,Date startDate,Date endDate,boolean isDamaged);
 	@Query("SELECT facilityID FROM Facility f where f.facilityType.typeName =:typeName")
 	List<Integer> findFacilityIDByTypeName(@Param("typeName")String typeName);	
+	
 	
 }

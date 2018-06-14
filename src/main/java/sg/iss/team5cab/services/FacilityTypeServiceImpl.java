@@ -13,10 +13,12 @@ import sg.iss.team5cab.repo.FacilityTypeRepository;
 
 @Service
 public class FacilityTypeServiceImpl implements FacilityTypeService{
+
+	
 	@Resource
 	FacilityTypeRepository ftRepo;
 	
-	@Transactional
+	@Transactional 
 	@Override
 	public List<FacilityType> findAll()
 	{
@@ -30,5 +32,6 @@ public class FacilityTypeServiceImpl implements FacilityTypeService{
 		return (List<String>)ftRepo.findTypeName();
 	}
 	
+
 
 }

@@ -42,12 +42,13 @@
                             </div> 
                             <div class="form-group text-center">                                                 
                                 <button class="btn btn-primary" type="submit">Log in</button>
+                                <a href="/team5cab/public/forgetpassword" class="btn btn-primary">Forget password?</a>
                             </div>                           
                         </div>
                     </div>
                     <p class="text-muted font-italic mb-3 pb-0">Don't have an account? Sign up now!</p>
 			        <div class="form-group text-center">                                                 
-                    	<button type="submit" class="btn btn-primary mb-3 text-center">Register</button>
+                    	 <a href="/team5cab/public/register" class="btn btn-primary">Register</a>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ package sg.iss.team5cab.contollers;
 
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,7 @@ public class SessionController {
 		Users authUser = usersService.authenticate(user.getUserID(), user.getPassword());
 		if (authUser != null) {
 			session.setAttribute("role", authUser.getRole().toLowerCase());
+			session.setAttribute("userID", authUser.getUserID());
 			return new ModelAndView("redirect:/welcome");
 		}
 		else {
@@ -40,5 +42,17 @@ public class SessionController {
 	public ModelAndView loadLogout(HttpSession session) {
 		session.setAttribute("role",  null);
 		return new ModelAndView("user_logout");
+	}
+	
+	@RequestMapping(value="public/forgetpassword", method=RequestMethod.GET)
+	public ModelAndView forgetpassword(HttpSession session) {
+		session.setAttribute("role",  null);
+		return new ModelAndView("user_forget_password","Users", new Users());
+	}
+	
+	@RequestMapping(value="public/forgetpassword", method=RequestMethod.POST)
+	public ModelAndView ResetSuccessfully(@ModelAttribute("Users") Users user,HttpSession session) {
+		session.setAttribute("role",  null);
+		return new ModelAndView("user_login","Users", new Users());
 	}
 }

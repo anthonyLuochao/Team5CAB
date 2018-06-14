@@ -106,17 +106,10 @@ public class BookingController {
 		}	
 
 	}
-
-	@RequestMapping(value = "admin/booking/create", method = RequestMethod.GET)
-	public ModelAndView createNewBooking(@ModelAttribute("booking") Booking booking) {
-
-		return new ModelAndView("booking-confirmation", "booking", booking);
-	}
-	
 	
 
 	
-	@RequestMapping(value="/admin/booking/search",method=RequestMethod.GET)
+	@RequestMapping(value= {"/admin/booking/search, /member/booking/search"},method=RequestMethod.GET)
 	public ModelAndView createSearchPage()
 	{
 		ModelAndView mav=new ModelAndView();

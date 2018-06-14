@@ -15,7 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="facility")
 public class Facility {
-@Id@GeneratedValue(strategy=GenerationType.AUTO)
+	
+@Id@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int facilityID;
 
 @OneToMany(mappedBy="facility")
@@ -86,7 +87,7 @@ public void setDamageReason(String damageReason) {
 }
 @Override
 public String toString() {
-	return "Facility [facilityID=" + facilityID + " TypeID=" + facilityType.getTypeID()
+	return "Facility [facilityID=" + facilityID + " TypeID="+facilityType.getTypeID()
 			+ ", facilityName=" + facilityName + ", description=" + description + ", address=" + address
 			+ ", isDamaged=" + isDamaged + ", damageReason=" + damageReason + "]";
 }

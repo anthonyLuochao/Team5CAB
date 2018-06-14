@@ -82,6 +82,13 @@ public String getPassword() {
 public void setPassword(String password) {
 	this.password = password;
 }
+
+public List<Booking> getBookings() {
+	return bookings;
+}
+public void setBookings(List<Booking> bookings) {
+	this.bookings = bookings;
+}
 @Override
 public String toString() {
 	return "Users [userID=" + userID + ", name=" + name + ", email=" + email + ", address="

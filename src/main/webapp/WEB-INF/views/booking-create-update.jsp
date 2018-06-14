@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,14 +22,17 @@
     <hr>
     <div class="container">
         <div class="card mt-5">
-            <form:form action="team5cab/admin/booking/create" method="post" class="col-12 card-body" modelAttribute="booking">
+            <form:form action="team5cab/admin/booking/create/{facility.facilityID}" method="post" class="col-12 card-body" modelAttribute="booking">
                 <div class="input-group mb-3">
                     <form:hidden path="facility.facilityID" />
-                    <form:input type="text" class="form-control" path="facility.facilityName" placeholder="Facility Name" />
-                    <form:input type="text" class="form-control" path="users.userID" placeholder="User ID" />
-                    <label class="form-check-label ml-5 pt-1">
-                        <input type="checkbox" class="form-check-input" value="">For Maintenance
-                    </label>
+                    <input type="text" class="form-control" name="facilityName" value="${booking.facility.facilityName}" />
+                    <form:hidden path="users.userID" />
+                    <c:if test="${sessionScope.role ==\"admin\"}" >
+                     	 <label class="form-check-label ml-5 pt-1">
+                        <form:input path="${isUnderMaintenance}" type="checkbox" class="form-check-input" value=""/>For Maintenance
+                    	</label>	
+                    </c:if>
+                 
                 </div>
                 <div class="input-group date input-daterange mb-3" data-provide="datepicker">
                     <form:input type="text" class="form-control" id="booking-start" placeholder="Choose Start Date" path="startDate"/>
@@ -39,8 +42,29 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mb-3">Book</button>
                 </div>
+                <div class="text-center">
+					<p>${message}</p>                
+                </div> 
             </form:form>
+ 			
+ 			
         </div>
 
     </div>
 </body>
+
+<script>
+var dateToday = new Date();
+var dates = $("#booking-start, #booking-start").datepicker({
+    defaultDate: "+1w",
+    changeMonth: true,
+    numberOfMonths: 3,
+    minDate: dateToday,
+    onSelect: function(selectedDate) {
+        var option = this.id == "from" ? "minDate" : "maxDate",
+            instance = $(this).data("datepicker"),
+            date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+        dates.not(this).datepicker("option", option, date);
+    }
+});
+</script>

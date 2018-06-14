@@ -12,7 +12,7 @@ import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.FacilityRepository;
 
 @Service
-public class FacilityServicesImpl{// implements FacilityService{
+public class FacilityServicesImpl implements FacilityServices{// implements FacilityService{
 	
 	@Resource
 	private FacilityRepository fRepo;

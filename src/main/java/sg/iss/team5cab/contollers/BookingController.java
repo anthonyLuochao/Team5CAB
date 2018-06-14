@@ -1,8 +1,10 @@
 package sg.iss.team5cab.contollers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +12,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team5cab.model.Booking;
+import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.BookingService;
+import sg.iss.team5cab.services.FacilityServices;
+import sg.iss.team5cab.services.FacilityTypeService;
 import sg.iss.team5cab.services.UsersService;
 
 @Controller
@@ -26,41 +33,87 @@ public class BookingController {
 	@Autowired
 	UsersService uService;
 	
+	@Autowired
+	FacilityTypeService ftService;
+	
+	@Autowired
+	FacilityServices fService;
+	
+
 	@RequestMapping(value = "admin/booking/create/{facilityID}", method = RequestMethod.GET)
-	public ModelAndView newBookingPage(@PathVariable("facilityID") int facilityID, HttpSession session) {
+	public ModelAndView newBookingPage(@ModelAttribute Booking booking, @PathVariable("facilityID") int facilityID,
+			HttpSession session) {
 		// get the user id from session scope
+		
 		//String userID = session.getAttribute("userID").toString();
 		String userID = "Abraham1234";
 		
 		// Get both objects from their respective id
 		Users user = uService.findUser(userID);
+		
 		//Facility facility = fService.findFacilityById(facilityID);
-		Booking booking = new Booking();
 		booking.setUsers(user);
 		//booking.setFacility(facility);
+		Facility f = fService.findFacilityById(facilityID);
+		booking.setFacility(f);
 		
 		ModelAndView mav = new ModelAndView("booking-create-update", "booking", booking);
 		//mav.addObject("facility", fService.findFacilityById(id));
 		mav.addObject("availableDateList", bService.findAvailableDates(facilityID));
 		return mav;
 	}
-
-	@RequestMapping(value = "admin/booking/create", method = RequestMethod.POST)
-	public ModelAndView createNewBooking(@ModelAttribute("booking") Booking booking) {
-		/*
-		if(bService.isBookingClash(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate())){
+	
+	@RequestMapping(value = "admin/booking/create/{facilityID}", method = RequestMethod.POST)
+	public ModelAndView newBookingPage(@ModelAttribute Booking booking,
+			HttpSession session,
+			@ModelAttribute("message") String message) {
+		// get the user id from session scope
+		//String userID = session.getAttribute("userID").toString();
+		
+		//mav.addObject("facility", fService.findFacilityById(id));
+		
+		System.out.println("getstartDate");
+		System.out.println(booking.getStartDate());
+		
+		
+		System.out.println("getendDate");
+		System.out.println(booking.getEndDate());
+		
+		System.out.println("getuserID");
+		System.out.println(booking.getUsers().getUserID());
+		
+		
+		
+//		if(bService.isBookingClash(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate())){
 			//some error feedback
-			return new ModelAndView("booking-create-update", "booking", booking);
-			}
-		else{
-			bService.createBooking(booking);
-			return new ModelAndView("booking-confirmation", "booking", booking);
-		} */
+			
+			ModelAndView mav= new ModelAndView("redirect:/admin/booking/create/${facilityID}", "booking", booking);
+			//attributes.addFlashAttribute("message","Sorry booking slot is taken! PLease try another slot!");
+			return mav;
+					
+//		}
+//		else{
+//			Facility f = fService.findFacilityById(booking.getFacility().getFacilityID());
+//			//String userID = session.getAttribute("userID").toString();
+//			String userID = "Abraham1234";
+//			
+//			// Get both objects from their respective id
+//			booking.setFacility(f);
+//			booking.setUsers(uService.findUser(userID));
+//			if(booking.getEndDate()==null) booking.setEndDate(booking.getStartDate());
+//			
+//			bService.createBooking(booking);
+//			return new ModelAndView("booking-confirmation", "booking", booking);
+//		}	
+
+	}
+
+	@RequestMapping(value = "admin/booking/create", method = RequestMethod.GET)
+	public ModelAndView createNewBooking(@ModelAttribute("booking") Booking booking) {
+
 		return new ModelAndView("booking-confirmation", "booking", booking);
 	}
 	
-	@Autowired
-	//FacilityTypeService ftService;
 	
 
 	
@@ -74,6 +127,7 @@ public class BookingController {
 		mav.setViewName("booking-search");
 		return mav;
 	}
+	
 	@RequestMapping(value="/admin/booking/search",method=RequestMethod.POST)
 	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking)
 	{
@@ -82,7 +136,8 @@ public class BookingController {
 		mav.addObject("listOfBookings",listBookings);
 		mav.setViewName("booking-search");
 		return mav;
-		}
+	}
+	
 	@RequestMapping(value="/admin/booking/edit/{bookingID}",method = RequestMethod.GET)
     public ModelAndView editBooking(@PathVariable int bookingID)
     {
@@ -91,12 +146,14 @@ public class BookingController {
 		
 		return mav;
     }
+	
 	@RequestMapping(value="/admin/booking/edit/{bookingID}",method = RequestMethod.POST)
     public ModelAndView editBookingConfirmation(@ModelAttribute("booking") Booking book)
     {
     	ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(book));
        	return mav;
     }
+	
 	@RequestMapping(value="/admin/booking/delete/{bookingID}",method=RequestMethod.GET)
 	public ModelAndView deleteBooking(@PathVariable int bookingID)
 	{

@@ -73,7 +73,7 @@
 						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
 						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-						<a href="<c:url value="../booking/search"/>"
+						<a href="<c:url value="../booking/search/${facility.facilityID}"/>"
 						   class="btn btn-primary" >Book</a>
 						<a href="<c:url value="../booking/search"/>"
 						   class="btn btn-secondary" >Edit</a> 

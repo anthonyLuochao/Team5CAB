@@ -16,7 +16,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="booking")
 public class Booking {
-@Id@GeneratedValue(strategy=GenerationType.AUTO)
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private int bookingID;
 @ManyToOne
 @JoinColumn(name="userID",nullable=false)

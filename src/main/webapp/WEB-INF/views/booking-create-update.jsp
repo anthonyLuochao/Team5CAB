@@ -29,7 +29,7 @@
                     <form:hidden path="users.userID" />
                     <c:if test="${sessionScope.role ==\"admin\"}" >
                      	 <label class="form-check-label ml-5 pt-1">
-                        <form:input path="${isUnderMaintenance}" type="checkbox" class="form-check-input" value=""/>For Maintenance
+                        <form:checkbox path="isUnderMaintenance" class="form-check-input" value=""/>For Maintenance
                     	</label>	
                     </c:if>
                  

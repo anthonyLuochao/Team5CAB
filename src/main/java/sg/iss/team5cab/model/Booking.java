@@ -74,7 +74,7 @@ public void setEndDate(Date endDate) {
 public boolean getIsUnderMaintenance() {
 	return isUnderMaintenance;
 }
-public void setUnderMaintenance(boolean isUnderMaintenance) {
+public void setIsUnderMaintenance(boolean isUnderMaintenance) {
 	this.isUnderMaintenance = isUnderMaintenance;
 }
 public boolean getIsCancel() {

@@ -83,27 +83,27 @@ public class BookingController {
 		
 		
 		
-//		if(bService.isBookingClash(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate())){
+		if(bService.isBookingClash(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate())){
 			//some error feedback
 			
 			ModelAndView mav= new ModelAndView("redirect:/admin/booking/create/${facilityID}", "booking", booking);
 			//attributes.addFlashAttribute("message","Sorry booking slot is taken! PLease try another slot!");
 			return mav;
 					
-//		}
-//		else{
-//			Facility f = fService.findFacilityById(booking.getFacility().getFacilityID());
-//			//String userID = session.getAttribute("userID").toString();
-//			String userID = "Abraham1234";
-//			
-//			// Get both objects from their respective id
-//			booking.setFacility(f);
-//			booking.setUsers(uService.findUser(userID));
-//			if(booking.getEndDate()==null) booking.setEndDate(booking.getStartDate());
-//			
-//			bService.createBooking(booking);
-//			return new ModelAndView("booking-confirmation", "booking", booking);
-//		}	
+		}
+		else{
+			Facility f = fService.findFacilityById(booking.getFacility().getFacilityID());
+			//String userID = session.getAttribute("userID").toString();
+			String userID = "Abraham1234";
+			
+			// Get both objects from their respective id
+			booking.setFacility(f);
+			booking.setUsers(uService.findUser(userID));
+			if(booking.getEndDate()==null) booking.setEndDate(booking.getStartDate());
+			
+			bService.createBooking(booking);
+			return new ModelAndView("booking-confirmation", "booking", booking);
+		}	
 
 	}
 

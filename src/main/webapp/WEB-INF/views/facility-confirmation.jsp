@@ -19,7 +19,7 @@
 
     <!--End of template-->
 
-    <h1 style="text-align: center;">Facility Create Confirmation</h1>
+    <h1 style="text-align: center;">Facility Confirmation</h1>
     <hr>
     <div class="container">
         <form:form action="team5cab/facility/create/confirmation" method="post" class="col-12 card-body needs-validation" validate="novalidate" modelAttribute="Facility">
@@ -39,9 +39,9 @@
             <h5 class="mb-5">${facility.description}</h5>
                 <div class="text-center">
                 	<c:if test="${sessionScope.role == 'admin' }" >
-						<a href="team5cab/admin/facility/create'">Back to Create Facility</a>
+						<a href="team5cab/admin/facility/search" class="btn btn-secondary">Back to Facility Search</a>
                     </c:if>
-                    <a class="btn " href="team5cab/welcome">Home</a>
+                    <a href="team5cab/welcome" class="btn btn-primary">Home</a>
                 </div>
         </form:form>
     </div>

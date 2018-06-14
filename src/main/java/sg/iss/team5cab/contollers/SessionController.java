@@ -29,6 +29,7 @@ public class SessionController {
 		Users authUser = usersService.authenticate(user.getUserID(), user.getPassword());
 		if (authUser != null) {
 			session.setAttribute("role", authUser.getRole().toLowerCase());
+			session.setAttribute("userID", authUser.getUserID());
 			return new ModelAndView("redirect:/welcome");
 		}
 		else {

@@ -41,10 +41,12 @@ pageEncoding="ISO-8859-1"%>
 							<form:select path="facilityType.typeID" required="required" id="facility-type" class="form-control">
 							<option value="" selected disabled>Select Your facility Type</option>
 							<form:options items="${listOfFacilityType}" />
+							
 							</form:select>
 							
 						</div>
-						<div class="input-group mb-3">
+						<div class="input-group mb-3">						
+							
 							<form:input type="text" path="facilityName" class="form-control" aria-label="facility-name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name"
 							/>
 						</div>
@@ -76,9 +78,9 @@ pageEncoding="ISO-8859-1"%>
 
 	</div>
 </body>
-<script>
+        <script>
         function chooseImg() {
             $('#my_file').trigger("click");
         }
-    </script>
+        </script>
 </html>

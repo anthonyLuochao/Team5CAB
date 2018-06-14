@@ -12,7 +12,7 @@
 		id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="public/facility/search" role="button">
+				<a class="nav-link" href="team5cab/public/facility/search" role="button">
 					Search Facilities </a></li>
 		</ul>
 		<ul class="navbar-nav">	

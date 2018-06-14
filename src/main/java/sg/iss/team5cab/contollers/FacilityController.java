@@ -65,7 +65,7 @@ public class FacilityController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/update/{fid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/facility/update/{fid}", method = RequestMethod.GET)
 	public ModelAndView updateFacilityPage(@PathVariable int fid ) {
 		
 		Facility facility = fService.findFacilityById(fid);		
@@ -74,14 +74,13 @@ public class FacilityController {
 	
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/facility/update", method=RequestMethod.POST)
 	public ModelAndView updatenewFacility(@ModelAttribute("Facility") Facility facility, 
 			final RedirectAttributes redirectAttributes)
 	{
-		ModelAndView mav=new ModelAndView();	
+		ModelAndView mav=new ModelAndView("facility-confirmation", "facility", facility);	
 		fService.updateFacility(facility);		
-		mav.setViewName("redirect:/facility/update/confirmation");	
-	    redirectAttributes.addFlashAttribute("facility", facility);
+	    mav.addObject("facility", facility);
 	    return mav;
 	}
 	
@@ -89,18 +88,19 @@ public class FacilityController {
 	public ModelAndView updateFacility(@ModelAttribute("Facility") Facility facility) {		
 		ModelAndView mav = new ModelAndView("facility-confirmation","Facility", facility);		
 		return mav;
-
 	}	
 	
 
 		
 	@RequestMapping(value = {"/admin/facility/search", "/member/facility/search"}, method = RequestMethod.GET)
-	public ModelAndView newFacilityPage(@ModelAttribute("Booking") Booking book) {
+	public ModelAndView displayFacilitySearch() {
 
 		ModelAndView mav = new ModelAndView("facility_search");
 
-		mav.addObject("Facility", new Facility());
+		mav.addObject("Booking", new Booking());
 		mav.addObject("listOfFacilityType",ftService.findAll());
+		FacilityType ft = null;
+		mav.addObject("Facility", fService.findFacility(ft,  null, null, false));
 
 		return mav;
 	}
@@ -112,8 +112,6 @@ public class FacilityController {
 
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println("YO");
-		System.out.println(book.getFacility().getFacilityType());
 		Facility f = book.getFacility();
 		FacilityType ft = f.getFacilityType().getTypeID().equals("") ? null :f.getFacilityType();
 		System.out.println(book.getFacility().getFacilityType());
@@ -129,34 +127,30 @@ public class FacilityController {
 		return mav;
 	}
 
-	@RequestMapping(value = "admin/facility/update/confirmation", method = RequestMethod.POST)
-	public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
-			@PathVariable int fid, final RedirectAttributes redirectAttributes) {
+//	@RequestMapping(value = "admin/facility/confirmation", method = RequestMethod.POST)
+//	public ModelAndView updateFacility(@ModelAttribute @Valid Facility facility, BindingResult result,
+//			@PathVariable int fid, final RedirectAttributes redirectAttributes) {
+//
+//		if (result.hasErrors())
+//			return new ModelAndView("facility-create-update");
+//
+//		ModelAndView mav = new ModelAndView();
+//
+//		fService.updateFacility(facility);
+//		mav.setViewName("redirect:/facility-confirmation");
+//		redirectAttributes.addFlashAttribute("facility", facility);
+//		return mav;
+//
+//	}
 
-		if (result.hasErrors())
-			return new ModelAndView("facility-create-update");
-
-		ModelAndView mav = new ModelAndView();
-
-		fService.updateFacility(facility);
-		mav.setViewName("redirect:/facility-confirmation");
-		redirectAttributes.addFlashAttribute("facility", facility);
-		return mav;
-
-	}
-
-	@RequestMapping(value = "/delete/{fid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/facility/delete/{fid}", method = RequestMethod.GET)
 	public ModelAndView deleteFacilty(@PathVariable int fid) {
 		ModelAndView mav = new ModelAndView();
-		String msg;
 		
 		Facility facility = fService.findFacilityById(fid);
-		boolean isDeleted =fService.deleteFacility(facility);
-		
-		 if(isDeleted) msg="The facility is deleted";
-		 else msg="The facility is not deleted";
-		 
-		mav.setViewName("redirect:../search");
+		facility.setIsDeleted(true);
+		fService.updateFacility(facility);
+		mav.setViewName("redirect:/admin/facility/search");
 		return mav;
 		
 	}

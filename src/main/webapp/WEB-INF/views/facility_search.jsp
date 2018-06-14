@@ -80,56 +80,20 @@ pageEncoding="ISO-8859-1"%>
 						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
 						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-							<a href="<c:url value="../booking/search"/>"
+							<a href="<c:url value="team5cab/${sessionScope.role}/booking/create"/>"
 							   class="btn btn-primary" >Book</a>
 							<c:if test="${sessionScope.role==\"admin\"}">
-								<a href="<c:url value="team5cab/facility/update/${facility.facilityID}"/>"
+								<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"
 							     class="btn btn-secondary" >Edit</a>
-						   		<a href="<c:url value="team5cab/facility/delete/${facility.facilityID}"/>"
+						   		<a href="<c:url value="team5cab/admin/facility/delete/${facility.facilityID}"/>"
 						   	     class="btn btn-danger" >Delete</a> 							
 							</c:if>
 
 					</tr>
 				</c:forEach>
-				<tr>
-					<td class="align-middle">FB-1</td>
-					<td class="align-middle">Football Court</td>
-					<td class="align-middle">Football</td>
-					<td class="align-middle">true</td>
-					<td class="align-middle">
-						<button type="button" class="btn btn-primary">Book</button>
-						<button type="button" class="btn btn-secondary">Edit</button>
-						<button type="button" class="btn btn-danger" data-toggle="modal"
-							data-target="#deleteModal">Delete</button>
-					</td>
-				</tr>
-				<tr>
-					<td class="align-middle">T-1</td>
-					<td class="align-middle">Tennis Court</td>
-					<td class="align-middle">Tennis</td>
-					<td class="align-middle">false</td>
-					<td class="align-middle">
-						<button type="button" class="btn btn-primary">Book</button>
-						<button type="button" class="btn btn-secondary">Edit</button>
-						<button type="button" class="btn btn-danger" data-toggle="modal"
-							data-target="#deleteModal">Delete</button>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
-	<p>${requestScope['javax.servlet.forward.request_uri']}</p>
-	<nav class="mt-5">
-	<ul class="pagination justify-content-center">
-		<li class="page-item"><a class="page-link" href="#">Previous</a>
-		</li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">3</a></li>
-		<li class="page-item"><a class="page-link" href="#">Next</a></li>
-	</ul>
-	</nav>
-
 	<!-- Modal -->
 	<div class="modal fade" id="deleteModal" role="dialog">
 		<div class="modal-dialog">

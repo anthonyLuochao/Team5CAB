@@ -21,7 +21,7 @@ pageEncoding="ISO-8859-1"%>
 	<div class="container">
 
 		<div class="card mt-5">
-		 <form:form	action="/team5cab/facility/update" method="post" class="col-12 card-body needs-validate" modelAttribute="Facility">
+		 <form:form	action="/team5cab/admin/facility/update" method="post" class="col-12 card-body needs-validate" modelAttribute="Facility">
 		<!-- 	<form action="" method="post" class="col-12 card-body needs-validation" > -->
 				<div class="row">
 					<div class="col-4">
@@ -51,7 +51,7 @@ pageEncoding="ISO-8859-1"%>
 							/>
 						</div>
 						<div class="input-group mb-3">
-							<form:textarea class="form-control" path="description" rows="3" cols="50" aria-label="facility-description" aria-describedby="InputGroup-sizing-default" placeholder="Facility Desription"/>
+							<form:textarea class="form-control" path="description" rows="3" cols="50" aria-label="facility-description" aria-describedby="InputGroup-sizing-default" placeholder="Facility Description"/>
 						</div>
 
 						<div class="input-group mb-3">

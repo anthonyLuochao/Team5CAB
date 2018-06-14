@@ -9,9 +9,13 @@
 		<div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="/team5cab/admin/facility/search" role="button">
-				Manage Facilities
+				<a class="nav-link dropdown-toggle" href="#" id="bookingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Facilities
 				</a>
+				<div class="dropdown-menu" aria-labelledby="bookingDropdown">
+				<a class="dropdown-item" href="/team5cab/admin/facility/search">Search Facility</a>
+				<a class="dropdown-item" href="/team5cab/admin/facility/create">Add New Facility</a>
+				</div>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="bookingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

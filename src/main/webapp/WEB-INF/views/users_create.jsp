@@ -78,11 +78,11 @@
 						</div>
 					</div>
 
-					<p class="text-muted font-italic mb-0 pb-0">Birthday</p>
-					<div class="input-group date mb-3" data-provide="datepicker">						
+					<p class="text-muted font-italic mb-0 pb-0">Birthday</p>				
+						
+					<!--  <div class="input-group date mb-3" data-provide="datepicker">	 -->				
 					<div class="input-group mb-3" >
 						<form:input type="text"  class="form-control" id="datepicker" path="dob"/>
-
 						<div class="input-group-addon">
 							<span class="glyphicon glyphicon-th"></span>
 						</div>
@@ -90,7 +90,7 @@
 							Please provide birthday.
 						</div>
 					</div>
-					</div>
+					
 					<p class="text-muted font-italic mb-0 pb-0">Role</p>
 					<div class="input-group mb-3">
 						<form:select name="role" id="role" class="form-control" path="role" required="required">

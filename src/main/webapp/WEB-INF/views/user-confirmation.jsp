@@ -45,7 +45,7 @@
 				<c:if test="${sessionScope.role==admin}">
 					<a href="/team5cab/admin/users/search" class="btn btn-secondary">Back to Search Users</a>
 				</c:if>
-				<a href="/team5cab/${sessionScope.role}/welcome" class="btn btn-secondary">Home</a>
+				<a href="/team5cab/welcome" class="btn btn-secondary">Home</a>
 			</div>
         </div>
     </body>

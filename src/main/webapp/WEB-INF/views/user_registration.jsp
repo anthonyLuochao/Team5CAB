@@ -6,16 +6,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<cab:headImports />
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <cab:headImports />
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+	    $( "#datepicker" ).datepicker({ minDate: -"200M", maxDate: "+0D" });
+	  } );
+	  </script>
+
+
 
 <title>Registration</title>
 </head>
 <body>
 <cab:nav />
-
+    
 	<h1 class="text-center">Registration Form</h1>
 	<div class="container">
 		<div class="card">
@@ -27,7 +38,9 @@
 							<form:input type="text"
 								class="form-control" id="validationCustom01" placeholder="Name"
 								required="required" path="name" />
-							<div class="invalid-feedback">Please provide the name.</div>
+							<div class="invalid-feedback"></div>
+							<form:errors path="name" cssStyle="color: red;"/>
+							
 						</div>
 
 						<div class="col-md-4 mb-3">
@@ -37,6 +50,7 @@
 								class="form-control" id="validationCustom02"
 								placeholder="UserID" path="userID" required="required" />
 							<div class="invalid-feedback">Please provide the UserID.</div>
+							<form:errors path="userID" cssStyle="color: red;"/>
 						</div>
 						<div class="col-md-4 mb-3">
 							<label for="validationCustomUsername">Email</label>
@@ -44,12 +58,13 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="inputGroupPrepend">@</span>
 								</div>
-								<form:input type="text" class="form-control" id="validationEmail"
+								<form:input type="text" onblur="validateEmail(this);"
+								class="form-control" id="Email"
 									placeholder="Email" aria-describedby="inputGroupPrepend"
 									required="required" path="email"/>
-
+                                <label id="invalidemail"></label>
 								<div class="invalid-feedback">Please provide the email.</div>
-
+                                 <form:errors path="email" cssStyle="color: red;"/>
 							</div>
 
 						</div>
@@ -61,45 +76,48 @@
 									<label for="validationCustom03">Phone number</label>
 									<form:input type="text" class="form-control" id="validationCustom03" 
 									placeholder="Phone number" path="phoneNumber" required="required"/>
+									<p id="demo1"></p>
 									<div class="invalid-feedback">
 										Please provide a phone number.
 									</div>
+									<form:errors path="phoneNumber" cssStyle="color: red;"/>
 								</div>
 								<div class="col-6 col-md-4 mb-3">
 									<label for="validationCustom04">Password</label>
-									<form:input type="text" class="form-control" id="validationCustom04" 
-									placeholder="Password" required="required" path="password"/>
+									<form:input type="text" class="form-control" id="pass1" 
+									placeholder="Password" required="required" path="password"  onkeyup="checkPass(); return false;"/>
+									<label id="wrongdigit"></label>
+									<form:errors path="password" cssStyle="color: red;"/>
 									<div class="invalid-feedback">
 										Please provide a password.
 									</div>
+									
 								</div>
 								<div class="col-6 col-md-4 mb-3">
 									<label for="validationCustom05">Confirm Password</label>
-									<input type="text" class="form-control" id="validationCustom05" placeholder="Confirm password" required>
+									<input name="pass2" class="form-control" id="pass2" onkeyup="checkPass(); return false;" type="password">
+									<label id="confirmMessage"></label>
 									<div class="invalid-feedback">
 										Please ensure that this is same as your password.
+									</div>
 								</div>
 							</div>
-					   </div>
+					 
 
 					   <div class="form-row">
-							<div class=" col-6 col-sm-4 mb-3">
+							<div class=" col-6 col-sm-8 mb-3">
 								<label for="validationCustom05">Address</label>
 								<form:input type="text" class="form-control" id="validationCustom05" placeholder="Address" 
 								required="required" path="address"/>
+								<form:errors path="address" cssStyle="color: red;"/>
 								<div class="invalid-feedback">
 									Please provide the address.
 								</div>
-							</div>
-							<div class="col-6 col-sm-8 mb-3">
-								<label for="Regisatration">Date of Birth</label>
-								<div class="input-group mb-3 date input-daterange" data-provide="datepicker">
-									<form:input type="text" class="form-control" placeholder="Choose Start Date"
-									path="dob"/>
-									<div id="validation-text" class="mb-3">
-									</div>
-								</div>
 								
+							</div>
+							<div class="col-6 col-sm-4 mb-3">
+							     <label>Date of Birth</label></br>
+								 <form:input type="text"  class="form-control" id="datepicker" path="address"/>
 							</div>
 
 						</div>
@@ -120,10 +138,12 @@
 
 					</div>
 					<div class="form-group">
-						<input type="submit" class="btn btn-primary" value="Submit Registration"/>
+						<input type="submit" class="btn btn-primary" onclick="myphone()" 
+						value="Submit Registration" onclick='Javascript:checkEmail();'/>
+						
 					</div>
 				</form:form>
-
+             </div>
 			</div>
 
 		</div>
@@ -140,7 +160,8 @@
 			'use strict';
 
 			window.addEventListener('load',
-					function() {
+					function() 
+					{
 
 						// Fetch all the forms we want to apply custom Bootstrap validation styles to
 
@@ -150,12 +171,15 @@
 						// Loop over them and prevent submission
 
 						var validation = Array.prototype.filter.call(forms,
-								function(form) {
+								function(form) 
+								{
 
 									form.addEventListener('submit', function(
-											event) {
+											event) 
+											{
 
-										if (form.checkValidity() === false) {
+										if (form.checkValidity() === false) 
+										{
 
 											event.preventDefault();
 
@@ -191,5 +215,55 @@
 			                }
 			            }  				
 						</script>
+						
+						
+						
+						<script >
+						function validateEmail(emailField){
+                                   var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+                                 if (reg.test(emailField.value) == false) 
+                                 {
+                                      alert('Invalid Email Address');
+                                     return false;
+                                  }
+
+                                    return true;
+						}
+                                    </script>
+
+						
+						<script>
+                        function myFunction1() {
+						    var password=document.getElementById("password");
+						    var length=password.length;
+						    var message=document.getElementById("wrongdigit");
+						    if (length<7) {
+						    	 message.innerHTML = "wrong digit"
+						    } 
+						
+						}
+						</script>   
+						<script>
+                       function myphone() 
+                       {
+                             var x, text;
+
+                          // Get the value of the input field with id="numb"
+                           x = document.getElementById("validationCustom03").value;
+
+                          // If x is Not a Number or less than one or greater than 10
+                           if (isNaN(x) || x < 80000000 || x > 100000000) 
+                           {
+                            text = "Input not valid";
+                            }
+                            document.getElementById("demo1").innerHTML = text;
+                        }
+                       </script> 
+                     
+                          
+}
+                            
+                          
 </body>
 </html>

@@ -35,7 +35,7 @@
 				<p class="text-muted font-italic mb-0 pb-0">Email</p>
                 <div class="input-group mb-3">
                     <form:input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Email"
-                        required="required" path="email" />
+                        required="required" path="email" id="Email" onblur="validateEmail(this);"/>
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">@example.com</span>
                     </div>
@@ -84,5 +84,19 @@
             </form:form>
         </div>
     </div>
+    
+     <script >
+						function validateEmail(emailField){
+                                   var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+                                 if (reg.test(emailField.value) == false) 
+                                 {
+                                      alert('Invalid Email Address');
+                                     return false;
+                                  }
+
+                                    return true;
+						}
+                        </script>
 </body>
 </html>

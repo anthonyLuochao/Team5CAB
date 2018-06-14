@@ -19,18 +19,20 @@
 <cab:nav />
 <div class="container text-left">
         <h1 class="text-center">Edit user</h1>
-        <div
-        
-         class="card mt-5">
+        <div class="card mt-5">   
+                 
             <form:form action="team5cab/admin/user/edit" method="post" modelAttribute="User" class="col-12 card-body justify-content-center needs-validation">
+            	<p class="text-muted font-italic mb-0 pb-0">UserID</p>
             	<div class="form-group">
 					<input type="text" class="form-control" value="${User.userID}" disabled >
 				</div>
+				<p class="text-muted font-italic mb-0 pb-0">UserName</p>
 				<div class="form-group">
 					<input type="text" class="form-control" value="${User.name}" disabled>
 				</div>
 				<form:hidden path="userID"/>
 				<form:hidden path="name"/>
+				<p class="text-muted font-italic mb-0 pb-0">Email</p>
                 <div class="input-group mb-3">
                     <form:input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Email"
                         required="required" path="email" />
@@ -41,6 +43,7 @@
                         Please provide email.
                     </div>
                 </div>
+                <p class="text-muted font-italic mb-0 pb-0">Address</p>
                 <div class="input-group mb-3">
                     <form:input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Address"
                         required="required" path="address" />
@@ -48,9 +51,10 @@
                         Please provide Address.
                     </div>
                 </div>
+                <p class="text-muted font-italic mb-0 pb-0">PhoneNumber</p>
                 <div class="input-group mb-3">
                     <form:input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Phone Number"
-                        required="required" path="phoneNumber" />
+                        required="required" path="phoneNumber" maxlength="8" pattern="[8-9][0-9]{7}"/>
                     <div class="invalid-feedback mb-3">
                         Please provide Phone number.
                     </div>
@@ -61,6 +65,7 @@
 				<div class="form-group">
 					<input type="text" class="form-control" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${User.dob}"/>" disabled="disabled" >
                 </div>
+                <p class="text-muted font-italic mb-0 pb-0">Role</p>
 				<div class="form-group">
                   <div class="input-group mb-3">
                     <form:select name="role" id="role" class="form-control" path="role" required="required">

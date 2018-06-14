@@ -108,7 +108,7 @@
 							<div class=" col-6 col-sm-8 mb-3">
 								<label for="validationCustom05">Address</label>
 								<form:input type="text" class="form-control" id="validationCustom05" placeholder="Address" 
-								required="required" path="address"/>
+								 path="address"/>
 								<form:errors path="address" cssStyle="color: red;"/>
 								<div class="invalid-feedback">
 									Please provide the address.
@@ -117,7 +117,7 @@
 							</div>
 							<div class="col-6 col-sm-4 mb-3">
 							     <label>Date of Birth</label></br>
-								 <form:input type="text"  class="form-control" id="datepicker" path="address"/>
+								 <form:input type="text"  class="form-control" id="datepicker" path="dob"/>
 							</div>
 
 						</div>
@@ -233,17 +233,7 @@
                                     </script>
 
 						
-						<script>
-                        function myFunction1() {
-						    var password=document.getElementById("password");
-						    var length=password.length;
-						    var message=document.getElementById("wrongdigit");
-						    if (length<7) {
-						    	 message.innerHTML = "wrong digit"
-						    } 
-						
-						}
-						</script>   
+						  
 						<script>
                        function myphone() 
                        {

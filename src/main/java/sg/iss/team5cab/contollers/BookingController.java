@@ -15,14 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 import sg.iss.team5cab.model.Booking;
 import sg.iss.team5cab.model.Users;
 import sg.iss.team5cab.services.BookingService;
+import sg.iss.team5cab.services.FacilityServices;
+import sg.iss.team5cab.services.FacilityTypeService;
 import sg.iss.team5cab.services.UsersService;
 
 @Controller
 public class BookingController {
 	@Autowired
 	BookingService bService;
-	// @Autowired
-	//FacilityService fService; //need facility service interface
+	@Autowired
+	FacilityServices fService; 
 	@Autowired
 	UsersService uService;
 	
@@ -60,7 +62,7 @@ public class BookingController {
 	}
 	
 	@Autowired
-	//FacilityTypeService ftService;
+	FacilityTypeService ftService;
 	
 
 	
@@ -68,9 +70,10 @@ public class BookingController {
 	public ModelAndView createSearchPage()
 	{
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("booking",new Booking());
 		
-		mav.addObject("listOfFacilityID",bService.findAllFacilityID());
+		mav.addObject("booking",new Booking());
+		mav.addObject("listOfTypeName",ftService.findAllType());
+		//mav.addObject("listOfFacilityID",bService.findAllFacilityID());
 		mav.setViewName("booking-search");
 		return mav;
 	}
@@ -78,8 +81,19 @@ public class BookingController {
 	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking)
 	{
 		ModelAndView mav=new ModelAndView();
-		List<Booking> listBookings=bService.findBookingByAdmin(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());//facilityID userID hardcoded
-		
+//		List<Booking> listBookings=null;
+//		for(int facilityID:fService.findFacilityIDByTypeName(booking.getFacility().getFacilityType().getTypeName()))
+//		{
+//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//			System.out.println(facilityID);
+//			List<Booking> book=bService.findBookingByAdmin(facilityID, booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
+//
+//			if(!book.isEmpty())
+//			{
+//			listBookings.addAll(book); 
+//			}
+//		}
+		List<Booking> listBookings=bService.findBookingByTypeName(booking.getFacility().getFacilityType().getTypeName(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
 		mav.addObject("bookings",listBookings);
 		mav.setViewName("booking-search");
 		return mav;

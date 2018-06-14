@@ -210,4 +210,10 @@ public class BookingServicesImpl implements BookingService {
 	{
 		return bRepo.findAll();
 	}
+	@Override
+	@Transactional
+	public List<Booking> findBookingByTypeName(String typeName,Date start,Date end,String uID)
+	{
+		return bRepo.findBookingByTypeName(start, end, typeName, uID);
+	}
 }

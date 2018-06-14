@@ -32,4 +32,6 @@ public interface BookingService {
 
 	List<Booking> findAllBooking();
 
+	List<Booking> findBookingByTypeName(String typeName, Date start, Date end, String uID);
+
 }

@@ -1,7 +1,7 @@
 package sg.iss.team5cab.repo;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,6 +28,7 @@ public interface FacilityRepository extends JpaRepository<Facility, Integer> {
 	
 //	@Query("SELECT f FROM Facility f Inner Join Booking b on f.facilityID=b.facilityID where and f.isDamaged=false and b.start_Date =: startDate and b.end_Date=: endDate")
 //    ArrayList<Facility>findIsAvailable(String typeId,Date startDate,Date endDate,boolean isDamaged);
-	
+	@Query("SELECT facilityID FROM Facility f where f.facilityType.typeName =:typeName")
+	List<Integer> findFacilityIDByTypeName(@Param("typeName")String typeName);	
 	
 }

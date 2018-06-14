@@ -23,11 +23,12 @@
         <div class="card mt-5">
             <form:form action="team5cab/admin/booking/edit" method="post" modelAttribute="booking" class="col-12 card-body">
                 <div class="input-group mb-3">
-                	<form:hidden path="bookingID" />
+                	
                     <input value="${booking.facility.facilityName}" type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" 
                         disabled/>
+                        <form:hidden path="bookingID" />
 					<input path="bookingID" type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" 
-                        disabled value="${booking.bookingID}" />
+                        disabled value="BookingID:${booking.bookingID}" />
                 </div>
                 <div class="input-group date input-daterange mb-3" data-provide="datepicker">
                     <form:input path="startDate" type="text" class="form-control" id="booking-start" placeholder="Choose Start Date"/>

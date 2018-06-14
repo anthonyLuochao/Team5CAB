@@ -3,6 +3,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,9 +31,9 @@
                         required="required" path="users.userID" />
                   
                 <div class="input-group mb-3">
-                    <form:select path= "facility.facilityID" required="required" id="facility-type" class="form-control">
+                    <form:select path= "facility.facilityType.typeName" required="required" id="facility-type" class="form-control">
                         <option value="" selected disabled>Select your facility Type</option>
-                        <form:options items="${listOfFacilityID}" />
+                        <form:options items="${listOfTypeName}" />
                        
                     </form:select>
                     <div class="invalid-feedback">
@@ -70,10 +71,10 @@
             <tbody>
             <c:forEach var="item" items="${bookings}">
                 <tr>
-                      <td class="align-middle">${item.facility.facilityID }</td>
-                    <td class="align-middle"><c:out value="${item.startDate}"/></td>
-                    <td class="align-middle"><c:out value="${item.endDate}"/></td>
-                    <td class="align-middle"><c:out value="${item.users.userID}"/></td>
+                      <td class="align-middle">${item.facility.facilityType.typeName }</td>
+                    <td class="align-middle"><fmt:formatDate pattern="dd/MM/yyyy" value="${item.startDate}"/> </td>
+                    <td class="align-middle"><fmt:formatDate pattern="dd/MM/yyyy" value="${item.endDate}"/></td>
+                    <td class="align-middle">${item.users.userID}</td>
                     <td class="align-middle">
                         <a href="<c:url value="/admin/booking/edit/${item.bookingID}" />" class="btn btn-secondary">Edit</a>
                     	<a href="<c:url value="/admin/booking/delete/${item.bookingID}" />" class="btn btn-danger">Cancel</a>
@@ -107,22 +108,6 @@
     </div>
 
     <nav class="mt-5">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#">Previous</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
+        
     </nav>
 </body>

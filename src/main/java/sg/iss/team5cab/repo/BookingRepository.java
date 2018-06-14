@@ -15,6 +15,10 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	List<Booking> findBookingDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
 			@Param("fID") int fID,@Param("uID") String uID);
 	
+	@Query("SELECT b FROM Booking b WHERE b.endDate <=:endDate AND"
+			+ " b.startDate>=:startDate	 AND b.facility.facilityType.typeName=:typeName AND b.users.userID=:uID AND b.isCancel=false")
+	List<Booking> findBookingByTypeName(@Param("startDate") Date startDate, @Param("endDate") Date endDate,
+			@Param("typeName") String typeName ,@Param("uID") String uID);
 	
 	@Query("SELECT b FROM Booking b WHERE b.endDate <=:endDate AND"
 			+ " b.startDate>=:startDate AND b.facility.facilityID=:fID AND b.isCancel=false")

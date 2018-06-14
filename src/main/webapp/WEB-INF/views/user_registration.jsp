@@ -74,8 +74,8 @@
 					<div class="form-row">
 							<div class="col-6 col-md-4 mb-3">
 									<label for="validationCustom03">Phone number</label>
-									<form:input type="text" class="form-control" id="validationCustom03" 
-									placeholder="Phone number" path="phoneNumber" required="required"/>
+									<form:input type="text" class="form-control"  
+									placeholder="Phone number" path="phoneNumber" required="required" maxlength="8" pattern="[8-9][0-9]{7}"/>
 									<p id="demo1"></p>
 									<div class="invalid-feedback">
 										Please provide a phone number.
@@ -84,7 +84,7 @@
 								</div>
 								<div class="col-6 col-md-4 mb-3">
 									<label for="validationCustom04">Password</label>
-									<form:input type="text" class="form-control" id="pass1" 
+									<form:input type="text" class="form-control" id="pass1" minlength="10" 
 									placeholder="Password" required="required" path="password"  onkeyup="checkPass(); return false;"/>
 									<label id="wrongdigit"></label>
 									<form:errors path="password" cssStyle="color: red;"/>
@@ -95,7 +95,7 @@
 								</div>
 								<div class="col-6 col-md-4 mb-3">
 									<label for="validationCustom05">Confirm Password</label>
-									<input name="pass2" class="form-control" id="pass2" onkeyup="checkPass(); return false;" type="password">
+									<input name="pass2" class="form-control" id="pass2" minlength="10" onkeyup="checkPass(); return false;" type="password">
 									<label id="confirmMessage"></label>
 									<div class="invalid-feedback">
 										Please ensure that this is same as your password.
@@ -108,7 +108,7 @@
 							<div class=" col-6 col-sm-8 mb-3">
 								<label for="validationCustom05">Address</label>
 								<form:input type="text" class="form-control" id="validationCustom05" placeholder="Address" 
-								required="required" path="address"/>
+								 path="address"/>
 								<form:errors path="address" cssStyle="color: red;"/>
 								<div class="invalid-feedback">
 									Please provide the address.
@@ -117,7 +117,7 @@
 							</div>
 							<div class="col-6 col-sm-4 mb-3">
 							     <label>Date of Birth</label></br>
-								 <form:input type="text"  class="form-control" id="datepicker" path="address"/>
+								 <form:input type="text"  class="form-control" id="datepicker" path="dob"/>
 							</div>
 
 						</div>
@@ -230,38 +230,9 @@
 
                                     return true;
 						}
-                                    </script>
+                        </script>
 
-						
-						<script>
-                        function myFunction1() {
-						    var password=document.getElementById("password");
-						    var length=password.length;
-						    var message=document.getElementById("wrongdigit");
-						    if (length<7) {
-						    	 message.innerHTML = "wrong digit"
-						    } 
-						
-						}
-						</script>   
-						<script>
-                       function myphone() 
-                       {
-                             var x, text;
-
-                          // Get the value of the input field with id="numb"
-                           x = document.getElementById("validationCustom03").value;
-
-                          // If x is Not a Number or less than one or greater than 10
-                           if (isNaN(x) || x < 80000000 || x > 100000000) 
-                           {
-                            text = "Input not valid";
-                            }
-                            document.getElementById("demo1").innerHTML = text;
-                        }
-                       </script> 
-                     
-                          
+					
 }
                             
                           

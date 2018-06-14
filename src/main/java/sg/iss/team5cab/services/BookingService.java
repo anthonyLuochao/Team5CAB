@@ -30,4 +30,8 @@ public interface BookingService {
 
 	Booking deleteBooking(int bookingID);
 
+	List<Booking> findAllBooking();
+
+	List<Booking> findBookingByTypeName(String typeName, Date start, Date end, String uID);
+
 }

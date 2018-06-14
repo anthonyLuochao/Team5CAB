@@ -2,6 +2,7 @@ package sg.iss.team5cab.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -12,7 +13,7 @@ import sg.iss.team5cab.model.Facility;
 import sg.iss.team5cab.repo.FacilityRepository;
 
 @Service
-public class FacilityServicesImpl implements FacilityServices{// implements FacilityService{
+public class FacilityServicesImpl implements FacilityServices{
 	
 	@Resource
 	private FacilityRepository fRepo;
@@ -26,6 +27,11 @@ public class FacilityServicesImpl implements FacilityServices{// implements Faci
 	@Transactional
 	public Facility findFacilityById(int id){
 		return fRepo.findOne(id);
+	}
+	@Override
+	@Transactional
+	public List<Integer> findFacilityIDByTypeName(String typeName){
+		return fRepo.findFacilityIDByTypeName(typeName);
 	}
 	
 	/* (non-Javadoc)

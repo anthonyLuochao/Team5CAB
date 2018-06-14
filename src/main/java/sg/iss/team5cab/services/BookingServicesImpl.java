@@ -55,7 +55,7 @@ public class BookingServicesImpl implements BookingService {
 	public List<Booking> findBookingByAdmin(int fID,Date start,Date end,String uID)
 	{
 		
-		 return bRepo.findBookingDates(end,start, fID,uID);
+		 return bRepo.findBookingDates(start, end, fID, uID);
 	}
 	/* (non-Javadoc)
 	 * @see sg.iss.team5cab.services.BookingService#findBookingByMember(int, java.time.LocalDate, java.time.LocalDate)
@@ -64,7 +64,7 @@ public class BookingServicesImpl implements BookingService {
 	@Override
 	public List<Booking> findBookingByMember(int fID,Date start,Date end)
 	{
-		 return bRepo.findBookingDatesForMember(end,start, fID);
+		 return bRepo.findBookingDatesForMember(start,end, fID);
 	}
 	
 	/* (non-Javadoc)
@@ -76,7 +76,7 @@ public class BookingServicesImpl implements BookingService {
 	public Booking deleteBooking(int bookingID)
 	{
 		Booking book=bRepo.findOne(bookingID);
-		book.setCancel(true);
+		book.setIsCancel(true);
 		return bRepo.saveAndFlush(book);
 	}
 	@Transactional
@@ -203,5 +203,17 @@ public class BookingServicesImpl implements BookingService {
 	public Booking findBookingByID(int ID)
 	{
 		return bRepo.findOne(ID);
+	}
+	@Override
+	@Transactional
+	public List<Booking> findAllBooking()
+	{
+		return bRepo.findAll();
+	}
+	@Override
+	@Transactional
+	public List<Booking> findBookingByTypeName(String typeName,Date start,Date end,String uID)
+	{
+		return bRepo.findBookingByTypeName(start, end, typeName, uID);
 	}
 }

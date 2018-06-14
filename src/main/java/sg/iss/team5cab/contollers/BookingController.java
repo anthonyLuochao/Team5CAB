@@ -28,8 +28,7 @@ import sg.iss.team5cab.services.UsersService;
 public class BookingController {
 	@Autowired
 	BookingService bService;
-	// @Autowired
-	//FacilityService fService; //need facility service interface
+; 
 	@Autowired
 	UsersService uService;
 	
@@ -121,9 +120,10 @@ public class BookingController {
 	public ModelAndView createSearchPage()
 	{
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("booking",new Booking());
 		
-		mav.addObject("listOfFacilityID",bService.findAllFacilityID());
+		mav.addObject("booking",new Booking());
+		mav.addObject("listOfTypeName",ftService.findAllType());
+		//mav.addObject("listOfFacilityID",bService.findAllFacilityID());
 		mav.setViewName("booking-search");
 		return mav;
 	}
@@ -132,8 +132,20 @@ public class BookingController {
 	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking)
 	{
 		ModelAndView mav=new ModelAndView();
-		List<Booking> listBookings=bService.findBookingByAdmin(booking.getFacility().getFacilityID(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());//facilityID userID hardcoded
-		mav.addObject("listOfBookings",listBookings);
+//		List<Booking> listBookings=null;
+//		for(int facilityID:fService.findFacilityIDByTypeName(booking.getFacility().getFacilityType().getTypeName()))
+//		{
+//			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//			System.out.println(facilityID);
+//			List<Booking> book=bService.findBookingByAdmin(facilityID, booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
+//
+//			if(!book.isEmpty())
+//			{
+//			listBookings.addAll(book); 
+//			}
+//		}
+		List<Booking> listBookings=bService.findBookingByTypeName(booking.getFacility().getFacilityType().getTypeName(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
+		mav.addObject("bookings",listBookings);
 		mav.setViewName("booking-search");
 		return mav;
 	}
@@ -142,15 +154,28 @@ public class BookingController {
     public ModelAndView editBooking(@PathVariable int bookingID)
     {
 		Booking booking  = bService.findBookingByID(bookingID);
-		ModelAndView mav = new ModelAndView("booking-edit", "Booking", booking);
+		ModelAndView mav = new ModelAndView("booking-edit", "booking", booking);
 		
 		return mav;
     }
-	
-	@RequestMapping(value="/admin/booking/edit/{bookingID}",method = RequestMethod.POST)
-    public ModelAndView editBookingConfirmation(@ModelAttribute("booking") Booking book)
+
+	@RequestMapping(value="/admin/booking/edit",method = RequestMethod.POST)
+    public ModelAndView editBookingConfirmation(@ModelAttribute("booking") Booking updatedBooking)
+
     {
-    	ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(book));
+//		System.out.println(updatedBooking);
+		Booking oldBooking=bService.findBookingByID(updatedBooking.getBookingID());
+		
+		oldBooking.setStartDate(updatedBooking.getStartDate());
+		oldBooking.setEndDate(updatedBooking.getEndDate());
+//		
+//		updatedBooking.setIsCancel(oldBooking.getIsCancel());
+//		//updatedBooking.setBookingID(oldBooking.getBookingID());
+//		updatedBooking.setFacility(oldBooking.getFacility());
+//		updatedBooking.setUnderMaintenance(oldBooking.getIsUnderMaintenance());
+//		updatedBooking.getUsers().setUserID(oldBooking.getUsers().getUserID());
+		
+    	ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(oldBooking));
        	return mav;
     }
 	

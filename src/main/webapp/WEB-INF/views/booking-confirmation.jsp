@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cab" %>
+<<<<<<< HEAD
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+=======
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
+>>>>>>> 29d251e9812e4e86567b6e7898ed2fd1402fe914
 <!DOCTYPE html5 PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
@@ -25,28 +29,24 @@
         <div class="container">
         	<form:form action="team5cab/admin/booking/create/confirmation" method="post" class="col-12 card-body" modelAttribute="booking">
                 <p class="text-muted font-italic mb-0 pb-0">User ID</p>
-                
-                <form:label path="users.userID"></form:label>
-                <p>${booking.users.userID}</p>
+
+                <h5 class="">${booking.users.userID }</h5>
     
                 <p class="text-muted font-italic mb-0 pb-0">Facility Name</p>
-                <p>${booking.facility.facilityName}</p>
-                   
+                <h5 class="">${booking.facility.facilityName}</h5>
+    
                 <p class="text-muted font-italic mb-0 pb-0">Start Date</p>
-                <fmt:formatDate value="${booking.startDate}" pattern="MM-dd-yyyy" />
- 
-    			
+                <h5 class=""><fmt:formatDate value="${booking.startDate}" pattern="MM/dd/yyyy" /></h5>
+    
                 <p class="text-muted font-italic mb-0 pb-0">End Date</p>
-                <fmt:formatDate value="${booking.endDate}" pattern="MM-dd-yyyy" />
-   
-    		
+                <h5 class=""><fmt:formatDate value="${booking.endDate}" pattern="MM/dd/yyyy" /></h5>
+    
                 <div class="text-center">
-                	<a href="/team5cab/admin/booking/create/${booking.facility.facilityID}" class="btn btn-secondary">Back to Create Booking</a>
+
+					<a href="/team5cab/${sessionScope.role}/booking/create/${booking.facility.facilityID}" class="btn btn-secondary">Back to Create Booking</a>
                 	<a href="/team5cab/${sessionScope.role}/welcome" class="btn btn-secondary">Home</a>
-                	<!-- 
-                    <button type="submit" id='validateDate' class="btn " >Back to Create Booking</button>
-                    <button type="submit" id='validateDate' class="btn " >Home</button>
-                     -->
+                	
+
                 </div>
                 </form:form>
         </div>

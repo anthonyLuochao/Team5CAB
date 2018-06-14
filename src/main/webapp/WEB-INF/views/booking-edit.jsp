@@ -23,10 +23,12 @@
         <div class="card mt-5">
             <form:form action="team5cab/admin/booking/edit" method="post" modelAttribute="booking" class="col-12 card-body">
                 <div class="input-group mb-3">
-                    <form:input path="facility.facilityID" type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" placeholder="Facility Name"
-                        disabled="disabled" />
-                    <form:hidden path="users.userID"/>
-
+                	
+                    <input value="${booking.facility.facilityName}" type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" 
+                        disabled/>
+                        <form:hidden path="bookingID" />
+					<input path="bookingID" type="text" class="form-control" aria-label="Facility Name" aria-describedby="InputGroup-sizing-default" 
+                        disabled value="BookingID:${booking.bookingID}" />
                 </div>
                 <div class="input-group date input-daterange mb-3" data-provide="datepicker">
                     <form:input path="startDate" type="text" class="form-control" id="booking-start" placeholder="Choose Start Date"/>
@@ -34,7 +36,7 @@
                     <form:input path="endDate" type="text" class="form-control" id="booking-end" placeholder="Choose End Date"/>
                 </div>
                 <div class="text-center">
-                    <a href="team5cab/admin/booking/edit/${bookingID}" type="submit" class="btn btn-primary mb-3" onclick="">Ok</button>
+                    <input type="submit" class="btn btn-primary mb-3" value="OK">
                 </div>
             </form:form>
         </div>

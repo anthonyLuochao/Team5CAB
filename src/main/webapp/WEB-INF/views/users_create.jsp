@@ -9,8 +9,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <cab:headImports />
-
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+	    $( "#datepicker" ).datepicker({ minDate: -"200M", maxDate: "+0D" });
+	  } );
+	  </script>
 <title>Add new user</title>
 </head>
 <body>
@@ -18,7 +26,7 @@
 	<div class="container text-left">
 		<h1 class="text-center">Add new user</h1>
 		<div class="card mt-5">
-			<form:form action="team5cab/admin/user/create" method="post" class="col-12 card-body justify-content-center needs-validation"  modelAttribute="Users">
+			<form:form action="team5cab/admin/user/create"  class="col-12 card-body justify-content-center needs-validation"  modelAttribute="Users">
 					<div class="input-group mb-3">
 						<form:input type="text" class="form-control" aria-label="User ID" aria-describedby="inputGroup-sizing-default" placeholder="User ID"
 						path="userID"	required="required"/>
@@ -37,7 +45,7 @@
 	
 					<div class="input-group mb-3">
 						<form:input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Email"
-							path="email" required="required"/>
+							path="email" required="required" id="Email" onblur="validateEmail(this);"/>
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="inputGroup-sizing-default">@example.com</span>
 						</div>
@@ -47,7 +55,7 @@
 					</div>
 					<div class="input-group mb-3">
 						<form:input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Address"
-							path="address"	required="required"/>
+							path="address"	/>
 						<div class="invalid-feedback mb-3">
 							Please provide valid address.
 						</div>
@@ -55,14 +63,14 @@
 	
 					<div class="input-group mb-3">
 						<form:input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Phone Number"
-							path="phoneNumber"	required="required"/>
+							path="phoneNumber"	required="required" id="phone"/></br>
+							<p id="demo1"></p>
 						<div class="invalid-feedback mb-3">
-							Please provide phone number.
+							
 						</div>
 					</div>
-					<div class="input-group date mb-3" data-provide="datepicker">
-						<form:input id="birthday" name="birthday" placeholder="MM/DD/YYYY" type="text" class="datepicker form-control" data-date-format="mm/dd/yyyy"
-							path="dob"	required="required"/>
+					<div class="input-group mb-3" >
+						<form:input type="text"  class="form-control" id="datepicker" path="dob"/>
 						<div class="input-group-addon">
 							<span class="glyphicon glyphicon-th"></span>
 						</div>
@@ -79,10 +87,23 @@
 						</div>
 					</div>
 					<a href="/team5cab/admin/welcome" class="btn btn-secondary">Cancel</a>
-					<input type="submit" class="btn btn-primary" value="Add user">
+					<input type="submit" class="btn btn-primary" value="Add user" onclick="myphone()"/>
 				</form:form>
 		</div>
 	</div>
+                      
+                       <script >
+						function validateEmail(emailField){
+                                   var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
+                                 if (reg.test(emailField.value) == false) 
+                                 {
+                                      alert('Invalid Email Address');
+                                     return false;
+                                  }
+
+                                    return true;
+						}
+                        </script>
 </body>
 </html>

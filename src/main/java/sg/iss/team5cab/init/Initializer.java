@@ -24,8 +24,5 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 		return new String[] { "/" };
 	}
 	
-	 @Override
-	    protected Filter[] getServletFilters() {
-	        return new Filter[] { new AuthenticationFilter() };
-	    }
+	
 }

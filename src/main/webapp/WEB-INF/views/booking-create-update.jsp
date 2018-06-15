@@ -22,17 +22,21 @@
     <hr>
     <div class="container">
         <div class="card mt-5">
+            <c:if test="${bookingWarning}">
+            <div class="alert alert-danger" role="alert">
+			 	WARNING WARNING WARNING
+			</div>
+			</c:if>
             <form:form action="team5cab/admin/booking/create/{facility.facilityID}" method="post" class="col-12 card-body" modelAttribute="booking">
                 <div class="input-group mb-3">
                     <form:hidden path="facility.facilityID" />
                     <input type="text" class="form-control" name="facilityName" value="${booking.facility.facilityName}" disabled />
-                    <form:hidden path="users.userID" />
+                    <form:hidden path="users.userID" />         
                     <c:if test="${sessionScope.role ==\"admin\"}" >
                      	 <label class="form-check-label ml-5 pt-1">
                         <form:checkbox path="isUnderMaintenance" class="form-check-input" value=""/>For Maintenance
                     	</label>	
                     </c:if>
-                 
                 </div>
                 <div class="input-group date input-daterange mb-3" data-provide="datepicker">
                     <form:input type="text" class="form-control" id="booking-start" placeholder="Choose Start Date" path="startDate"/>

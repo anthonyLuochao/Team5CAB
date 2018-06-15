@@ -18,13 +18,13 @@ public interface BookingService {
 	List<Booking> findBookingByAdmin(int fID, Date start, Date end, String uID);
 	
 	boolean checkFacilityAvailability(int fID, Date start, Date end);
-
-
+	
 	List<Booking> displayAll();
 
 	ArrayList<Date> findUnavailableDates(int fid);
 
 	boolean isBookingClash(int fid, Date startDate, Date endDate);
+	
 	List<Integer> findAllFacilityID();
 
 	Booking findBookingByID(int ID);

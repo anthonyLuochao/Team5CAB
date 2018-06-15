@@ -68,7 +68,7 @@ pageEncoding="ISO-8859-1"%>
 					<th>Facility ID</th>
 					<th>Facility Name</th>
 					<th>Facility Type</th>
-					<th>Unusable</th>
+					<th>Status</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -78,9 +78,13 @@ pageEncoding="ISO-8859-1"%>
 						<td class="align-middle"><c:out value="${facility.facilityID}"/></td>
 						<td class="align-middle"><c:out value="${facility.facilityName}"/></td>
 						<td class="align-middle"><c:out value="${facility.facilityType.typeName}"/></td>
-						<td class="align-middle"><c:out value="${facility.isDamaged}"/></td>
 						<td class="align-middle">
-						<a href="<c:url value="team5cab/admin/booking/create/${facility.facilityID}"/>"
+						<c:choose>
+							<c:when test="${facility.isDamaged}"> Unusable </c:when>
+							<c:otherwise>  </c:otherwise>
+						</c:choose></td>
+						<td class="align-middle">
+						<a href="<c:url value="team5cab/${sessionScope.role}/booking/create/${facility.facilityID}"/>"
 						   class="btn btn-primary" >Book</a>
 						<c:if test="${sessionScope.role==\"admin\"}">
 							<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"

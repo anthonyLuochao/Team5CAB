@@ -1,11 +1,12 @@
 package sg.iss.team5cab.contollers;
 
+
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import sg.iss.team5cab.model.Booking;
 import sg.iss.team5cab.model.Facility;
@@ -85,6 +85,12 @@ public class BookingController {
 		}
 		else{
 			Facility f = fService.findFacilityById(booking.getFacility().getFacilityID());
+
+			//String userID = session.getAttribute("userID").toString();
+			//String userID = "Abraham1234";
+	
+			// Get both objects from their respective id
+
 			booking.setFacility(f);
 			booking.setUsers(uService.findUser(userID));
 			if(booking.getEndDate()==null)
@@ -95,8 +101,6 @@ public class BookingController {
 		}	
 
 	}
-	
-
 	
 	@RequestMapping(value= {"/admin/booking/search", "/member/booking/search"},method=RequestMethod.GET)
 	public ModelAndView createSearchPage()
@@ -110,11 +114,21 @@ public class BookingController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/admin/booking/search",method=RequestMethod.POST)
-	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking)
+	@RequestMapping(value= {"/admin/booking/search","/member/booking/search"}, method=RequestMethod.POST)
+	public ModelAndView displaySearchResult(@ModelAttribute("booking") Booking booking,HttpSession session )
 	{
+		
 		ModelAndView mav=new ModelAndView();
-		List<Booking> listBookings=bService.findBookingByTypeName(booking.getFacility().getFacilityType().getTypeName(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
+		List<Booking> listBookings=null;
+		if(session.getAttribute("role").equals("member"))
+		{
+			listBookings=bService.findBookingByTypeName(booking.getFacility().getFacilityType().getTypeName(), booking.getStartDate(), booking.getEndDate(), session.getAttribute("userID").toString());
+		}
+		else if(session.getAttribute("role").equals("admin"))
+		{	
+			listBookings=bService.findBookingByTypeName(booking.getFacility().getFacilityType().getTypeName(), booking.getStartDate(), booking.getEndDate(), booking.getUsers().getUserID());
+		}	
+		
 		mav.addObject("bookings",listBookings);
 		mav.addObject("listOfTypeName",ftService.findAllType());
 		mav.setViewName("booking-search");

@@ -62,12 +62,8 @@ public class BookingServicesImpl implements BookingService {
 	/* (non-Javadoc)
 	 * @see sg.iss.team5cab.services.BookingService#findBookingByMember(int, java.time.LocalDate, java.time.LocalDate)
 	 */
-	@Transactional
-	@Override
-	public List<Booking> findBookingByMember(int fID,Date start,Date end)
-	{
-		 return bRepo.findBookingDatesForMember(start,end, fID);
-	}
+
+
 	
 	/* (non-Javadoc)
 	 * @see sg.iss.team5cab.services.BookingService#deleteBooking(int, java.time.LocalDate, java.time.LocalDate, java.lang.String)

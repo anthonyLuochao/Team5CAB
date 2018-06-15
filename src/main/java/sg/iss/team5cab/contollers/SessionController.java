@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.iss.team5cab.model.Users;
@@ -77,7 +78,10 @@ public class SessionController {
 	@RequestMapping(value="/invalidpage", method=RequestMethod.GET)
 	public ModelAndView InvalidPageAccess(HttpSession session) {
 		session.setAttribute("role",  null);
-		return new ModelAndView("404page");
+
+		
+		return new ModelAndView("user_login","Users", new Users());
+
 	}
 	
 }

@@ -24,14 +24,14 @@
         <div class="card mt-5">
             <c:if test="${bookingWarning}">
             <div class="alert alert-danger" role="alert">
-			 	WARNING WARNING WARNING
+			 	Sorry! The dates you selected have an existing booking.Please try for other dates!
 			</div>
 			</c:if>
             <form:form action="team5cab/admin/booking/create/{facility.facilityID}" method="post" class="col-12 card-body" modelAttribute="booking">
                 <div class="input-group mb-3">
                     <form:hidden path="facility.facilityID" />
                     <input type="text" class="form-control" name="facilityName" value="${booking.facility.facilityName}" disabled />
-                    <form:hidden path="users.userID" />         
+                    <form:hidden path="users.userID" />
                     <c:if test="${sessionScope.role ==\"admin\"}" >
                      	 <label class="form-check-label ml-5 pt-1">
                         <form:checkbox path="isUnderMaintenance" class="form-check-input" value=""/>For Maintenance
@@ -46,8 +46,7 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mb-3">Book</button>
                 </div>
-                <div class="text-center">
-					<p>${message}</p>                
+                <div class="text-center">             
                 </div> 
             </form:form>
  			

@@ -55,7 +55,7 @@ pageEncoding="ISO-8859-1"%>
 			</c:if>
 			</div>
 			<div class="text-center">
-			<input type="submit"  class="btn btn-primary" value="Search" />
+				<input type="submit"  class="btn btn-primary" value="Search" />
 			</div>
 		</form:form> 
 		
@@ -84,8 +84,17 @@ pageEncoding="ISO-8859-1"%>
 							<c:otherwise>  </c:otherwise>
 						</c:choose></td>
 						<td class="align-middle">
-						<a href="<c:url value="team5cab/${sessionScope.role}/booking/create/${facility.facilityID}"/>"
-						   class="btn btn-primary" >Book</a>
+						<c:choose>
+							<c:when test="${sessionScope.role==(\"admin\"||\"member\")}">
+								<a href="<c:url value="team5cab/${sessionScope.role}/booking/create/${facility.facilityID}"/>"
+						   			class="btn btn-primary" >Book</a>	
+							</c:when>
+							<c:otherwise>
+								<a href="<c:url value="team5cab/public/login"/>"
+						   			class="btn btn-primary" >Book</a>
+							</c:otherwise>
+						</c:choose>
+						
 						<c:if test="${sessionScope.role==\"admin\"}">
 							<a href="<c:url value="team5cab/admin/facility/update/${facility.facilityID}"/>"
 							 class="btn btn-secondary" >Edit</a>

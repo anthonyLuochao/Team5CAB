@@ -24,7 +24,7 @@
 	<h1 style="text-align: center;">Search Booking</h1>
     <hr>
     <div class="container">
-        <card class="card mt-5">
+        <div class="card mt-5">
             <form:form action="/team5cab/admin/booking/search" method="post" class="col-12 card-body needs-validation" modelAttribute="booking">
 				<div class="form-group">
 				
@@ -58,11 +58,12 @@
                     <button type="submit" class="btn btn-primary" onclick="">Search</button>
                 </div>
             </form:form>
-        </card>
+        </div>
 
-        <table id="search-booking-table" class="table table-hover" style="margin-top: 100px; display: block;">
+        <table id="search-booking-table" class="table table-hover">
             <thead>
                 <tr>
+                    
                     <th>Facility Name</th>
                     <th>Booking Start</th>
                     <th>Booking End</th>

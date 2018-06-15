@@ -39,8 +39,7 @@ public class BookingController {
 	@Autowired
 	FacilityServices fService;
 	
-
-	@RequestMapping(value = {"/admin/booking/create/{facilityID}","/member/booking/create/{facilityID}"},
+	@RequestMapping(value = {"/admin/booking/{facilityID}","/member/booking/create/{facilityID}"},
 			method = RequestMethod.GET)
 	public ModelAndView newBookingPage(@PathVariable("facilityID") int facilityID,
 			HttpSession session) {
@@ -57,6 +56,7 @@ public class BookingController {
 		mav.addObject("availableDateList", bService.findUnavailableDates(facilityID));
 		return mav;
 	}
+	
 	
 
 	@RequestMapping(value = {"/admin/booking/create/{facilityID}","/member/booking/create/{facilityID}"} ,
@@ -76,6 +76,7 @@ public class BookingController {
 			
 			ModelAndView mav= new ModelAndView("booking-create-update", "booking", booking);
 			mav.addObject("bookingWarning", true);
+			mav.addObject("booking.facility.facilityID",fid);
 			return mav;
 					
 		}

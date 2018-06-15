@@ -88,6 +88,7 @@ public class FacilityController {
 		return mav;
 	}	
 	
+
 	@RequestMapping(value = {"/admin/facility/search", "/member/facility/search","public/facility/search"}, method = RequestMethod.GET)
 	public ModelAndView displayFacilitySearch() {
 

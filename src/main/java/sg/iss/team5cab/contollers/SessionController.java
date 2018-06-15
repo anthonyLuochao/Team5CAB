@@ -1,7 +1,9 @@
 package sg.iss.team5cab.contollers;
 
-import javax.servlet.http.HttpSession;
+import java.awt.Component;
 
+import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,24 +47,31 @@ public class SessionController {
 	}
 	
 	@RequestMapping(value="public/forgetpassword", method=RequestMethod.GET)
-	public ModelAndView forgetpassword(HttpSession session) {
-		session.setAttribute("role",  null);
+	public ModelAndView loadInputUserid(HttpSession session) {
 		return new ModelAndView("user-inputid","Users", new Users());
 	}
 	
 	@RequestMapping(value="public/forgetpassword", method=RequestMethod.POST)
-	public ModelAndView ResetSuccessfully(@ModelAttribute("Users") Users user,HttpSession session) {
-		//session.setAttribute("role",  null);
+	public ModelAndView checkInputUserid(@ModelAttribute("Users") Users user, HttpSession session) {
 		Users u = usersService.findUserByUID(user.getUserID());
 		if( u != null)
 		{
-			return new ModelAndView("user_forget_password","Users", new Users());
+			u.setPassword("");
+			return new ModelAndView("user_forget_password","Users", u);
 		}
 		else 
 		{
 			return new ModelAndView("404page");
 		}
 		
+	}
+	
+	@RequestMapping(value="public/changepassword", method=RequestMethod.POST)
+	public ModelAndView changePassword(@ModelAttribute("Users") Users user) {
+		usersService.changeUser(user);
+		Component frame=null;
+		JOptionPane.showMessageDialog(frame, "password has been changed");
+		return new ModelAndView("user_login", "Users", new Users());
 	}
 	
 	@RequestMapping(value="/invalidpage", method=RequestMethod.GET)

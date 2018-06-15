@@ -74,7 +74,10 @@ public class BookingController {
 		if(bService.isBookingClash(fid, startDate, endDate)){
 			//some error feedback
 			
-			ModelAndView mav= new ModelAndView("booking-create-update", "booking", booking);
+			ModelAndView mav= 
+					session.getAttribute("role").equals("member")?
+					new ModelAndView("redirect:/member/booking/create/"+fid, "booking", booking):
+					new ModelAndView("booking-create-update", "booking", booking);
 			mav.addObject("bookingWarning", true);
 			mav.addObject("booking.facility.facilityID",fid);
 			return mav;

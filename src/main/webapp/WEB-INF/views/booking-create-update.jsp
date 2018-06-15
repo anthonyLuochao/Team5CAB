@@ -17,16 +17,15 @@
 <body>
 	<cab:nav /> 
     <!--End of template-->
-
     <h1 style="text-align: center;">Create Booking</h1>
     <hr>
     <div class="container">
         <div class="card mt-5">
-            <c:if test="${bookingWarning}">
-            <div class="alert alert-danger" role="alert">
+            <c:if test="${param.bookingWarning==\"true\"}">
+            	<div class="alert alert-danger" role="alert">
 			 	Sorry! The dates you selected have an existing booking.Please try for other dates!
 			</div>
-			</c:if>
+            </c:if>
             <form:form action="team5cab/admin/booking/create/{facility.facilityID}" method="post" class="col-12 card-body" modelAttribute="booking">
                 <div class="input-group mb-3">
                     <form:hidden path="facility.facilityID" />

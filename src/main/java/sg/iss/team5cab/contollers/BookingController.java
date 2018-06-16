@@ -155,33 +155,22 @@ public class BookingController {
 
 	@RequestMapping(value="/admin/booking/edit",method = RequestMethod.POST)
     public ModelAndView editBookingConfirmation(@ModelAttribute("booking") Booking updatedBooking,final RedirectAttributes redirectAttributes)
-
     {
-		
 		Booking oldBooking=bService.findBookingByID(updatedBooking.getBookingID());
 		oldBooking.setStartDate(updatedBooking.getStartDate());
 		oldBooking.setEndDate(updatedBooking.getEndDate());
-		String message="Booking clash found.";
 		if(bService.isBookingClash(oldBooking.getFacility().getFacilityID(), oldBooking.getStartDate(), oldBooking.getEndDate()))
 		{
-//			System.out.println(oldBooking);
-//			System.out.println("######################################");
-//			System.out.println(bService.isBookingClash(oldBooking.getFacility().getFacilityID(), oldBooking.getStartDate(), oldBooking.getEndDate()));
-//			System.out.println("####################################");
-			
 			ModelAndView mav=new ModelAndView("booking-edit","booking",updatedBooking);
 			mav.addObject("error","Booking clash has been found,please choose another date");
 			return mav;
 		}
 		else
 		{
-			System.out.println("@!@!@!@!@@!@!@!@!@!@!@!@!@@!");
-		
-    	ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(oldBooking));
-       	return mav;
+			ModelAndView mav =new ModelAndView("booking-confirmation", "booking", bService.updateBooking(oldBooking));
+			return mav;
 		}
-		
-    }
+	}
 	
 	@RequestMapping(value="/admin/booking/delete/{bookingID}",method=RequestMethod.GET)
 	public ModelAndView deleteBooking(@PathVariable int bookingID)
@@ -190,8 +179,4 @@ public class BookingController {
 		bService.deleteBooking(bookingID);
 		return new ModelAndView("redirect:/admin/booking/search");
 	}
-	
-
-	
-
 }
